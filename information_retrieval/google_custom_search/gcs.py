@@ -43,7 +43,7 @@ class GoogleCustomSearch:
         return results
 
     @staticmethod
-    def parse_article(url):
+    def parse_article(url: str) -> dict[str, str]:
         article = Article(url)
         article.download()
         article.parse()
