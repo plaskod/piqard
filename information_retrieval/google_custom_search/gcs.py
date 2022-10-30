@@ -1,5 +1,7 @@
 import argparse
 import json
+import os
+
 import requests
 from tqdm import tqdm
 from newspaper import Article
@@ -8,7 +10,7 @@ from newspaper import Article
 class GoogleCustomSearch:
     def __init__(self):
         try:
-            with open("credentials.json", "r") as f:
+            with open(f"{os.path.dirname(os.path.abspath(__file__))}/credentials.json", "r") as f:
                 credentials = json.load(f)
                 self.engineID = credentials["engineID"]
                 self.APIkey = credentials["APIkey"]
