@@ -10,7 +10,9 @@ from newspaper import Article
 class GoogleCustomSearch:
     def __init__(self):
         try:
-            with open(f"{os.path.dirname(os.path.abspath(__file__))}/credentials.json", "r") as f:
+            with open(
+                f"{os.path.dirname(os.path.abspath(__file__))}/credentials.json", "r"
+            ) as f:
                 credentials = json.load(f)
                 self.engineID = credentials["engineID"]
                 self.APIkey = credentials["APIkey"]
@@ -20,9 +22,7 @@ class GoogleCustomSearch:
             )
             exit(0)
 
-    def request(
-            self, query: str, start_date: str = "", end_date: str = ""
-    ) -> list:
+    def request(self, query: str, start_date: str = "", end_date: str = "") -> list:
         url = (
             f"https://www.googleapis.com/customsearch/v1?"
             f"key={self.APIkey}"
@@ -36,10 +36,8 @@ class GoogleCustomSearch:
         results = []
         for search_result in tqdm(search_results):
             results.append(
-                {
-                    "title": search_result.get("title"),
-                    "url": search_result.get("link")
-                } | self.parse_article(search_result.get("link"))
+                {"title": search_result.get("title"), "url": search_result.get("link")}
+                | self.parse_article(search_result.get("link"))
             )
 
         return results
@@ -50,16 +48,21 @@ class GoogleCustomSearch:
         article.download()
         article.parse()
         publish_date = article.publish_date
-        return {"text": article.text, "publish_date": publish_date.strftime("%Y/%m/%d") if publish_date else None}
+        return {
+            "text": article.text,
+            "publish_date": publish_date.strftime("%Y/%m/%d") if publish_date else None,
+        }
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(allow_abbrev=False)
 
-    parser.add_argument('--query', type=str, help='query', required=True)
-    parser.add_argument('--start-date', type=str, default='', help='Search start date')
-    parser.add_argument('--end-date', type=str, default='', help='Search end date')
-    parser.add_argument('--out-file', type=str, default='results.txt', help='output jsonl file')
+    parser.add_argument("--query", type=str, help="query", required=True)
+    parser.add_argument("--start-date", type=str, default="", help="Search start date")
+    parser.add_argument("--end-date", type=str, default="", help="Search end date")
+    parser.add_argument(
+        "--out-file", type=str, default="results.txt", help="output jsonl file"
+    )
     args = parser.parse_args()
 
     search_engine = GoogleCustomSearch()

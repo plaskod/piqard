@@ -7,12 +7,12 @@ import requests
 class GPTj6bAPI:
     def __init__(self):
         try:
-            with open(f"{os.path.dirname(os.path.abspath(__file__))}/api_key.json", "r") as f:
-                API_KEY = json.load(f)['APIkey']
+            with open(
+                f"{os.path.dirname(os.path.abspath(__file__))}/api_key.json", "r"
+            ) as f:
+                API_KEY = json.load(f)["APIkey"]
         except (FileNotFoundError, KeyError):
-            print(
-                "api_key.json not found or incorrect file structure."
-            )
+            print("api_key.json not found or incorrect file structure.")
             exit(0)
         self.API_URL = "https://api-inference.huggingface.co/models/EleutherAI/gpt-j-6B"
         self.headers = {"Authorization": f"Bearer {API_KEY}"}
@@ -25,8 +25,10 @@ class GPTj6bAPI:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(allow_abbrev=False)
 
-    parser.add_argument('--query', type=str, help='query', required=True)
-    parser.add_argument('--out-file', type=str, default='results.txt', help='output json file')
+    parser.add_argument("--query", type=str, help="query", required=True)
+    parser.add_argument(
+        "--out-file", type=str, default="results.txt", help="output json file"
+    )
     args = parser.parse_args()
 
     model = GPTj6bAPI()
