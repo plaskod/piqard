@@ -29,6 +29,7 @@ class GoogleCustomSearch:
             f"&cx={self.engineID}"
             f"&q={query}"
             f"&start=1"
+            f"&num=5"
             f"&sort=date:r:{start_date}:{end_date}"
         )
         data = requests.get(url).json()
