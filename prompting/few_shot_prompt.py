@@ -1,26 +1,40 @@
-class FewShowPrompt:
-    def __init__(self):
-        self.prompt = """Answer the following question given the passage and possible answers
-                        An anonymous bidder recently paid a record-breaking sum for a private lunch with legendary investor Warren Buffett. How much did the bidder pay? 
-                        Passage: The anonymous bidder paid $19 million for a steak lunch with Warren Buffett at Smith &amp; Wollensky Steakhouse in New York City. The sale was part of an annual auction to benefit an organization combating poverty, hunger, and homelessness. 
-                        Answer: $19 million 
-                        
-                        Which city has been named the most 'liveable' city in the world, according to a report compiled by The Economist? 
-                        Passage: The Austrian capital grabbed the top spot from Auckland, which sank to 34th place due to New Zealand’s pandemic restrictions. The report praised Vienna for its stability and good infrastructure as well as good healthcare and culture. 
-                        Answer: Vienna 
-                        
-                        Which wildly popular show was recently green lit for a new season? 
-                        Passage: Netflix announced the hit South Korean show is officially coming back for a second season. 
-                        Answer: Squid Game
-                        
-                        What percentage of children in lone parent families now live in poverty, according to analysis by The Guardian? 
-                        Passage: Relative poverty, defined as having an income of less than 60% of the national median, rose for single parents by nine percentage points between 2013-14 and 2019-20 to reach 49%. 
-                        Answer: 49% 
-                        
-                        {}
-                        Passage: {}
-                        Answer: """
+from typing import Optional
+from prompting.prompt import Prompt
 
-    def generate(self, question: str, context: str) -> str:
-        first_512_words = " ".join(context.split()[:100])
-        return self.prompt.format(question, first_512_words)
+prompt = """Answer the question given the passage.
+
+Passage: A recent study showed Chick-fil-A had the slowest drive-thru among major fast-food chains – but only because it’s so popular and there are so many cars in line."
+Question : Which fast food chain has the slowest drive-thru, according to a new study?
+Answer : Chick-fil-A
+
+Passage: The Eiffel Tower in Paris is reportedly in serious need of repairs. However, the iconic landmark is instead being given a paint job costing 60 million euros in preparation for the 2024 Olympics, Reuters reports, according to a confidential analysis cited by French magazine Marianne.
+Question : Which iconic landmark is reportedly riddled with rust and badly in need of repairs?
+Answer : The Eiffel Tower
+
+Passage: Charlie Nunn said the lender saw customers with persistent debt problems increase by a third in the first six months of this year. But he added many customers are in a healthier financial position than they were before the pandemic.
+Question : What percentage of Lloyds customers have savings of less than £500, according to the bank’s chief executive?
+Answer : 80%
+
+Passage: The hot dog champ won the competition after eating an astounding 63 hot dogs and buns in 10 minutes on Monday. Chestnut has won the long-running Independence Day contest seven consecutive times and in 15 of the last 16 years.
+Question : How many hot dogs did competitive eater Joey Chestnut devour to win the Nathan’s Famous International Hot Dog Eating Contest this week?
+Answer :  63
+
+Passage: Twitter locked Kanye West for violating the company’s policies over an antisemitic tweet.
+Question : Which high-profile individual’s Twitter account was locked this week for posting an offensive message?
+Answer : Kanye West
+
+Passage: {passage}
+Question : {question}
+Answer : """
+
+
+class FewShowPrompt(Prompt):
+    def __init__(self):
+        super().__init__(prompt)
+
+    def generate(self, question: str, documents: Optional[list]) -> str:
+        first_100_words = " ".join(documents[0]['text'].split()[:100])
+        return self.prompt.format(question=question, passage=first_100_words)
+
+    def __str__(self):
+        return "4-shot question - passage - answer"

@@ -1,34 +1,34 @@
 import argparse
 import json
-
-from information_retrieval.google_custom_search.gcs import GoogleCustomSearch
-from large_language_models.gpt_j6b_api.gpt_j6b_api import GPTj6bAPI
-from prompting.few_shot_prompt import FewShowPrompt
-from prompting.basic_prompt import BasicPrompt
 import config
-from prompting.best_truncated_prompt import BestTruncatedPrompt
+from config import PIQARDConfig
 from utils import directory
 
 
 class PIQARD:
     def __init__(self):
-        self.information_retriever = GoogleCustomSearch()
-        self.large_language_model = GPTj6bAPI()
-        # self.prompt_generator = BasicPrompt()
-        # self.prompt_generator = BestTruncatedPrompt()
-        self.prompt_generator = FewShowPrompt()
+        self.result_dir = directory(config.result_dir)
+        self.information_retriever = PIQARDConfig.information_retriever
+        self.large_language_model = PIQARDConfig.large_language_model
+        self.prompt_generator = PIQARDConfig.prompt_generator
 
     def __call__(self, query):
-        result_dir = directory(config.result_dir)
-        retrieved_documents = self.information_retriever.request(query)
 
-        with open(f"{result_dir}/retrieved_documents.txt", "w") as f:
-            json.dump(retrieved_documents, f)
+        print(f"=== Information retriever: {self.information_retriever}")
+        retrieved_documents = None
+        if self.information_retriever:
+            retrieved_documents = self.information_retriever.request(query)
 
-        prompt = self.prompt_generator.generate(query, retrieved_documents[0]['text'])
+            with open(f"{self.result_dir}/retrieved_documents.txt", "w") as f:
+                json.dump(retrieved_documents, f)
+
+        print(f"=== Prompting strategy: {self.prompt_generator}")
+        prompt = self.prompt_generator.generate(query, retrieved_documents)
+
+        print(f"=== Language model: {self.large_language_model}")
         generated_answer = self.large_language_model.query(prompt)
 
-        with open(f"{result_dir}/generated_answer.txt", "w") as f:
+        with open(f"{self.result_dir}/generated_answer.txt", "w") as f:
             json.dump(generated_answer, f)
 
         print(generated_answer)

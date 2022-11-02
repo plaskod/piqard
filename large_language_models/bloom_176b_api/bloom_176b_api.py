@@ -4,7 +4,7 @@ import os
 import requests
 
 
-class GPTj6bAPI:
+class BLOOM176bAPI:
     def __init__(self):
         try:
             with open(
@@ -14,7 +14,7 @@ class GPTj6bAPI:
         except (FileNotFoundError, KeyError):
             print("api_key.json not found or incorrect file structure.")
             exit(0)
-        self.API_URL = "https://api-inference.huggingface.co/models/EleutherAI/gpt-j-6B"
+        self.API_URL = "https://api-inference.huggingface.co/models/bigscience/bloom"
         self.headers = {"Authorization": f"Bearer {API_KEY}"}
 
     def query(self, payload: str) -> str:
@@ -22,7 +22,7 @@ class GPTj6bAPI:
         return response.json()
 
     def __str__(self) -> str:
-        return "GPT-J6B huggingface.co API"
+        return "BLOOM 176b huggingface.co API"
 
 
 if __name__ == "__main__":
@@ -34,7 +34,9 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    model = GPTj6bAPI()
+    print("Connecting to huggingface.co bloom API...")
+    model = BLOOM176bAPI()
     results = model.query(args.query)
+    print("Response received")
     with open(args.out_file, "w") as f:
         json.dump(results, f)

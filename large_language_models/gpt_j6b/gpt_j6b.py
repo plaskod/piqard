@@ -25,6 +25,9 @@ class GPTj6b:
         generated_text = self.tokenizer.decode(generated_ids[0])
         return generated_text
 
+    def __str__(self) -> str:
+        return "GPT-J6B"
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(allow_abbrev=False)

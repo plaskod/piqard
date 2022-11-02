@@ -54,6 +54,9 @@ class GoogleCustomSearch:
             "publish_date": publish_date.strftime("%Y/%m/%d") if publish_date else None,
         }
 
+    def __str__(self):
+        return "GoogleCustomSearch"
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(allow_abbrev=False)
