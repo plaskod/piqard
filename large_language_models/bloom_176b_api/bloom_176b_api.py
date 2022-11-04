@@ -3,7 +3,6 @@ import json
 import os
 import requests
 
-
 class BLOOM176bAPI:
     def __init__(self):
         try:

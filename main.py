@@ -8,22 +8,21 @@ from utils import directory
 class PIQARD:
     def __init__(self):
         self.result_dir = directory(config.result_dir)
-        self.information_retriever = PIQARDConfig.information_retriever
+        # self.information_retriever = PIQARDConfig.information_retriever
         self.large_language_model = PIQARDConfig.large_language_model
         self.prompt_generator = PIQARDConfig.prompt_generator
 
     def __call__(self, query):
+        # print(f"=== Information retriever: {self.information_retriever}")
+        # retrieved_documents = None
+        # if self.information_retriever:
+        #     retrieved_documents = self.information_retriever.request(query)
 
-        print(f"=== Information retriever: {self.information_retriever}")
-        retrieved_documents = None
-        if self.information_retriever:
-            retrieved_documents = self.information_retriever.request(query)
-
-            with open(f"{self.result_dir}/retrieved_documents.txt", "w") as f:
-                json.dump(retrieved_documents, f)
+        #     with open(f"{self.result_dir}/retrieved_documents.txt", "w") as f:
+        #         json.dump(retrieved_documents, f)
 
         print(f"=== Prompting strategy: {self.prompt_generator}")
-        prompt = self.prompt_generator.generate(query, retrieved_documents)
+        prompt = self.prompt_generator.generate(query)
 
         print(f"=== Language model: {self.large_language_model}")
         generated_answer = self.large_language_model.query(prompt)
