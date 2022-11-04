@@ -3,6 +3,8 @@ import json
 import os
 import requests
 
+
+
 class BLOOM176bAPI:
     def __init__(self):
         try:
@@ -16,10 +18,13 @@ class BLOOM176bAPI:
         self.API_URL = "https://api-inference.huggingface.co/models/bigscience/bloom"
         self.headers = {"Authorization": f"Bearer {API_KEY}"}
 
-    def query(self, payload: str) -> str:
-        response = requests.post(self.API_URL, headers=self.headers, json=payload)
+    # def query(self, payload: str) -> str:
+    #     response = requests.post(self.API_URL, headers=self.headers, json=payload)
+    #     return response.json()
+    def query(self, payload) -> str:
+        data = json.dumps(payload)
+        response = requests.post(self.API_URL, headers=self.headers, data=data)
         return response.json()
-
     def __str__(self) -> str:
         return "BLOOM 176b huggingface.co API"
 
