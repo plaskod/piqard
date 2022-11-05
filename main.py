@@ -3,13 +3,21 @@ import json
 import config
 from config import PIQARDConfig
 from utils import directory
+import re
 
-# https://discuss.huggingface.co/t/strange-answer-from-api/13538
-TEMP_PAYLOAD = {
-    "inputs" : "You're a chatbot helping users to keep track of their healthy habits. One of the users didn't engage with the app for a while.  Be as friendly as possible and try to get the user to engage with the app again by asking a question about their latest habit: duolingo. Mention the value of learning new languages. Start now:",
-    "max_length" : 500,
-}
+# Dokumentacja API:  https://discuss.huggingface.co/t/strange-answer-from-api/13538
 
+def postprocess_answer(answer: str) -> str:
+    return re.sub(r"\.\s.*$", ".", answer)
+
+# write a function with an infinite loop that asks the user for a question and prints the answer
+def conversation(model):
+    while(True):
+        context = ''
+        user_input = str(input("Ask assistant: "))
+        context += user_input
+        model(user_input)
+        
 class PIQARD:
     def __init__(self):
         self.result_dir = directory(config.result_dir)
@@ -18,22 +26,31 @@ class PIQARD:
 
     def __call__(self, query):
         print(f"=== Prompting strategy: {self.prompt_generator}")
-        habit = "dancing"
-        prompt = self.prompt_generator.generate(habit)
+        prompt = self.prompt_generator.generate(query)
 
         print(f"=== Language model: {self.large_language_model}")
         
-        generated_answer = self.large_language_model.query({"inputs": prompt, "do_sample" : True, "top_k" : 50})
+        generated_answer = self.large_language_model.query({"inputs": prompt, "return_full_text": False,"max_new_tokens" : 200 })
 
-        with open(f"{self.result_dir}/generated_answer.txt", "w") as f:
-            json.dump(generated_answer, f)
+        # with open(f"{self.result_dir}/generated_answer.txt", "w") as f:
+        #     json.dump(generated_answer, f)
 
-        print(generated_answer[0]["generated_text"])
+        # print the answer only to the first newline character
+
+        split_answer = generated_answer[0]["generated_text"].split("\n")
+        last_user_input = f"Human: {query}"
         
-        next_generated_answer = self.large_language_model.query({"inputs": generated_answer[0]["generated_text"], "do_sample" : True, "top_k" : 50})
-        print(f"final answer: {next_generated_answer[0]['generated_text']}")
-        nnext_generated_answer = self.large_language_model.query({"inputs": next_generated_answer[0]["generated_text"], "do_sample" : True, "top_k" : 50})
-        print(f"final answer: {nnext_generated_answer[0]['generated_text']}")
+        ind = -1
+        for i, line in enumerate(split_answer):
+            if line == last_user_input:
+                ind = i + 1
+                break
+            
+        print(split_answer[ind])
+        # next_generated_answer = self.large_language_model.query({"inputs": generated_answer[0]["generated_text"]})
+        # print(f"final answer: {next_generated_answer[0]['generated_text']}")
+        # nnext_generated_answer = self.large_language_model.query({"inputs": next_generated_answer[0]["generated_text"]})
+        # print(f"final answer: {nnext_generated_answer[0]['generated_text']}")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(allow_abbrev=False)
@@ -41,4 +58,5 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     piqard = PIQARD()
-    piqard(args.query)
+    conversation(piqard)
+    postprocess_answer()
