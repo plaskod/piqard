@@ -12,7 +12,7 @@ class PIQARD:
         self.large_language_model = PIQARDConfig.large_language_model
         self.prompt_generator = PIQARDConfig.prompt_generator
 
-    def __call__(self, query):
+    def __call__(self, query: str) -> str:
 
         print(f"=== Information retriever: {self.information_retriever}")
         retrieved_documents = None
@@ -31,7 +31,7 @@ class PIQARD:
         with open(f"{self.result_dir}/generated_answer.txt", "w") as f:
             json.dump(generated_answer, f)
 
-        print(generated_answer)
+        return generated_answer[0]['generated_text'][len(prompt):]
 
 
 if __name__ == "__main__":
@@ -41,4 +41,5 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     piqard = PIQARD()
-    piqard(args.query)
+    answer = piqard(args.query)
+    print(answer)
