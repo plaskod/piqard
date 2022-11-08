@@ -10,7 +10,7 @@ class Evaluator:
     def predict(self, question: str, passage: str) -> str:
         pass
 
-    def evaluate(self, benchmark: list[dict]) -> list[tuple[str, str]]:
+    def evaluate(self, benchmark: list[dict]) -> dict:
         pass
 
     def accuracy(self, results: list[tuple[str, str]]) -> dict:

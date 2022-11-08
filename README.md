@@ -21,5 +21,5 @@ python main.py [-h] --query QUERY
 ```
 * testing on a selected benchmark (default RealTimeQA)
 ```bash
-python test.py [-h] BENCHMARK
+python test.py [-h] [--output] BENCHMARK
 ```

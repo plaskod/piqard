@@ -8,6 +8,6 @@ result_dir = "result"
 
 
 class PIQARDConfig:
-    information_retriever = GoogleCustomSearch()
+    information_retriever = None
     large_language_model = BLOOM176bAPI()
     prompt_generator = Prompt("prompting/templates/5_shot_prompt.yaml")

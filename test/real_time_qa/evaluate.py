@@ -49,7 +49,5 @@ class RealTimeQAEvaluator(Evaluator):
                             "predicted_answer": predicted_answer
                            })
 
-        with open(f"{os.path.dirname(os.path.realpath(__file__))}/results.txt", "w") as f:
-            json.dump(report, f)
-
-        return self.gen_eval(results)
+        scores = self.gen_eval(results)
+        return {'scores': scores, 'report': report}
