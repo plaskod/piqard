@@ -15,15 +15,17 @@ class PIQARD:
     def __call__(self, query: str) -> str:
 
         print(f"=== Information retriever: {self.information_retriever}")
-        retrieved_documents = None
+        context = None
         if self.information_retriever:
             retrieved_documents = self.information_retriever.request(query)
 
             with open(f"{self.result_dir}/retrieved_documents.txt", "w") as f:
                 json.dump(retrieved_documents, f)
 
+            context = " ".join(retrieved_documents[0]['text'].split()[:100])
+
         print(f"=== Prompting strategy: {self.prompt_generator}")
-        prompt = self.prompt_generator.generate(query, retrieved_documents)
+        prompt = self.prompt_generator.generate(query, context)
 
         print(f"=== Language model: {self.large_language_model}")
         generated_answer = self.large_language_model.query(prompt)

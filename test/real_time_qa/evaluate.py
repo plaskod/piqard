@@ -28,7 +28,7 @@ class RealTimeQAEvaluator(Evaluator):
                 passage = None
         prompt = self.piqard.prompt_generator.generate(question, passage)
         generated_answer = self.piqard.large_language_model.query(prompt)
-        final_answer = generated_answer[0]['generated_text'][len(prompt) + 1:].split('\n')[0]
+        final_answer = generated_answer[0]['generated_text'][len(prompt):].split('\n')[0]
         return final_answer
 
     def evaluate(self, benchamark: list[dict]) -> dict:
