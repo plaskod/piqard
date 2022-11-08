@@ -29,13 +29,13 @@ class GoogleCustomSearch:
             f"&cx={self.engineID}"
             f"&q={query}"
             f"&start=1"
-            f"&num=5"
+            f"&num=1"
             f"&sort=date:r:{start_date}:{end_date}"
         )
         data = requests.get(url).json()
         search_results = data.get("items", [])
         results = []
-        for search_result in tqdm(search_results):
+        for search_result in tqdm(search_results, disable=(__name__ != '__main__')):
             results.append(
                 {"title": search_result.get("title"), "url": search_result.get("link")}
                 | self.parse_article(search_result.get("link"))

@@ -3,6 +3,7 @@ from large_language_models.bloom_176b_api.bloom_176b_api import BLOOM176bAPI
 from large_language_models.gpt_j6b_api.gpt_j6b_api import GPTj6bAPI
 from prompting.prompt import Prompt
 
+
 result_dir = "result"
 
 
