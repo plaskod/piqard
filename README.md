@@ -15,6 +15,11 @@ pip install -r requirements.txt
 ```
 
 ### Usage from cmd
+* basic usage for Question-Answer system inference
 ```bash
 python main.py [-h] --query QUERY
+```
+* testing on a selected benchmark (default RealTimeQA)
+```bash
+python test.py [-h] BENCHMARK
 ```
