@@ -13,7 +13,7 @@ if __name__ == "__main__":
         benchmark = [json.loads(jline) for jline in f.read().splitlines()]
 
     piqard = PIQARD()
-    evaluator = RealTimeQAEvaluator(piqard, with_passage=True)
+    evaluator = RealTimeQAEvaluator(piqard, with_passage=False)
     results = evaluator.evaluate(benchmark)
     print(results)
 
