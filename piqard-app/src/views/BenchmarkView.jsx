@@ -23,7 +23,7 @@ function BenchmarkView(){
             <LoadBenchmark handleSetBenchmark={handleSetBenchmark}/>
             <ScoresComponent scores={benchmark.scores}/>
             {benchmark && (
-                <QuestionsList questions={benchmark.report}/>
+                <QuestionsList questions={benchmark.report}/> 
             )}
         </Container>
     )
