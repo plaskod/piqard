@@ -1,0 +1,18 @@
+.scores-container{
+    background-color: var(--light-gray);
+    border: 1px solid var(--border-color-gray);
+    border-radius: var(--border-radius);
+    width: 30vw;
+    padding: 20px;
+}
+
+ul{
+    margin: 0;
+}
+li{
+    padding: 5px 0;
+}
+
+.score-name{
+    font-weight: 600;
+}
