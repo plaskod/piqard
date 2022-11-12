@@ -1,4 +1,5 @@
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
+import Button from "../components/Button";
 
 import './HomeView.css'
 
@@ -15,7 +16,7 @@ function HomeView(){
                     <div>
                         <h1>Prompting is the future!</h1>
                         <Container className="center hero-col">
-                            <Button>Get started now</Button>
+                            <Button label="Get started now!" />
                         </Container>
                     </div>
                 </Col>

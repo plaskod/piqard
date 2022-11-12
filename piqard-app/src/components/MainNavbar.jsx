@@ -9,8 +9,8 @@ function MainNavbar(){
         <Container>
           <Navbar.Brand href="/">PIQARD</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/benchmarks">Benchmarks</Nav.Link>
+            <Nav.Link href="/playground">Playground</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
