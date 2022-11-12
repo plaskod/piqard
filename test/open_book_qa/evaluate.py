@@ -22,9 +22,9 @@ class OpenBookQAEvaluator(Evaluator):
 
     def predict(self, question: str, passage: str) -> tuple[str, str]:
         if self.piqard.information_retriever is not None:
-            retireved_documents = self.piqard.information_retriever.request(question)
+            retireved_documents = self.piqard.information_retriever.get_documents(question)
             if retireved_documents:
-                passage = " ".join(retireved_documents[0]["text"].split()[:100])
+                passage = " ".join(retireved_documents[0].split()[:100])
             else:
                 passage = None
         else:
