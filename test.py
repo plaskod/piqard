@@ -8,7 +8,7 @@ from utils import load_jsonl, save_results
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "benchmark", nargs="?", default="realtimeqa", help="benchamark name"
+        "benchmark", nargs="?", default="realtimeqa", help="benchamark name [realtimeqa, openbookqa]"
     )
     parser.add_argument(
         "--output", default="./result/result.json", help="output path for results"
