@@ -1,0 +1,6 @@
+.question-container{
+    border-radius: var(--border-radius);
+    background-color: var(--light-gray);
+    padding: 10px;
+    border: 1px solid var(--border-color-gray);
+}

@@ -1,0 +1,13 @@
+.select-container{
+    padding: 5px;
+}
+
+.select-label{
+    padding: 5px 0;
+}
+
+.select-component{
+    width: 100%;
+    height: 30px;
+    border-radius: var(--border-radius);
+}
