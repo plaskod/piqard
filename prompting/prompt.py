@@ -9,8 +9,10 @@ class Prompt:
         self.prompt = template['text']
         self.info = template['info']
 
-    def generate(self, question: str, context: Optional[str]) -> str:
-        return self.prompt.format(question=question, context=context if context else '')
+    def generate(self, question: str, context: Optional[str], possible_answers: Optional[str] = None) -> str:
+        return self.prompt.format(question=question,
+                                  context=context if context else '',
+                                  possible_answers=possible_answers if possible_answers else '')
 
     def __str__(self) -> str:
         return self.info
