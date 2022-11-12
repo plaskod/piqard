@@ -8,27 +8,25 @@ class Evaluator:
     def __init__(self, piqard: PIQARD):
         self.piqard = piqard
 
-    def preprocess(self, benchmark: list[dict]) -> list[dict]:
+    def preprocess(self, benchmark: list[dict]) -> tuple[str, str, str]:
         pass
 
     def evaluate(self, benchmark: list[dict]) -> dict:
         pass
 
-    def predict(self, question: str) -> tuple[str, str]:
+    def predict(self, question: str, possible_answers: str) -> tuple[str, str]:
+        context = None
         if self.piqard.information_retriever is not None:
             retrieved_documents = self.piqard.information_retriever.get_documents(question)
             if retrieved_documents:
-                passage = " ".join(retrieved_documents[0].split()[:100])
-            else:
-                passage = None
-        else:
-            passage = None
-        prompt = self.piqard.prompt_generator.generate(question, passage)
+                context = self.piqard.context_builder.build(retrieved_documents)
+
+        prompt = self.piqard.prompt_generator.generate(question, context, possible_answers)
         generated_answer = self.piqard.large_language_model.query(prompt)
         final_answer = generated_answer[0]["generated_text"][len(prompt):].split("\n")[
             0
         ]
-        return final_answer, passage
+        return final_answer, context
 
     @staticmethod
     def accuracy(results: list[tuple[str, str]]) -> dict:

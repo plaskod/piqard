@@ -13,17 +13,18 @@ class RealTimeQAEvaluator(Evaluator):
     def __init__(self, piqard: PIQARD):
         super().__init__(piqard)
 
-    def preprocess(self, question: dict) -> tuple[str, str]:
+    def preprocess(self, question: dict) -> tuple[str, str, str]:
         question_sentence = question["question_sentence"]
-        answer = question["choices"][int(question["answer"][0])]
-        return question_sentence, answer
+        possible_answers = " ".join([f"{idx}. {choice}" for idx, choice in enumerate(question["choices"])])
+        answer = f"{question['answer'][0]}. {question['choices'][int(question['answer'][0])]}"
+        return question_sentence, possible_answers, answer
 
     def evaluate(self, benchamark: list[dict]) -> dict:
         results = []
         report = []
         for question in tqdm.tqdm(benchamark, desc="Processing questions: "):
-            question_sentence, answer = self.preprocess(question)
-            predicted_answer, context = self.predict(question_sentence)
+            question_sentence, possible_answers, answer = self.preprocess(question)
+            predicted_answer, context = self.predict(question_sentence, possible_answers)
             results.append((predicted_answer, answer))
             report.append(
                 {

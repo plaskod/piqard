@@ -1,3 +1,5 @@
+from context_builders.merged_context_builder import MergedContextBuilder
+from context_builders.truncated_context_builder import TruncatedContextBuilder
 from information_retrieval.vector_retriever.vector_retirever import VectorRetriever
 from information_retrieval.google_custom_search.gcs import GoogleCustomSearch
 from large_language_models.bloom_176b_api.bloom_176b_api import BLOOM176bAPI
@@ -12,3 +14,4 @@ class PIQARDConfig:
     information_retriever = None
     large_language_model = BLOOM176bAPI()
     prompt_generator = Prompt("prompting/templates/5_shot_prompt.yaml")
+    context_builder = MergedContextBuilder()

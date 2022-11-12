@@ -2,6 +2,7 @@ import argparse
 import json
 import config
 from config import PIQARDConfig
+from context_builders.truncated_context_builder import TruncatedContextBuilder
 from utils import directory
 
 
@@ -9,6 +10,7 @@ class PIQARD:
     def __init__(self):
         self.result_dir = directory(config.result_dir)
         self.information_retriever = PIQARDConfig.information_retriever
+        self.context_builder = PIQARDConfig.context_builder
         self.large_language_model = PIQARDConfig.large_language_model
         self.prompt_generator = PIQARDConfig.prompt_generator
         self.print_info()
@@ -22,7 +24,7 @@ class PIQARD:
         context = None
         if self.information_retriever:
             retrieved_documents = self.information_retriever.get_documents(query)
-            context = " ".join(retrieved_documents[0].split()[:100])
+            context = self.context_builder.build(retrieved_documents)
 
         prompt = self.prompt_generator.generate(query, context)
         generated_answer = self.large_language_model.query(prompt)
