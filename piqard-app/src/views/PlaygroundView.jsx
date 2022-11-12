@@ -10,7 +10,7 @@ import './PlaygroundView.css'
 
 function PlaygroundView(){
     const [systemConfig, setSystemConfig] = useState(systemConfigTemplate.reduce(function (p, n) {
-        return {...p, [n.name]:null};
+        return {...p, [n.name]: n.name === 'prompt' ? 'custom_prompt' : null};
     }, {}));
     const [isCustomQuestion, setIsCustomQuestion] = useState(false);
     const [question, setQuestion] = useState(""); 
