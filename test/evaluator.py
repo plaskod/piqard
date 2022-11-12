@@ -20,13 +20,13 @@ class Evaluator:
         return {"accuracy": acc}
 
     def gen_eval(self, results: list[tuple[str, str]]) -> dict:
-        em_total = 0
-        f1_total = 0
+        em_total, cem_total, f1_total = 0, 0, 0
         count = len(results)
         for prediction, ground_truth in results:
             em_total += self.exact_match_score(prediction, ground_truth)
+            cem_total += self.cover_exact_match_score(prediction, ground_truth)
             f1_total += self.f1_score(prediction, ground_truth)
-        return {"em": em_total / count, "f1": f1_total / count}
+        return {"Exact match": em_total / count, "Cover Exact Match": cem_total / count, "F1": f1_total / count}
 
     @staticmethod
     def exact_match_score(prediction: str, ground_truth: str) -> int:
@@ -45,3 +45,7 @@ class Evaluator:
         recall = 1.0 * num_same / len(ground_truth_tokens)
         f1 = (2 * precision * recall) / (precision + recall)
         return f1
+
+    @staticmethod
+    def cover_exact_match_score(prediction: str, ground_truth: str) -> int:
+        return 1 if normalize_answer(prediction).find(normalize_answer(ground_truth)) != -1 else 0
