@@ -7,7 +7,7 @@ function PlaygroundResult({isCutomQuestion, result}){
     return(
         <>
             <Container className="result-label-container">
-                <h5 className="label">Result: {prompt}</h5>
+                <h5 className="label">Result:</h5>
             </Container>
             <Container className="result-container">
                 {isCutomQuestion ? (

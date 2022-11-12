@@ -12,7 +12,7 @@ function PlaygroundQuestion({isCustomQuestion, handleIsCustomQuestion, question,
     return(
         <>
             <Container>
-                <h5 className="label">Question: {prompt}</h5>
+                <h5 className="label">Question:</h5>
             </Container>
             <Container className="question-container">
                 <Container className="question-checkbox-container">

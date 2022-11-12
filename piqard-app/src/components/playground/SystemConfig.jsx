@@ -17,6 +17,7 @@ function SystemConfig({systemConfig, handleSetSystemConfig}){
                 <Container>
                     {systemConfigTemplate.map((elem)=>(
                         <Select label={elem.label}
+                                key={elem.name}
                                 name={elem.name}
                                 value={systemConfig[elem.name]}
                                 options={systemConfigComponents[elem.name]}
