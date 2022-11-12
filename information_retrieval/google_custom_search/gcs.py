@@ -22,7 +22,7 @@ class GoogleCustomSearch:
             )
             exit(0)
 
-    def request(self, query: str, start_date: str = "", end_date: str = "") -> list:
+    def get_documents(self, query: str, start_date: str = "", end_date: str = "") -> list:
         url = (
             f"https://www.googleapis.com/customsearch/v1?"
             f"key={self.APIkey}"
@@ -36,10 +36,7 @@ class GoogleCustomSearch:
         search_results = data.get("items", [])
         results = []
         for search_result in tqdm(search_results, disable=(__name__ != '__main__')):
-            results.append(
-                {"title": search_result.get("title"), "url": search_result.get("link")}
-                | self.parse_article(search_result.get("link"))
-            )
+            results.append(self.parse_article(search_result.get("link")))
 
         return results
 
@@ -48,11 +45,7 @@ class GoogleCustomSearch:
         article = Article(url)
         article.download()
         article.parse()
-        publish_date = article.publish_date
-        return {
-            "text": article.text,
-            "publish_date": publish_date.strftime("%Y/%m/%d") if publish_date else None,
-        }
+        return article.text
 
     def __str__(self):
         return "GoogleCustomSearch"
@@ -70,6 +63,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     search_engine = GoogleCustomSearch()
-    results = search_engine.request(args.query, args.start_date, args.end_date)
+    results = search_engine.get_documents(args.query, args.start_date, args.end_date)
     with open(args.out_file, "w") as f:
         json.dump(results, f)

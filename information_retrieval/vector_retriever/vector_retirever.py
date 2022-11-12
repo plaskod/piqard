@@ -4,7 +4,7 @@ import faiss
 from sentence_transformers import SentenceTransformer
 
 
-class DataBaseRetriever:
+class VectorRetriever:
     def __init__(self, documents_path: str, index_path: str):
         self.model = SentenceTransformer('multi-qa-MiniLM-L6-cos-v1')
         self.documents = self.__load_documents(documents_path)
@@ -13,7 +13,7 @@ class DataBaseRetriever:
     @staticmethod
     def __load_documents(path: str) -> list:
         with open(path) as f:
-            return [line[1:-2] for line in f.readlines()]
+            return [line.replace("\"", "") for line in f.readlines()]
 
     @staticmethod
     def __load_index(index_path: str) -> faiss.Index:
