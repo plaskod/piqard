@@ -16,6 +16,9 @@ function Question({question}){
                 <span className="bold">Question: </span>{question.question}
             </Container>
             <Container>
+                <span className="bold">Possible answers: </span>{question.possible_answers}
+            </Container>
+            <Container>
                 <span className="bold">Answer: </span>{question.answer}
             </Container>
             <Container>

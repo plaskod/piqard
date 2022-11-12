@@ -31,7 +31,7 @@ class PIQARD:
 
         final_answer = generated_answer[0]['generated_text'][len(prompt):]
 
-        return {"answer": final_answer, "context": context}
+        return {"prompt": prompt, "answer": final_answer, "context": context}
 
 
 if __name__ == "__main__":
