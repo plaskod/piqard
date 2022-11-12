@@ -14,8 +14,10 @@ class Evaluator:
         pass
 
     def accuracy(self, results: list[tuple[str, str]]) -> dict:
-        acc = sum([prediction == ground_truth for prediction, ground_truth in results]) / len(results)
-        return {'accuracy': acc}
+        acc = sum(
+            [prediction == ground_truth for prediction, ground_truth in results]
+        ) / len(results)
+        return {"accuracy": acc}
 
     def gen_eval(self, results: list[tuple[str, str]]) -> dict:
         em_total = 0
@@ -24,7 +26,7 @@ class Evaluator:
         for prediction, ground_truth in results:
             em_total += self.exact_match_score(prediction, ground_truth)
             f1_total += self.f1_score(prediction, ground_truth)
-        return {'em': em_total/count, 'f1': f1_total/count}
+        return {"em": em_total / count, "f1": f1_total / count}
 
     @staticmethod
     def exact_match_score(prediction: str, ground_truth: str) -> int:
@@ -43,4 +45,3 @@ class Evaluator:
         recall = 1.0 * num_same / len(ground_truth_tokens)
         f1 = (2 * precision * recall) / (precision + recall)
         return f1
-
