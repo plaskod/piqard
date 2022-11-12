@@ -11,29 +11,25 @@ class PIQARD:
         self.information_retriever = PIQARDConfig.information_retriever
         self.large_language_model = PIQARDConfig.large_language_model
         self.prompt_generator = PIQARDConfig.prompt_generator
+        self.print_info()
 
-    def __call__(self, query: str) -> str:
-
+    def print_info(self):
         print(f"=== Information retriever: {self.information_retriever}")
+        print(f"=== Prompting strategy: {self.prompt_generator}")
+        print(f"=== Language model: {self.large_language_model}")
+
+    def __call__(self, query: str) -> dict:
         context = None
         if self.information_retriever:
-            retrieved_documents = self.information_retriever.request(query)
+            retrieved_documents = self.information_retriever.get_documents(query)
+            context = " ".join(retrieved_documents[0].split()[:100])
 
-            with open(f"{self.result_dir}/retrieved_documents.txt", "w") as f:
-                json.dump(retrieved_documents, f)
-
-            context = " ".join(retrieved_documents[0]['text'].split()[:100])
-
-        print(f"=== Prompting strategy: {self.prompt_generator}")
         prompt = self.prompt_generator.generate(query, context)
-
-        print(f"=== Language model: {self.large_language_model}")
         generated_answer = self.large_language_model.query(prompt)
 
-        with open(f"{self.result_dir}/generated_answer.txt", "w") as f:
-            json.dump(generated_answer, f)
+        final_answer = generated_answer[0]['generated_text'][len(prompt):]
 
-        return generated_answer[0]['generated_text'][len(prompt):]
+        return {"answer": final_answer, "context": context}
 
 
 if __name__ == "__main__":
@@ -43,5 +39,8 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     piqard = PIQARD()
-    answer = piqard(args.query)
-    print(answer)
+    result = piqard(args.query)
+
+    with open(f"{config.result_dir}/generated_result.txt", "w") as f:
+        json.dump(result, f)
+    print(result['answer'])

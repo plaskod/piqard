@@ -1,19 +1,37 @@
 from collections import Counter
 
+from main import PIQARD
 from utils import normalize_answer
 
 
 class Evaluator:
-    def preprocess(self, benchmark: list[dict]) -> list[dict]:
-        pass
+    def __init__(self, piqard: PIQARD):
+        self.piqard = piqard
 
-    def predict(self, question: str, passage: str) -> str:
+    def preprocess(self, benchmark: list[dict]) -> list[dict]:
         pass
 
     def evaluate(self, benchmark: list[dict]) -> dict:
         pass
 
-    def accuracy(self, results: list[tuple[str, str]]) -> dict:
+    def predict(self, question: str) -> tuple[str, str]:
+        if self.piqard.information_retriever is not None:
+            retrieved_documents = self.piqard.information_retriever.get_documents(question)
+            if retrieved_documents:
+                passage = " ".join(retrieved_documents[0].split()[:100])
+            else:
+                passage = None
+        else:
+            passage = None
+        prompt = self.piqard.prompt_generator.generate(question, passage)
+        generated_answer = self.piqard.large_language_model.query(prompt)
+        final_answer = generated_answer[0]["generated_text"][len(prompt):].split("\n")[
+            0
+        ]
+        return final_answer, passage
+
+    @staticmethod
+    def accuracy(results: list[tuple[str, str]]) -> dict:
         acc = sum(
             [prediction == ground_truth for prediction, ground_truth in results]
         ) / len(results)
