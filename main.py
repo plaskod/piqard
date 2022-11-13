@@ -23,7 +23,7 @@ class PIQARD:
     def __call__(self, query: str) -> dict:
         context = None
         if self.information_retriever:
-            retrieved_documents = self.information_retriever.get_documents(query)
+            retrieved_documents = self.information_retriever.get_documents(query, n=5)
             context = self.context_builder.build(retrieved_documents)
 
         prompt = self.prompt_generator.generate(query, context)

@@ -5,3 +5,5 @@ transformers==4.23.1
 accelerate==0.13.2
 sentence-transformers==2.2.2
 faiss-cpu==1.7.2
+fastbm25==0.0.2
+gensim==4.2.0
