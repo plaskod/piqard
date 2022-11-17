@@ -1,5 +1,0 @@
-text: |
-  Answer the question.
-  Question: {question}
-  Answer:
-info: Basic 0-shot prompt without passage.

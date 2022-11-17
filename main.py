@@ -2,7 +2,7 @@ import argparse
 import json
 import config
 from config import PIQARDConfig
-from context_builders.truncated_context_builder import TruncatedContextBuilder
+from prompting.prompt_generator import PromptGenerator
 from utils import directory
 
 
@@ -12,12 +12,11 @@ class PIQARD:
         self.information_retriever = PIQARDConfig.information_retriever
         self.context_builder = PIQARDConfig.context_builder
         self.large_language_model = PIQARDConfig.large_language_model
-        self.prompt_generator = PIQARDConfig.prompt_generator
+        self.prompt_template = PromptGenerator.load_template(PIQARDConfig.prompt_template)
         self.print_info()
 
     def print_info(self):
         print(f"=== Information retriever: {self.information_retriever}")
-        print(f"=== Prompting strategy: {self.prompt_generator}")
         print(f"=== Language model: {self.large_language_model}")
 
     def __call__(self, query: str) -> dict:
@@ -26,7 +25,9 @@ class PIQARD:
             retrieved_documents = self.information_retriever.get_documents(query, n=5)
             context = self.context_builder.build(retrieved_documents)
 
-        prompt = self.prompt_generator.generate(query, context)
+        prompt = self.prompt_template.render(question=query,
+                                             context=context)
+
         generated_answer = self.large_language_model.query(prompt)
 
         final_answer = generated_answer[0]['generated_text'][len(prompt):]

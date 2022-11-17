@@ -1,6 +1,0 @@
-text: |
-  Answer the question given the context.
-  Question: {question}
-  Context: {context}
-  Answer:
-info: Context 0-shot prompt.

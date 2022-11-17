@@ -21,7 +21,9 @@ class Evaluator:
             if retrieved_documents:
                 context = self.piqard.context_builder.build(retrieved_documents)
 
-        prompt = self.piqard.prompt_generator.generate(question, context, possible_answers)
+        prompt = self.piqard.prompt_template.render(question=question,
+                                                    context=context,
+                                                    possible_answers=possible_answers)
         generated_answer = self.piqard.large_language_model.query(prompt)
         final_answer = generated_answer[0]["generated_text"][len(prompt):].split("\n")[
             0
