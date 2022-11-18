@@ -3,6 +3,8 @@ import json
 import os
 import requests
 
+import logging
+logger = logging.getLogger(__name__)
 
 class BLOOM176bAPI:
     def __init__(self):
@@ -12,7 +14,7 @@ class BLOOM176bAPI:
             ) as f:
                 API_KEY = json.load(f)["APIkey"]
         except (FileNotFoundError, KeyError):
-            print("api_key.json not found or incorrect file structure.")
+            logger.warn("api_key.json not found or incorrect file structure.")
             exit(0)
         self.API_URL = "https://api-inference.huggingface.co/models/bigscience/bloom"
         self.headers = {"Authorization": f"Bearer {API_KEY}"}
@@ -34,9 +36,9 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    print("Connecting to huggingface.co bloom API...")
+    logger.info("Connecting to huggingface.co bloom API...")
     model = BLOOM176bAPI()
     results = model.query(args.query)
-    print("Response received")
+    logger.info("Response received")
     with open(args.out_file, "w") as f:
         json.dump(results, f)

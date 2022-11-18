@@ -5,6 +5,8 @@ from config import PIQARDConfig
 from prompting.prompt_generator import PromptGenerator
 from utils import directory
 
+import logging
+logger = logging.getLogger(__name__)
 
 class PIQARD:
     def __init__(self):
@@ -13,11 +15,8 @@ class PIQARD:
         self.context_builder = PIQARDConfig.context_builder
         self.large_language_model = PIQARDConfig.large_language_model
         self.prompt_template = PromptGenerator.load_template(PIQARDConfig.prompt_template)
-        self.print_info()
-
-    def print_info(self):
-        print(f"=== Information retriever: {self.information_retriever}")
-        print(f"=== Language model: {self.large_language_model}")
+        logger.info(f"Information retriever: {self.information_retriever}")
+        logger.info(f"Language model: {self.large_language_model}")
 
     def __call__(self, query: str) -> dict:
         context = None

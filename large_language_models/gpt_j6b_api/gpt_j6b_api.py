@@ -3,6 +3,8 @@ import json
 import os
 import requests
 
+import logging
+logger = logging.getLogger(__name__)
 
 class GPTj6bAPI:
     def __init__(self):
@@ -12,7 +14,7 @@ class GPTj6bAPI:
             ) as f:
                 API_KEY = json.load(f)["APIkey"]
         except (FileNotFoundError, KeyError):
-            print("api_key.json not found or incorrect file structure.")
+            logger.warn("api_key.json not found or incorrect file structure.")
             exit(0)
         self.API_URL = "https://api-inference.huggingface.co/models/EleutherAI/gpt-j-6B"
         self.headers = {"Authorization": f"Bearer {API_KEY}"}
