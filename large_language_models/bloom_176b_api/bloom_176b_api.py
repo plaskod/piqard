@@ -3,8 +3,10 @@ import json
 import os
 import requests
 
+from large_language_models.language_model import LanguageModel
 
-class BLOOM176bAPI:
+
+class BLOOM176bAPI(LanguageModel):
     def __init__(self):
         try:
             with open(

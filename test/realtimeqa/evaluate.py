@@ -1,11 +1,6 @@
-import argparse
-import json
-import os
-from typing import Optional
-
 import tqdm
 
-from main import PIQARD
+from PIQARD import PIQARD
 from test.evaluator import Evaluator
 
 
@@ -15,7 +10,9 @@ class RealTimeQAEvaluator(Evaluator):
 
     def preprocess(self, question: dict) -> tuple[str, str, str]:
         question_sentence = question["question_sentence"]
-        possible_answers = " ".join([f"{idx}. {choice}" for idx, choice in enumerate(question["choices"])])
+        possible_answers = " ".join(
+            [f"{idx}. {choice}" for idx, choice in enumerate(question["choices"])]
+        )
         answer = f"{question['answer'][0]}. {question['choices'][int(question['answer'][0])]}"
         return question_sentence, possible_answers, answer
 
@@ -24,7 +21,9 @@ class RealTimeQAEvaluator(Evaluator):
         report = []
         for question in tqdm.tqdm(benchamark, desc="Processing questions: "):
             question_sentence, possible_answers, answer = self.preprocess(question)
-            predicted_answer, context = self.predict(question_sentence, possible_answers)
+            predicted_answer, context = self.predict(
+                question_sentence, possible_answers
+            )
             results.append((predicted_answer, answer))
             report.append(
                 {

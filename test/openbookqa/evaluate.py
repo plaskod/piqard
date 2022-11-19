@@ -1,8 +1,6 @@
-from typing import Optional
-
 import tqdm
 
-from main import PIQARD
+from PIQARD import PIQARD
 from test.evaluator import Evaluator
 
 
@@ -12,7 +10,12 @@ class OpenBookQAEvaluator(Evaluator):
 
     def preprocess(self, question: dict) -> tuple[str, str, str]:
         question_sentence = question["question"]["stem"]
-        possible_answers = " ".join([". ".join([choice['label'], choice['text']]) for choice in question["question"]["choices"]])
+        possible_answers = " ".join(
+            [
+                ". ".join([choice["label"], choice["text"]])
+                for choice in question["question"]["choices"]
+            ]
+        )
         answer = f"{question['answerKey']}. {list(filter(lambda choice: choice['label'] == question['answerKey'],question['question']['choices'],))[0]['text']}"
         return question_sentence, possible_answers, answer
 
@@ -21,7 +24,9 @@ class OpenBookQAEvaluator(Evaluator):
         report = []
         for question in tqdm.tqdm(benchamark, desc="Processing questions: "):
             question_sentence, possible_answers, answer = self.preprocess(question)
-            predicted_answer, context = self.predict(question_sentence, possible_answers)
+            predicted_answer, context = self.predict(
+                question_sentence, possible_answers
+            )
             results.append((predicted_answer, answer))
             report.append(
                 {
