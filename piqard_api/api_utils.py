@@ -43,7 +43,7 @@ def process_PIQARD_result_query(message: dict):
         piqard_config_dict['prompt_template'] = message['prompt_template']
     else:
         piqard_config_dict[
-            'prompt_template'] = f"{config.PROMPTING_TEMPLATES_DIR}{piqard_config_dict['prompt_template']}"
+            'prompt_template'] = f"{config.PROMPTING_TEMPLATES_DIR}{piqard_config_dict['prompt_template']}".replace("\\", "\\\\")
 
     environment = jinja2.Environment()
     with open(config.CONFIG_TEMPLATE, "r") as file:
