@@ -13,12 +13,14 @@ parentdir = os.path.dirname(currentdir)
 sys.path.insert(0, parentdir)
 
 from config_loader.config_loader import ConfigLoader
+from piqard_api.api_utils import get_config_components
+from piqard_api import config
 
 app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=['*'],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -32,11 +34,27 @@ async def PIQARD_basic_query(query: Request):
     config = config_loader.load("config_loader/configs/config.yaml")
 
     piqard = config.piqard
-    result = piqard(message['question'])
+    result = piqard(message["question"])
 
     print(result)
-    return {'answer': result['answer'], 'context': result['context']}
+    return {"answer": result["answer"], "context": result["context"]}
 
+
+@app.get("/get_config_components")
+async def PIQARD_config_components():
+    conifg_components = get_config_components()
+    return conifg_components
+
+
+@app.post("/get_prompt_template")
+async def get_prompt_template(query: Request):
+    message = await query.json()
+    print(message)
+    template_name = message['template_name']
+    with open(f"{config.PROMPTING_TEMPLATES_DIR}\\{template_name}", "r") as f:
+        template = f.read()
+    print(template)
+    return {"template": template}
 
 if __name__ == "__main__":
     uvicorn.run("__main__:app", host="0.0.0.0", port=8000, reload=True)

@@ -31,6 +31,7 @@ function PlaygroundView(){
     const [isBenchmark, setIsBenchmark] = useState(false);
     const [question, setQuestion] = useState(""); 
     const [result, setResult] = useState({})
+    const [promptTemplate, setPromptTemplate] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
 
@@ -51,6 +52,10 @@ function PlaygroundView(){
 
     function handleQueryPIQARD(event){
         setIsLoading(!isLoading);
+    }
+
+    function handleSetPromptTemplate(event){
+        setPromptTemplate(event.target.value);
     }
 
     useDidMountEffect(() => {
@@ -82,7 +87,27 @@ function PlaygroundView(){
       }, [isBenchmark]);
    
 
+    useEffect(() => {
+    async function getPromptTemplate() {
+        try {
+            const response = await axios.post(
+            `${process.env.REACT_APP_PIQARD_API_URL}/get_prompt_template`, {template_name: systemConfig.prompt_template}
+            );
+            setPromptTemplate(response.data.template);
+        } catch (error) {
+        console.log("Get prompt template error");
+        setPromptTemplate("");
+        }
+    }
 
+    if(systemConfig.prompt_template !== "custom_prompt"){
+        getPromptTemplate();
+    }else{
+        setPromptTemplate("");
+    }
+    }, [systemConfig.prompt_template]);
+
+    
 
     return(
         <Container fluid className="content-view">
@@ -94,7 +119,9 @@ function PlaygroundView(){
                     <Container>
                         <Row>
                             <Col md={6}>
-                                <PromptTextBox prompt={systemConfig['prompt_template']}/>
+                                <PromptTextBox promptName={systemConfig['prompt_template']}
+                                               promptTemplate={promptTemplate}
+                                               handleSetPromptTemplate={handleSetPromptTemplate}/>
                             </Col>
                             <Col md={6}>
                                 <div className="playground-right-container">
