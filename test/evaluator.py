@@ -1,6 +1,6 @@
 from collections import Counter
 
-from main import PIQARD
+from PIQARD import PIQARD
 from utils import normalize_answer
 
 
@@ -17,15 +17,17 @@ class Evaluator:
     def predict(self, question: str, possible_answers: str) -> tuple[str, str]:
         context = None
         if self.piqard.information_retriever is not None:
-            retrieved_documents = self.piqard.information_retriever.get_documents(question)
+            retrieved_documents = self.piqard.information_retriever.get_documents(
+                question
+            )
             if retrieved_documents:
                 context = self.piqard.context_builder.build(retrieved_documents)
 
-        prompt = self.piqard.prompt_template.render(question=question,
-                                                    context=context,
-                                                    possible_answers=possible_answers)
+        prompt = self.piqard.prompt_template.render(
+            question=question, context=context, possible_answers=possible_answers
+        )
         generated_answer = self.piqard.large_language_model.query(prompt)
-        final_answer = generated_answer[0]["generated_text"][len(prompt):].split("\n")[
+        final_answer = generated_answer[0]["generated_text"][len(prompt) :].split("\n")[
             0
         ]
         return final_answer, context
@@ -44,7 +46,11 @@ class Evaluator:
             em_total += self.exact_match_score(prediction, ground_truth)
             cem_total += self.cover_exact_match_score(prediction, ground_truth)
             f1_total += self.f1_score(prediction, ground_truth)
-        return {"Exact match": em_total / count, "Cover Exact Match": cem_total / count, "F1": f1_total / count}
+        return {
+            "Exact match": em_total / count,
+            "Cover Exact Match": cem_total / count,
+            "F1": f1_total / count,
+        }
 
     @staticmethod
     def exact_match_score(prediction: str, ground_truth: str) -> int:
@@ -66,4 +72,8 @@ class Evaluator:
 
     @staticmethod
     def cover_exact_match_score(prediction: str, ground_truth: str) -> int:
-        return 1 if normalize_answer(prediction).find(normalize_answer(ground_truth)) != -1 else 0
+        return (
+            1
+            if normalize_answer(prediction).find(normalize_answer(ground_truth)) != -1
+            else 0
+        )

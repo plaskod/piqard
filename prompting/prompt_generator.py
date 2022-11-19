@@ -8,6 +8,6 @@ class PromptGenerator:
         environment = jinja2.Environment()
 
         if os.path.isfile(prompt_template):
-            with open(prompt_template, 'r') as file:
+            with open(prompt_template, "r") as file:
                 prompt_template = file.read()
         return environment.from_string(prompt_template)

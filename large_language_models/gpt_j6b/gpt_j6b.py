@@ -4,8 +4,10 @@ import json
 import torch
 from transformers import GPTJForCausalLM, AutoTokenizer
 
+from large_language_models.language_model import LanguageModel
 
-class GPTj6b:
+
+class GPTj6b(LanguageModel):
     def __init__(self):
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.model = GPTJForCausalLM.from_pretrained(

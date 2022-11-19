@@ -3,8 +3,10 @@ import json
 import os
 import requests
 
+from large_language_models.language_model import LanguageModel
 
-class GPTj6bAPI:
+
+class GPTj6bAPI(LanguageModel):
     def __init__(self):
         try:
             with open(

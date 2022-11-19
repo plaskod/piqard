@@ -6,9 +6,12 @@ import requests
 from tqdm import tqdm
 from newspaper import Article
 
+from information_retrieval.retriever import Retriever
 
-class GoogleCustomSearch:
-    def __init__(self):
+
+class GoogleCustomSearch(Retriever):
+    def __init__(self, database: str):
+        super().__init__(database)
         try:
             with open(
                 f"{os.path.dirname(os.path.abspath(__file__))}/credentials.json", "r"
@@ -22,7 +25,9 @@ class GoogleCustomSearch:
             )
             exit(0)
 
-    def get_documents(self, query: str, start_date: str = "", end_date: str = "") -> list:
+    def get_documents(
+        self, query: str, start_date: str = "", end_date: str = ""
+    ) -> list:
         url = (
             f"https://www.googleapis.com/customsearch/v1?"
             f"key={self.APIkey}"
@@ -35,7 +40,7 @@ class GoogleCustomSearch:
         data = requests.get(url).json()
         search_results = data.get("items", [])
         results = []
-        for search_result in tqdm(search_results, disable=(__name__ != '__main__')):
+        for search_result in tqdm(search_results, disable=(__name__ != "__main__")):
             results.append(self.parse_article(search_result.get("link")))
 
         return results
