@@ -28,7 +28,7 @@ function PlaygroundView(){
     const [systemConfig, setSystemConfig] = useState(systemConfigTemplate.reduce(function (p, n) {
         return {...p, [n.name]: n.name === 'prompt_template' ? 'custom_prompt' : null};
     }, {}));
-    const [isCustomQuestion, setIsCustomQuestion] = useState(false);
+    const [isBenchmark, setIsBenchmark] = useState(false);
     const [question, setQuestion] = useState(""); 
     const [result, setResult] = useState({})
     const [isLoading, setIsLoading] = useState(false);
@@ -41,8 +41,8 @@ function PlaygroundView(){
     }
 
 
-    function handleIsCustomQuestion(value){
-        setIsCustomQuestion(value)
+    function handleSetIsBenchmark(value){
+        setIsBenchmark(value)
     }
 
     function handleSetQuestion(event){
@@ -61,10 +61,10 @@ function PlaygroundView(){
         async function getResult() {
           try {
             const PIQARDConfig = { piqard: systemConfig,
-                                   question: isCustomQuestion ? question : null,
-                                   benchmark: isCustomQuestion ? null : question};
+                                   question: isBenchmark ? null : question,
+                                   benchmark: isBenchmark ? question : null};
             const response = await axios.post(
-              `${process.env.PIQARD_API_URL}`, PIQARDConfig
+              `${process.env.REACT_APP_PIQARD_API_URL}`, PIQARDConfig
             );
             setResult(response.data);
             setIsLoading(false);
@@ -79,7 +79,7 @@ function PlaygroundView(){
 
     useEffect(() => {
         setQuestion("");
-      }, [isCustomQuestion]);
+      }, [isBenchmark]);
    
 
 
@@ -98,12 +98,12 @@ function PlaygroundView(){
                             </Col>
                             <Col md={6}>
                                 <div className="playground-right-container">
-                                    <PlaygroundQuestion isCustomQuestion={isCustomQuestion}
-                                                        handleIsCustomQuestion={handleIsCustomQuestion}
+                                    <PlaygroundQuestion isBenchmark={isBenchmark}
+                                                        handleSetIsBenchmark={handleSetIsBenchmark}
                                                         question={question}
                                                         handleSetQuestion={handleSetQuestion}
                                                         handleQueryPIQARD={handleQueryPIQARD} />
-                                    <PlaygroundResult isCutomQuestion={isCustomQuestion}
+                                    <PlaygroundResult isBenchmark={isBenchmark}
                                                       result={result}/>
                                 </div>
                             </Col>

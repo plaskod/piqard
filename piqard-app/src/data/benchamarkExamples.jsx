@@ -1,5 +1,6 @@
 const benchmarkExamples = [
-    'RealTimeQA', 'OpenBookQA'
+    {name: 'RealTimeQA', value: 'realtimeqa'},
+    {name: 'OpenBookQA', value: 'openbookqa'},
 ]
 
 export default benchmarkExamples;
