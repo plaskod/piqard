@@ -7,7 +7,7 @@ import Select from "../Select";
 import './PlaygroundQuestion.css'
 
 
-function PlaygroundQuestion({isCustomQuestion, handleIsCustomQuestion, question, handleSetQuestion}){
+function PlaygroundQuestion({isCustomQuestion, handleIsCustomQuestion, question, handleSetQuestion, handleQueryPIQARD}){
 
     return(
         <>
@@ -35,7 +35,7 @@ function PlaygroundQuestion({isCustomQuestion, handleIsCustomQuestion, question,
                     )}
                 </Container>
                 <Container className="center">
-                    <Button label="Run"/>
+                    <Button label="Run" onClick={(e) => (handleQueryPIQARD(e))}/>
                 </Container>
             </Container>
         </>

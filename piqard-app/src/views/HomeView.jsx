@@ -8,7 +8,7 @@ function HomeView(){
         <Container fluid className="main-hero">
             <Row>
                 <Col md={7} className="hero-col">
-                    <div class='image'>
+                    <div className='image'>
 
                     </div>
                 </Col>
