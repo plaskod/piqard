@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Spinner } from "react-bootstrap";
 import PlaygroundQuestion from "../components/playground/PlaygroundQuestion";
 import PlaygroundResult from "../components/playground/PlaygroundResult";
 import PromptTextBox from "../components/playground/PromptTextBox";
@@ -67,7 +67,8 @@ function PlaygroundView(){
           try {
             const PIQARDConfig = { piqard: systemConfig,
                                    question: isBenchmark ? null : question,
-                                   benchmark: isBenchmark ? question : null};
+                                   benchmark: isBenchmark ? question : null,
+                                   prompt_template: promptTemplate };
             const response = await axios.post(
               `${process.env.REACT_APP_PIQARD_API_URL}`, PIQARDConfig
             );
@@ -130,8 +131,14 @@ function PlaygroundView(){
                                                         question={question}
                                                         handleSetQuestion={handleSetQuestion}
                                                         handleQueryPIQARD={handleQueryPIQARD} />
-                                    <PlaygroundResult isBenchmark={isBenchmark}
+                                    {isLoading ? (
+                                        <Spinner animation="border" role="status">
+                                            <span className="visually-hidden">Loading...</span>
+                                        </Spinner>
+                                    ): (
+                                        <PlaygroundResult isBenchmark={isBenchmark}
                                                       result={result}/>
+                                    )} 
                                 </div>
                             </Col>
                         </Row>

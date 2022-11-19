@@ -1,0 +1,11 @@
+piqard: !PIQARD
+{% if information_retriever is not none %}
+  information_retriever: {{information_retriever}}
+  {% if database is not none %}
+    database: {{database}}
+  {% endif %}
+{% endif %}
+  prompt_template: "{{prompt_template.replace("\n","\\n").replace("\"","\'")}}"
+  context_builder: {{context_builder}}
+  large_language_model: {{large_language_model}}
+result_dir: {{result_dir}}
