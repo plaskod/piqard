@@ -30,9 +30,9 @@ python test.py [-h] [--output] CONFIG
 piqard: !PIQARD
   information_retriever: !VectoreRetriever
     database: openbookqa
-  large_language_model: !BLOOM176bAPI
   prompt_template: prompting/templates/context_prompt.txt
   context_builder: !TruncatedContextBuilder
+  large_language_model: !BLOOM176bAPI
 result_dir: result
 ```
 ####Available modules

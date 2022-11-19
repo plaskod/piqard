@@ -1,7 +1,7 @@
 piqard: !PIQARD
 #  information_retriever:
 #    database:
-  large_language_model: !BLOOM176bAPI
   prompt_template: prompting/templates/context_prompt.txt
   context_builder: !TruncatedContextBuilder
+  large_language_model: !BLOOM176bAPI
 result_dir: result
