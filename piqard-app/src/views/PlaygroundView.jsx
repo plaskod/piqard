@@ -70,7 +70,7 @@ function PlaygroundView(){
                                    benchmark: isBenchmark ? question : null,
                                    prompt_template: promptTemplate };
             const response = await axios.post(
-              `${process.env.REACT_APP_PIQARD_API_URL}`, PIQARDConfig
+              `${process.env.REACT_APP_PIQARD_API_URL}/basic_query`, PIQARDConfig
             );
             setResult(response.data);
             setIsLoading(false);

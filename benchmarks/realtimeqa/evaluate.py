@@ -1,22 +1,19 @@
 import tqdm
 
-from PIQARD import PIQARD
+from piqard.PIQARD import PIQARD
 from test.evaluator import Evaluator
 
 
-class OpenBookQAEvaluator(Evaluator):
+class RealTimeQAEvaluator(Evaluator):
     def __init__(self, piqard: PIQARD):
         super().__init__(piqard)
 
     def preprocess(self, question: dict) -> tuple[str, str, str]:
-        question_sentence = question["question"]["stem"]
+        question_sentence = question["question_sentence"]
         possible_answers = " ".join(
-            [
-                ". ".join([choice["label"], choice["text"]])
-                for choice in question["question"]["choices"]
-            ]
+            [f"{idx}. {choice}" for idx, choice in enumerate(question["choices"])]
         )
-        answer = f"{question['answerKey']}. {list(filter(lambda choice: choice['label'] == question['answerKey'],question['question']['choices'],))[0]['text']}"
+        answer = f"{question['answer'][0]}. {question['choices'][int(question['answer'][0])]}"
         return question_sentence, possible_answers, answer
 
     def evaluate(self, benchamark: list[dict]) -> dict:
@@ -31,7 +28,6 @@ class OpenBookQAEvaluator(Evaluator):
             report.append(
                 {
                     "question": question_sentence,
-                    "possible_answers": possible_answers,
                     "answer": answer,
                     "context": context,
                     "predicted_answer": predicted_answer,

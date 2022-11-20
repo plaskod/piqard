@@ -6,7 +6,7 @@ import requests
 from tqdm import tqdm
 from newspaper import Article
 
-from information_retrieval.retriever import Retriever
+from piqard.information_retrieval.retriever import Retriever
 
 
 class GoogleCustomSearch(Retriever):

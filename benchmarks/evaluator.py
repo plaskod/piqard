@@ -1,6 +1,6 @@
 from collections import Counter
 
-from PIQARD import PIQARD
+from piqard.PIQARD import PIQARD
 from utils import normalize_answer
 
 
