@@ -7,7 +7,7 @@ import Select from "../Select";
 import './PlaygroundQuestion.css'
 
 
-function PlaygroundQuestion({isCustomQuestion, handleIsCustomQuestion, question, handleSetQuestion, handleQueryPIQARD}){
+function PlaygroundQuestion({isBenchmark, handleSetIsBenchmark, question, handleSetQuestion, handleQueryPIQARD}){
 
     return(
         <>
@@ -16,23 +16,24 @@ function PlaygroundQuestion({isCustomQuestion, handleIsCustomQuestion, question,
             </Container>
             <Container className="question-container">
                 <Container className="question-checkbox-container">
-                    <label>Custom</label>
+                    <label>Benchmark</label>
                     <input type='checkbox'
                            className="question-checkbox"
-                           checked={isCustomQuestion}
-                           onChange={() => (handleIsCustomQuestion(!isCustomQuestion))}></input>
+                           checked={isBenchmark}
+                           onChange={() => (handleSetIsBenchmark(!isBenchmark))}></input>
                 </Container>
                 <Container>
-                    {isCustomQuestion ? (
-                        <div >
-                            <input className="question-input"  value={question} onChange={(event) => (handleSetQuestion(event))}/>
-                        </div>    
-                    ) : (
+                    {isBenchmark ? (
                         <Select name="question"
                                 value={question}
                                 options={benchmarkExamples}
                                 onChange={(event) => (handleSetQuestion(event))}/>
-                    )}
+                    ) : (
+                        <div >
+                            <input className="question-input"  value={question} onChange={(event) => (handleSetQuestion(event))}/>
+                        </div>    
+                    )
+                    }
                 </Container>
                 <Container className="center">
                     <Button label="Run" onClick={(e) => (handleQueryPIQARD(e))}/>

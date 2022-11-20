@@ -10,7 +10,7 @@ from information_retrieval.retriever import Retriever
 
 
 class GoogleCustomSearch(Retriever):
-    def __init__(self, database: str):
+    def __init__(self, database: str = None):
         super().__init__(database)
         try:
             with open(
@@ -26,7 +26,7 @@ class GoogleCustomSearch(Retriever):
             exit(0)
 
     def get_documents(
-        self, query: str, start_date: str = "", end_date: str = ""
+        self, query: str, n: int = 1, start_date: str = "", end_date: str = ""
     ) -> list:
         url = (
             f"https://www.googleapis.com/customsearch/v1?"
@@ -34,7 +34,7 @@ class GoogleCustomSearch(Retriever):
             f"&cx={self.engineID}"
             f"&q={query}"
             f"&start=1"
-            f"&num=1"
+            f"&num={n}"
             f"&sort=date:r:{start_date}:{end_date}"
         )
         data = requests.get(url).json()

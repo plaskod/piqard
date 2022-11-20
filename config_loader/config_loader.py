@@ -1,3 +1,5 @@
+import os
+
 import ruamel.yaml
 from PIQARD import PIQARD
 from context_builders.merged_context_builder import MergedContextBuilder
@@ -33,5 +35,8 @@ class ConfigLoader:
         self.yaml.register_class(GPTj6bAPI)
 
     def load(self, path: str) -> PIQARDConfig:
-        with open(path, "r") as f:
-            return PIQARDConfig(**self.yaml.load(f))
+        if os.path.isfile(path):
+            with open(path, "r") as f:
+                return PIQARDConfig(**self.yaml.load(f))
+        else:
+            return PIQARDConfig(**self.yaml.load(path))
