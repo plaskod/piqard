@@ -1,14 +1,14 @@
 import os
 
 import ruamel.yaml
-from PIQARD import PIQARD
-from context_builders.merged_context_builder import MergedContextBuilder
-from context_builders.truncated_context_builder import TruncatedContextBuilder
-from information_retrieval.google_custom_search.gcs import GoogleCustomSearch
-from information_retrieval.ranking_retriever.ranking_retriever import RankingRetriever
-from information_retrieval.vector_retriever.vector_retirever import VectorRetriever
-from large_language_models.bloom_176b_api.bloom_176b_api import BLOOM176bAPI
-from large_language_models.gpt_j6b_api.gpt_j6b_api import GPTj6bAPI
+from piqard.PIQARD import PIQARD
+from piqard.context_builders.merged_context_builder import MergedContextBuilder
+from piqard.context_builders.truncated_context_builder import TruncatedContextBuilder
+from piqard.information_retrieval.google_custom_search.gcs import GoogleCustomSearch
+from piqard.information_retrieval.ranking_retriever import RankingRetriever
+from piqard.information_retrieval.vector_retirever import VectorRetriever
+from piqard.language_models.bloom_176b_api import BLOOM176bAPI
+from piqard.language_models.gpt_j6b_api import GPTj6bAPI
 from prompting.prompt_generator import PromptGenerator
 
 

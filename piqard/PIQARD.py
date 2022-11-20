@@ -1,6 +1,6 @@
 from config_loader.yaml_constructor import yaml_constructor
 from context_builders.context_builder import ContextBuilder
-from information_retrieval.retriever import Retriever
+from piqard.information_retrieval.retriever import Retriever
 from large_language_models.language_model import LanguageModel
 from prompting.prompt_generator import PromptGenerator
 
