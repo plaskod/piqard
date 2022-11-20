@@ -1,8 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { Container, Row, Col, Spinner } from "react-bootstrap";
-import PlaygroundQuestion from "../components/playground/PlaygroundQuestion";
-import PlaygroundResult from "../components/playground/PlaygroundResult";
+import PlaygroundInferenceType from "../components/playground/PlaygroundInferenceType";
 import PromptTextBox from "../components/playground/PromptTextBox";
 
 import SystemConfig from "../components/playground/SystemConfig";
@@ -28,7 +27,7 @@ function PlaygroundView(){
     const [systemConfig, setSystemConfig] = useState(systemConfigTemplate.reduce(function (p, n) {
         return {...p, [n.name]: n.name === 'prompt_template' ? 'custom_prompt' : null};
     }, {}));
-    const [isBenchmark, setIsBenchmark] = useState(false);
+    const [inferenceType, setInferenceType] = useState("question");
     const [question, setQuestion] = useState(""); 
     const [result, setResult] = useState({})
     const [promptTemplate, setPromptTemplate] = useState("");
@@ -42,8 +41,8 @@ function PlaygroundView(){
     }
 
 
-    function handleSetIsBenchmark(value){
-        setIsBenchmark(value)
+    function handleSetInferenceType(value){
+        setInferenceType(value);
     }
 
     function handleSetQuestion(event){
@@ -66,8 +65,7 @@ function PlaygroundView(){
         async function getResult() {
           try {
             const PIQARDConfig = { piqard: systemConfig,
-                                   question: isBenchmark ? null : question,
-                                   benchmark: isBenchmark ? question : null,
+                                   question: question,
                                    prompt_template: promptTemplate };
             const response = await axios.post(
               `${process.env.REACT_APP_PIQARD_API_URL}/basic_query`, PIQARDConfig
@@ -85,7 +83,7 @@ function PlaygroundView(){
 
     useEffect(() => {
         setQuestion("");
-      }, [isBenchmark]);
+      }, [inferenceType]);
    
 
     useEffect(() => {
@@ -125,21 +123,13 @@ function PlaygroundView(){
                                                handleSetPromptTemplate={handleSetPromptTemplate}/>
                             </Col>
                             <Col md={6}>
-                                <div className="playground-right-container">
-                                    <PlaygroundQuestion isBenchmark={isBenchmark}
-                                                        handleSetIsBenchmark={handleSetIsBenchmark}
-                                                        question={question}
-                                                        handleSetQuestion={handleSetQuestion}
-                                                        handleQueryPIQARD={handleQueryPIQARD} />
-                                    {isLoading ? (
-                                        <Spinner animation="border" role="status">
-                                            <span className="visually-hidden">Loading...</span>
-                                        </Spinner>
-                                    ): (
-                                        <PlaygroundResult isBenchmark={isBenchmark}
-                                                      result={result}/>
-                                    )} 
-                                </div>
+                                <PlaygroundInferenceType isLoading={isLoading}
+                                                         inferenceType={inferenceType}
+                                                         handleSetInferenceType={handleSetInferenceType}
+                                                         question={question}
+                                                         handleSetQuestion={handleSetQuestion}
+                                                         handleQueryPIQARD={handleQueryPIQARD}
+                                                         result={result} />
                             </Col>
                         </Row>
                     </Container>

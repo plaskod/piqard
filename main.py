@@ -1,26 +1,35 @@
 import argparse
 import json
-from config_loader.config_loader import ConfigLoader
+
+from piqard.PIQARD_loader import PIQARDLoader
 from utils import directory
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(allow_abbrev=False)
 
-    parser.add_argument("--query", type=str, help="query", required=True)
+    parser.add_argument("query", type=str, help="query")
     parser.add_argument(
         "--config",
         type=str,
-        help="query",
-        default="./config_loader/configs/config.yaml",
+        help="config",
+        default="./assets/configs/config.yaml",
+    )
+    parser.add_argument(
+        "--output",
+        type=str,
+        help="output",
+        default="./result",
     )
     args = parser.parse_args()
 
-    config_loader = ConfigLoader()
-    config = config_loader.load(args.config)
+    piqard_loader = PIQARDLoader()
+    piqard = piqard_loader.load(args.config)
+    piqard.show_info()
 
-    piqard = config.piqard
     result = piqard(args.query)
 
-    with open(f"{directory(config.result_dir)}/generated_result.txt", "w") as f:
+    with open(f"{directory(args.output)}/generated_result.txt", "w") as f:
         json.dump(result, f)
+    print("== Result")
     print(result["answer"])

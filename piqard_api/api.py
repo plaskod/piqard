@@ -1,18 +1,21 @@
 import uvicorn
+import yaml
 from fastapi import FastAPI, Request
-
 from fastapi.middleware.cors import CORSMiddleware
 
 import os
 import sys
 import inspect
-
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parentdir = os.path.dirname(currentdir)
 sys.path.insert(0, parentdir)
 
-from piqard_api.api_utils import get_config_components, process_PIQARD_result_query
-from piqard_api import config
+import config
+from api_utils import prepare_config_components, yaml_config_from_dict
+from piqard.PIQARD_loader import PIQARDLoader
+
+
+
 
 app = FastAPI()
 
@@ -25,31 +28,36 @@ app.add_middleware(
 )
 
 
-@app.post("/")
-async def PIQARD_basic_query(query: Request):
+@app.post("/basic_query")
+async def basic_query(query: Request):
     message = await query.json()
-    print(message['prompt_template'])
-    config, question = process_PIQARD_result_query(message)
-    result = config.piqard(question)
-    print(result)
+    question = message['question']
+    piqard_yaml_config = yaml_config_from_dict(message)
+    piqard_loader = PIQARDLoader()
+    piqard = piqard_loader.load(piqard_yaml_config)
+    result = piqard(question)
     return {"answer": result["answer"], "context": result["context"]}
 
 
+@app.post("/benchmark_query")
+async def benchmark_query(query: Request):
+    pass
+
+
 @app.get("/get_config_components")
-async def PIQARD_config_components():
-    conifg_components = get_config_components()
+async def get_config_components():
+    conifg_components = prepare_config_components()
     return conifg_components
 
 
 @app.post("/get_prompt_template")
 async def get_prompt_template(query: Request):
     message = await query.json()
-    print(message)
     template_name = message['template_name']
     with open(f"{config.PROMPTING_TEMPLATES_DIR}\\{template_name}", "r") as f:
         template = f.read()
-    print(template)
     return {"template": template}
+
 
 if __name__ == "__main__":
     uvicorn.run("__main__:app", host="0.0.0.0", port=8000, reload=True)

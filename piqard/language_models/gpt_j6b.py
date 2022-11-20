@@ -1,10 +1,7 @@
-import argparse
-import json
-
 import torch
 from transformers import GPTJForCausalLM, AutoTokenizer
 
-from large_language_models.language_model import LanguageModel
+from piqard.language_models.language_model import LanguageModel
 
 
 class GPTj6b(LanguageModel):
@@ -29,18 +26,3 @@ class GPTj6b(LanguageModel):
 
     def __str__(self) -> str:
         return "GPT-J6B"
-
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(allow_abbrev=False)
-
-    parser.add_argument("--query", type=str, help="query", required=True)
-    parser.add_argument(
-        "--out-file", type=str, default="results.txt", help="output json file"
-    )
-    args = parser.parse_args()
-
-    model = GPTj6b()
-    results = model.query(args.query)
-    with open(args.out_file, "w") as f:
-        json.dump(results, f)

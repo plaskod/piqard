@@ -1,7 +1,7 @@
+import string
 from collections import Counter
 
 from piqard.PIQARD import PIQARD
-from utils import normalize_answer
 
 
 class Evaluator:
@@ -26,8 +26,8 @@ class Evaluator:
         prompt = self.piqard.prompt_template.render(
             question=question, context=context, possible_answers=possible_answers
         )
-        generated_answer = self.piqard.large_language_model.query(prompt)
-        final_answer = generated_answer[0]["generated_text"][len(prompt) :].split("\n")[
+        generated_answer = self.piqard.language_model.query(prompt)
+        final_answer = generated_answer[0]["generated_text"][len(prompt):].split("\n")[
             0
         ]
         return final_answer, context
@@ -52,14 +52,12 @@ class Evaluator:
             "F1": f1_total / count,
         }
 
-    @staticmethod
-    def exact_match_score(prediction: str, ground_truth: str) -> int:
-        return normalize_answer(prediction) == normalize_answer(ground_truth)
+    def exact_match_score(self, prediction: str, ground_truth: str) -> int:
+        return self.__normalize_answer(prediction) ==  self.__normalize_answer(ground_truth)
 
-    @staticmethod
-    def f1_score(prediction: str, ground_truth: str) -> float:
-        prediction_tokens = normalize_answer(prediction).split()
-        ground_truth_tokens = normalize_answer(ground_truth).split()
+    def f1_score(self, prediction: str, ground_truth: str) -> float:
+        prediction_tokens = self.__normalize_answer(prediction).split()
+        ground_truth_tokens = self.__normalize_answer(ground_truth).split()
         common = Counter(prediction_tokens) & Counter(ground_truth_tokens)
         num_same = sum(common.values())
 
@@ -70,10 +68,26 @@ class Evaluator:
         f1 = (2 * precision * recall) / (precision + recall)
         return f1
 
-    @staticmethod
-    def cover_exact_match_score(prediction: str, ground_truth: str) -> int:
+    def cover_exact_match_score(self, prediction: str, ground_truth: str) -> int:
         return (
             1
-            if normalize_answer(prediction).find(normalize_answer(ground_truth)) != -1
+            if  self.__normalize_answer(prediction).find( self.__normalize_answer(ground_truth)) != -1
             else 0
         )
+
+    @staticmethod
+    def __normalize_answer(answer: str) -> str:
+        def remove_counter(text):
+            return text.replace("年", "").replace("歳", "").replace("人", "").replace("년", "")
+
+        def white_space_fix(text):
+            return " ".join(text.split())
+
+        def remove_punc(text):
+            exclude = set(string.punctuation)
+            return "".join(ch for ch in text if ch not in exclude)
+
+        def lower(text):
+            return text.lower()
+
+        return white_space_fix(remove_counter(remove_punc(lower(answer))))

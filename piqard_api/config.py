@@ -1,2 +1,2 @@
-PROMPTING_TEMPLATES_DIR = "prompting\\templates\\"
-CONFIG_TEMPLATE = "config_loader\\configs\\config_template.txt"
+PROMPTING_TEMPLATES_DIR = "assets\\prompting_templates\\"
+CONFIG_TEMPLATE = "assets\\configs\\config_template.txt"

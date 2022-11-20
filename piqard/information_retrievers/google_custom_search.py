@@ -1,4 +1,3 @@
-import argparse
 import json
 import os
 
@@ -6,7 +5,7 @@ import requests
 from tqdm import tqdm
 from newspaper import Article
 
-from piqard.information_retrieval.retriever import Retriever
+from piqard.information_retrievers.retriever import Retriever
 
 
 class GoogleCustomSearch(Retriever):
@@ -14,7 +13,7 @@ class GoogleCustomSearch(Retriever):
         super().__init__(database)
         try:
             with open(
-                f"{os.path.dirname(os.path.abspath(__file__))}/credentials.json", "r"
+                "assets/credentials/google_custom_search.json", "r"
             ) as f:
                 credentials = json.load(f)
                 self.engineID = credentials["engineID"]
@@ -54,20 +53,3 @@ class GoogleCustomSearch(Retriever):
 
     def __str__(self):
         return "GoogleCustomSearch"
-
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(allow_abbrev=False)
-
-    parser.add_argument("--query", type=str, help="query", required=True)
-    parser.add_argument("--start-date", type=str, default="", help="Search start date")
-    parser.add_argument("--end-date", type=str, default="", help="Search end date")
-    parser.add_argument(
-        "--out-file", type=str, default="results.txt", help="output jsonl file"
-    )
-    args = parser.parse_args()
-
-    search_engine = GoogleCustomSearch()
-    results = search_engine.get_documents(args.query, args.start_date, args.end_date)
-    with open(args.out_file, "w") as f:
-        json.dump(results, f)

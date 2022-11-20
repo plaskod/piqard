@@ -4,7 +4,7 @@ from typing import Union
 import faiss
 import fastbm25
 
-from config_loader.yaml_constructor import yaml_constructor
+from piqard.utils.yaml_constructor import yaml_constructor
 
 
 @yaml_constructor
@@ -25,5 +25,8 @@ class Retriever:
         with open(index_path, "rb") as f:
             return pickle.load(f)
 
-    def get_documents(self, question: str, n: int) -> list[str]:
+    def get_documents(self, question: str, n: int = 1) -> list[str]:
         pass
+
+    def __str__(self):
+        return self.__class__.__name__

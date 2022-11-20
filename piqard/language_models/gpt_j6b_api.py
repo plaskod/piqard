@@ -1,16 +1,15 @@
-import argparse
 import json
 import os
 import requests
 
-from large_language_models.language_model import LanguageModel
+from piqard.language_models.language_model import LanguageModel
 
 
 class GPTj6bAPI(LanguageModel):
     def __init__(self):
         try:
             with open(
-                f"{os.path.dirname(os.path.abspath(__file__))}/api_key.json", "r"
+                "assets/credentials/huggingface.json", "r"
             ) as f:
                 API_KEY = json.load(f)["APIkey"]
         except (FileNotFoundError, KeyError):
@@ -25,18 +24,3 @@ class GPTj6bAPI(LanguageModel):
 
     def __str__(self) -> str:
         return "GPT-J6B huggingface.co API"
-
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(allow_abbrev=False)
-
-    parser.add_argument("--query", type=str, help="query", required=True)
-    parser.add_argument(
-        "--out-file", type=str, default="results.txt", help="output json file"
-    )
-    args = parser.parse_args()
-
-    model = GPTj6bAPI()
-    results = model.query(args.query)
-    with open(args.out_file, "w") as f:
-        json.dump(results, f)
