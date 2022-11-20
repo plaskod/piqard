@@ -1,7 +1,7 @@
 import tqdm
 
 from piqard.PIQARD import PIQARD
-from test.evaluator import Evaluator
+from benchmarks.evaluator import Evaluator
 
 
 class RealTimeQAEvaluator(Evaluator):

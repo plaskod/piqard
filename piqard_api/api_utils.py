@@ -1,12 +1,10 @@
 import glob
 
 import jinja2
-
-from config_loader.config_loader import ConfigLoader
-from piqard_api import config
+import config
 
 
-def get_config_components() -> dict:
+def prepare_config_components() -> dict:
     prompting_templates = [{"name": "custom_prompt", "value": "custom_prompt"}] + [
         {
             "name": prompt.replace(config.PROMPTING_TEMPLATES_DIR, ""),
@@ -30,32 +28,33 @@ def get_config_components() -> dict:
             {"name": "TruncatedContext", "value": "!TruncatedContextBuilder"},
             {"name": "MergedContext", "value": "!MergedContextBuilder"},
         ],
-        "large_language_model": [
+        "language_model": [
             {"name": "BLOOM 176B API", "value": "!BLOOM176bAPI"},
             {"name": "GPT-J6B API", "value": "!GPTj6bAPI"},
         ],
     }
 
 
-def process_PIQARD_result_query(message: dict):
+def yaml_config_from_dict(message: dict):
     piqard_config_dict = message['piqard']
     if piqard_config_dict['prompt_template'] == "custom_prompt":
         piqard_config_dict['prompt_template'] = message['prompt_template']
     else:
         piqard_config_dict[
-            'prompt_template'] = f"{config.PROMPTING_TEMPLATES_DIR}{piqard_config_dict['prompt_template']}".replace("\\", "\\\\")
+            'prompt_template'] = f"{config.PROMPTING_TEMPLATES_DIR}{piqard_config_dict['prompt_template']}".replace(
+            "\\", "\\\\")
 
     environment = jinja2.Environment()
     with open(config.CONFIG_TEMPLATE, "r") as file:
         prompt_template = file.read()
     yaml_config_template = environment.from_string(prompt_template)
-    yaml_config = yaml_config_template.render(information_retriever=piqard_config_dict['information_retriever'] if piqard_config_dict['information_retriever'] not in ['none', ''] else None,
-                                              database=piqard_config_dict['data_base'] if piqard_config_dict['data_base'] not in ['none', ''] else None,
-                                              prompt_template=piqard_config_dict['prompt_template'],
-                                              context_builder=piqard_config_dict['context_builder'],
-                                              large_language_model=piqard_config_dict['large_language_model'])
+    yaml_config = yaml_config_template.render(
+        information_retriever=piqard_config_dict['information_retriever'] if piqard_config_dict[
+                                                                                 'information_retriever'] not in [
+                                                                                 'none', ''] else None,
+        database=piqard_config_dict['data_base'] if piqard_config_dict['data_base'] not in ['none', ''] else None,
+        prompt_template=piqard_config_dict['prompt_template'],
+        context_builder=piqard_config_dict['context_builder'],
+        language_model=piqard_config_dict['language_model'])
 
-    config_loader = ConfigLoader()
-    final_config = config_loader.load(yaml_config)
-    question = message['question']
-    return final_config, question
+    return yaml_config

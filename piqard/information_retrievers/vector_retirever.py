@@ -1,6 +1,6 @@
 from sentence_transformers import SentenceTransformer
 
-from information_retrieval.retriever import Retriever
+from piqard.information_retrievers.retriever import Retriever
 
 
 class VectorRetriever(Retriever):

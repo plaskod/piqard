@@ -1,4 +1,4 @@
-from context_builders.context_builder import ContextBuilder
+from piqard.context_builders.context_builder import ContextBuilder
 
 
 class MergedContextBuilder(ContextBuilder):

@@ -1,8 +1,5 @@
-piqard: !PIQARD
-  information_retriever: !RankingRetriever
-    database: openbookqa
-  prompt_template: prompting/templates/openbookqa/5_shot.txt
-  context_builder: !TruncatedContextBuilder
-  large_language_model: !BLOOM176bAPI
-result_dir: result
-benchmark: openbookqa
+information_retriever: !RankingRetriever
+  database: openbookqa
+prompt_template: assets/prompting_templates/openbookqa/5_shot.txt
+context_builder: !TruncatedContextBuilder
+language_model: !BLOOM176bAPI

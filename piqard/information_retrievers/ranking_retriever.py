@@ -1,7 +1,7 @@
 from nltk.stem import PorterStemmer
 from gensim.parsing.preprocessing import remove_stopwords
 
-from information_retrieval.retriever import Retriever
+from piqard.information_retrievers.retriever import Retriever
 
 
 class RankingRetriever(Retriever):
