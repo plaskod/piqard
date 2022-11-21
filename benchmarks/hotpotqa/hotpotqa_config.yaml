@@ -1,0 +1,5 @@
+information_retriever: !VectorRetriever
+  database: hotpotqa
+prompt_template: assets/prompting_templates/hotpotqa/basic.txt
+context_builder: !MergedContextBuilder
+language_model: !BLOOM176bAPI

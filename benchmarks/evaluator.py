@@ -14,7 +14,7 @@ class Evaluator:
     def evaluate(self, benchmark: list[dict]) -> dict:
         pass
 
-    def predict(self, question: str, possible_answers: str) -> tuple[str, str]:
+    def predict(self, question: str, possible_answers: str = None) -> tuple[str, str]:
         context = None
         if self.piqard.information_retriever is not None:
             retrieved_documents = self.piqard.information_retriever.get_documents(

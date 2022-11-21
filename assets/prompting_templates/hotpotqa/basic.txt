@@ -1,0 +1,5 @@
+{{question}}
+
+Hint: use the information from the paragraphs below to answer the question.
+
+{{context}}
