@@ -14,23 +14,21 @@ class Evaluator:
     def evaluate(self, benchmark: list[dict]) -> dict:
         pass
 
-    def predict(self, question: str, possible_answers: str = None) -> tuple[str, str]:
-        context = None
+    def predict(self, question: str, possible_answers: str = None) -> tuple[str, list[str]]:
+        retrieved_documents = None
         if self.piqard.information_retriever is not None:
             retrieved_documents = self.piqard.information_retriever.get_documents(
                 question
             )
-            if retrieved_documents:
-                context = self.piqard.context_builder.build(retrieved_documents)
 
         prompt = self.piqard.prompt_template.render(
-            question=question, context=context, possible_answers=possible_answers
+            question=question, context=retrieved_documents, possible_answers=possible_answers
         )
         generated_answer = self.piqard.language_model.query(prompt)
         final_answer = generated_answer[0]["generated_text"][len(prompt):].split("\n")[
             0
         ]
-        return final_answer, context
+        return final_answer, retrieved_documents
 
     @staticmethod
     def accuracy(results: list[tuple[str, str]]) -> dict:
@@ -53,7 +51,7 @@ class Evaluator:
         }
 
     def exact_match_score(self, prediction: str, ground_truth: str) -> int:
-        return self.__normalize_answer(prediction) ==  self.__normalize_answer(ground_truth)
+        return self.__normalize_answer(prediction) == self.__normalize_answer(ground_truth)
 
     def f1_score(self, prediction: str, ground_truth: str) -> float:
         prediction_tokens = self.__normalize_answer(prediction).split()
@@ -71,7 +69,7 @@ class Evaluator:
     def cover_exact_match_score(self, prediction: str, ground_truth: str) -> int:
         return (
             1
-            if  self.__normalize_answer(prediction).find( self.__normalize_answer(ground_truth)) != -1
+            if self.__normalize_answer(prediction).find(self.__normalize_answer(ground_truth)) != -1
             else 0
         )
 

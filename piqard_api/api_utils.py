@@ -23,11 +23,14 @@ def prepare_config_components() -> dict:
         "data_base": [
             {"name": "OpenBookQA Facts", "value": "openbookqa"},
         ],
-        "prompt_template": prompting_templates,
-        "context_builder": [
-            {"name": "TruncatedContext", "value": "!TruncatedContextBuilder"},
-            {"name": "MergedContext", "value": "!MergedContextBuilder"},
+        "k": [
+            {"name": "1", "value": 1},
+            {"name": "2", "value": 2},
+            {"name": "3", "value": 3},
+            {"name": "4", "value": 4},
+            {"name": "5", "value": 5},
         ],
+        "prompt_template": prompting_templates,
         "language_model": [
             {"name": "BLOOM 176B API", "value": "!BLOOM176bAPI"},
             {"name": "GPT-J6B API", "value": "!GPTj6bAPI"},
@@ -53,8 +56,8 @@ def yaml_config_from_dict(message: dict):
                                                                                  'information_retriever'] not in [
                                                                                  'none', ''] else None,
         database=piqard_config_dict['data_base'] if piqard_config_dict['data_base'] not in ['none', ''] else None,
+        k=piqard_config_dict['k'] if piqard_config_dict['k'] not in ['none', ''] else None,
         prompt_template=piqard_config_dict['prompt_template'],
-        context_builder=piqard_config_dict['context_builder'],
         language_model=piqard_config_dict['language_model'])
 
     return yaml_config

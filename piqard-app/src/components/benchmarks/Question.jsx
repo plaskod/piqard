@@ -30,7 +30,11 @@ function Question({question}){
                                                     onClick={()=>{setIsContextVisible(!isContextVisible)}}/> </span>
                 {isContextVisible && (
                     <Container>
-                        {question.context}
+                        <ul>
+                            {question.context.map((doc) => (
+                                <li>{doc}</li>
+                            ))}
+                        </ul>
                     </Container>
                 )}
             </Container>

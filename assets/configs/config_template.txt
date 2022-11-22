@@ -1,9 +1,7 @@
 {% if information_retriever is not none %}
 information_retriever: {{information_retriever}}
-    {% if database is not none %}
-    database: {{database}}
-    {% endif %}
+    {% if database is not none %}database: {{database}}{% endif %}
+    {% if k is not none %}k: {{k}}{% endif %}
 {% endif %}
 prompt_template: "{{prompt_template.replace("\n","\\n").replace("\"","\'")}}"
-context_builder: {{context_builder}}
 language_model: {{language_model}}

@@ -11,7 +11,8 @@ from piqard.utils.yaml_constructor import yaml_constructor
 
 @yaml_constructor
 class Retriever:
-    def __init__(self, database: str = None):
+    def __init__(self, database: str = None, k: int = 1):
+        self.k = k
         if database:
             self.documents = self.__load_documents(
                 f"assets/database/{database}/corpus.jsonl"
@@ -27,7 +28,7 @@ class Retriever:
         with open(index_path, "rb") as f:
             return pickle.load(f)
 
-    def get_documents(self, question: str, n: int = 1) -> list[str]:
+    def get_documents(self, question: str) -> list[str]:
         pass
 
     def __str__(self):

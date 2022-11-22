@@ -18,18 +18,6 @@ Question: Musician and satirist Allie Goertz wrote a song about the 'The Simpson
 Answer: President Richard Nixon
 
 
-Paragraph 1: Margaret 'Peggy' Seeger (born June 17, 1935) is an American folksinger.  She is also well known in Britain, where she has lived for more than 30 years, and was married to the singer and songwriter Ewan MacColl until his death in 1989.
-Paragraph 2: James Henry Miller (25 January 1915 – 22 October 1989), better known by his stage name Ewan MacColl, was an English folk singer, songwriter, communist, labour activist, actor, poet, playwright and record producer.
-Question:  What nationality was James Henry Miller's wife?
-Answer: American
-
-
-Paragraph 1: Cadmium chloride is a white crystalline compound of cadmium and chlorine, with the formula CdCl.  It is a hygroscopic solid that is highly soluble in water and slightly soluble in alcohol.  Although it is considered to be ionic, it has considerable covalent character to its bonding.  The crystal structure of cadmium chloride (described below), composed of two-dimensional layers of ions, is a reference for describing other crystal structures.  Also known are CdCl•HO and CdCl•5HO.
-Paragraph 2: Ethanol, also called alcohol, ethyl alcohol, and drinking alcohol, is a compound and simple alcohol with the chemical formula C2H5OH .  Its formula can be written also as CH3 −CH2 −OH or C2H5 −OH (an ethyl group linked to a hydroxyl group), and is often abbreviated as EtOH.  Ethanol is a volatile, flammable, colorless liquid with a slight characteristic odor.  It is used as a drug and is the principal type of alcohol found in alcoholic drinks.
-Question: Cadmium Chloride is slightly soluble in this chemical, it is also called what?
-Answer: alcohol
-
-
 Paragraph 1: {{context[0].split()[:100]}}
 Paragraph 2: {{context[1].split()[:100]}}
 Question: {{question}}

@@ -20,6 +20,6 @@ Passage: Twitter locked Kanye West for violating the company’s policies over a
 Question: Which high-profile individual’s Twitter account was locked this week for posting an offensive message?
 Answer: Kanye West
 
-Passage: {{context}}
+Passage: {{context[0].split()[:100]}}
 Question : {{question}}
 Answer :

@@ -22,7 +22,13 @@ function PlaygroundQuestionResult({isLoading, result}){
                         <label className="label">Retrieved context:</label>
                         <Container>
                             <div className="question-contex">
-                                {result.context}
+                            <Container>
+                                <ul>
+                                    {result.context.map((doc) => (
+                                        <li>{doc}</li>
+                                    ))}
+                                </ul>
+                            </Container>
                             </div>
                         </Container>
                     </Container>

@@ -1,4 +1,4 @@
 Answer the question given the context.
 Question: {{question}}
-Context: {{context}}
+Context: {{context[0].split()[:100]}}
 Answer:
