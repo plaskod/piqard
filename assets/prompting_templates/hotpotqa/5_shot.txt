@@ -30,7 +30,7 @@ Question: Cadmium Chloride is slightly soluble in this chemical, it is also call
 Answer: alcohol
 
 
-Paragraph 1: {{context[0].split()[:100]}}
-Paragraph 2: {{context[1].split()[:100]}}
+Paragraph 1: {% if context %}{{" ".join(context[0].split()[:100])}}{% endif %}
+Paragraph 2: {% if context %}{{" ".join(context[1].split()[:100])}}{% endif %}
 Question: {{question}}
 Answer:

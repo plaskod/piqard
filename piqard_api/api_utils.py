@@ -22,6 +22,7 @@ def prepare_config_components() -> dict:
         ],
         "data_base": [
             {"name": "OpenBookQA Facts", "value": "openbookqa"},
+            {"name": "HotPotQA Documents", "value": "hotpotqa"},
         ],
         "k": [
             {"name": "1", "value": 1},

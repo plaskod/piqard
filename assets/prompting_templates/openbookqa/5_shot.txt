@@ -27,5 +27,5 @@ Answer: A. a tree
 
 Question: {{question}}
 Possible answers: {{possible_answers}}
-Facts: {{context[0].split()[:100]}}
+Facts: {% if context %}{{" ".join(context[0].split()[:100])}}{% endif %}
 Answer:
