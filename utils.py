@@ -1,6 +1,5 @@
 import json
 import os
-import string
 
 
 def directory(path: str) -> str:

@@ -5,8 +5,8 @@ from piqard.information_retrievers.retriever import Retriever
 
 
 class RankingRetriever(Retriever):
-    def __init__(self, database: str):
-        super().__init__(database)
+    def __init__(self, database: str, k: int = 1):
+        super().__init__(database, k)
         self.index = self.load_index(f"assets/database/{database}/bm25_index.pickle")
         self.stemmer = PorterStemmer()
 
@@ -17,8 +17,8 @@ class RankingRetriever(Retriever):
             new_sentance.append(self.stemmer.stem(word))
         return new_sentance
 
-    def get_documents(self, question: str, n: int = 1):
-        document_list = self.index.top_k_sentence(self.preprocess_query(question), k=n)
+    def get_documents(self, question: str):
+        document_list = self.index.top_k_sentence(self.preprocess_query(question), k=self.k)
         retireved_documents = [
             self.documents[document_info[1]] for document_info in document_list
         ]
