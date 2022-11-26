@@ -17,9 +17,10 @@ class BLOOM176bAPI(LanguageModel):
             exit(0)
         self.API_URL = "https://api-inference.huggingface.co/models/bigscience/bloom"
         self.headers = {"Authorization": f"Bearer {API_KEY}"}
+        self.options = {"temperature": 1.0, "do_sample": False}
 
     def query(self, payload: str) -> str:
-        response = requests.post(self.API_URL, headers=self.headers, json=payload)
+        response = requests.post(self.API_URL, headers=self.headers, json={'inputs': payload, "parameters": self.options})
         return response.json()
 
     def __str__(self) -> str:
