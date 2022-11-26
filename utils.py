@@ -14,5 +14,6 @@ def load_jsonl(path: str) -> list[dict]:
 
 
 def save_results(path: str, results: dict):
+    _ = directory(os.path.dirname(path))
     with open(path, "w") as f:
         json.dump(results, f)
