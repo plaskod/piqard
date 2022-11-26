@@ -7,6 +7,6 @@ class JINJALoader:
     def load(template: str) -> jinja2.Template:
         environment = jinja2.Environment()
         if os.path.isfile(template):
-            with open(template, "r") as file:
+            with open(template, "r", encoding="utf-8") as file:
                 template = file.read()
         return environment.from_string(template)

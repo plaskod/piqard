@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
-import { Container, Row, Col, Spinner } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import PlaygroundInferenceType from "../components/playground/PlaygroundInferenceType";
 import PromptTextBox from "../components/playground/PromptTextBox";
 

@@ -9,8 +9,8 @@ from piqard.information_retrievers.retriever import Retriever
 
 
 class GoogleCustomSearch(Retriever):
-    def __init__(self, database: str = None):
-        super().__init__(database)
+    def __init__(self, database: str = None, k: int = 1):
+        super().__init__(database, k)
         try:
             with open(
                 "assets/credentials/google_custom_search.json", "r"
@@ -25,7 +25,7 @@ class GoogleCustomSearch(Retriever):
             exit(0)
 
     def get_documents(
-        self, query: str, n: int = 1, start_date: str = "", end_date: str = ""
+        self, query: str, start_date: str = "", end_date: str = ""
     ) -> list:
         url = (
             f"https://www.googleapis.com/customsearch/v1?"
@@ -33,7 +33,7 @@ class GoogleCustomSearch(Retriever):
             f"&cx={self.engineID}"
             f"&q={query}"
             f"&start=1"
-            f"&num={n}"
+            f"&num={self.k}"
             f"&sort=date:r:{start_date}:{end_date}"
         )
         data = requests.get(url).json()

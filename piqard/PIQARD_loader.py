@@ -3,8 +3,6 @@ import os
 import ruamel.yaml
 
 from piqard.PIQARD import PIQARD
-from piqard.context_builders.merged_context_builder import MergedContextBuilder
-from piqard.context_builders.truncated_context_builder import TruncatedContextBuilder
 from piqard.information_retrievers.google_custom_search import GoogleCustomSearch
 from piqard.information_retrievers.ranking_retriever import RankingRetriever
 from piqard.information_retrievers.vector_retirever import VectorRetriever
@@ -18,8 +16,6 @@ class PIQARDLoader:
         self.yaml.register_class(RankingRetriever)
         self.yaml.register_class(VectorRetriever)
         self.yaml.register_class(GoogleCustomSearch)
-        self.yaml.register_class(TruncatedContextBuilder)
-        self.yaml.register_class(MergedContextBuilder)
         self.yaml.register_class(BLOOM176bAPI)
         self.yaml.register_class(GPTj6bAPI)
 

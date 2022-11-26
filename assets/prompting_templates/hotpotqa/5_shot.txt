@@ -1,0 +1,36 @@
+Answer the question given the paragraphs.
+
+Paragraph 1: Arthur's Magazine (1844–1846) was an American literary periodical published in Philadelphia in the 19th century.  Edited by T.S. Arthur, it featured work by Edgar A. Poe, J.H. Ingraham, Sarah Josepha Hale, Thomas G. Spear, and others.  In May 1846 it was merged into 'Godey's Lady's Book'.
+Paragraph 2: First for Women is a woman's magazine published by Bauer Media Group in the USA.  The magazine was started in 1989.  It is based in Englewood Cliffs, New Jersey.  In 2011 the circulation of the magazine was 1,310,696 copies.
+Question: Which magazine was started first Arthur's Magazine or First for Women?
+Answer: Arthur's Magazine
+
+
+Paragraph 1: The Oberoi family is an Indian family that is famous for its involvement in hotels, namely through The Oberoi Group.
+Paragraph 2: The Oberoi Group is a hotel company with its head office in Delhi.  Founded in 1934, the company owns and/or operates 30+ luxury hotels and two river cruise ships in six countries, primarily under its Oberoi Hotels & Resorts and Trident Hotels brands.
+Question: The Oberoi family is part of a hotel company that has a head office in what city?
+Answer: Delhi
+
+
+Paragraph 1: Allison Beth 'Allie' Goertz (born March 2, 1991) is an American musician.  Goertz is known for her satirical songs based on various pop culture topics.  Her videos are posted on YouTube under the name of Cossbysweater.  Subjects of her songs have included the film 'The Room', the character Milhouse from the television show 'The Simpsons', and the game Dungeons & Dragons.  Her style has been compared to that of Bo Burnham.  In December 2015, Goertz released a concept album based on the Adult Swim series 'Rick and Morty', 'Sad Dance Songs', with the album's cover emulating the animation and logo of the series.  The album was made possible through Kickstarter.  She is co-host of Everything's Coming Up Podcast, a Simpsons-focused podcast along with Julia Prescott.
+Paragraph 2: Milhouse Mussolini van Houten is a fictional character featured in the animated television series 'The Simpsons', voiced by Pamela Hayden, and created by Matt Groening who named the character after President Richard Nixon's middle name.  Later in the series, it is revealed that Milhouse's middle name is 'Mussolini.'
+Question: Musician and satirist Allie Goertz wrote a song about the 'The Simpsons' character Milhouse, who Matt Groening named after who?
+Answer: President Richard Nixon
+
+
+Paragraph 1: Margaret 'Peggy' Seeger (born June 17, 1935) is an American folksinger.  She is also well known in Britain, where she has lived for more than 30 years, and was married to the singer and songwriter Ewan MacColl until his death in 1989.
+Paragraph 2: James Henry Miller (25 January 1915 – 22 October 1989), better known by his stage name Ewan MacColl, was an English folk singer, songwriter, communist, labour activist, actor, poet, playwright and record producer.
+Question:  What nationality was James Henry Miller's wife?
+Answer: American
+
+
+Paragraph 1: Cadmium chloride is a white crystalline compound of cadmium and chlorine, with the formula CdCl.  It is a hygroscopic solid that is highly soluble in water and slightly soluble in alcohol.  Although it is considered to be ionic, it has considerable covalent character to its bonding.  The crystal structure of cadmium chloride (described below), composed of two-dimensional layers of ions, is a reference for describing other crystal structures.  Also known are CdCl•HO and CdCl•5HO.
+Paragraph 2: Ethanol, also called alcohol, ethyl alcohol, and drinking alcohol, is a compound and simple alcohol with the chemical formula C2H5OH .  Its formula can be written also as CH3 −CH2 −OH or C2H5 −OH (an ethyl group linked to a hydroxyl group), and is often abbreviated as EtOH.  Ethanol is a volatile, flammable, colorless liquid with a slight characteristic odor.  It is used as a drug and is the principal type of alcohol found in alcoholic drinks.
+Question: Cadmium Chloride is slightly soluble in this chemical, it is also called what?
+Answer: alcohol
+
+
+Paragraph 1: {% if context %}{{" ".join(context[0].split()[:100])}}{% endif %}
+Paragraph 2: {% if context %}{{" ".join(context[1].split()[:100])}}{% endif %}
+Question: {{question}}
+Answer:

@@ -27,5 +27,5 @@ Answer: D. None of the above
 
 Question: {{question}}
 Possible answers: {{possible_answers}}
-Context: {{context}}
+Context: {{" ".join(context[0].split()[:100])}}
 Answer:

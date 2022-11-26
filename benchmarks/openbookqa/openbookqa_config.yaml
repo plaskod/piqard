@@ -1,5 +1,5 @@
 information_retriever: !RankingRetriever
   database: openbookqa
+  k: 1
 prompt_template: assets/prompting_templates/openbookqa/5_shot.txt
-context_builder: !TruncatedContextBuilder
 language_model: !BLOOM176bAPI

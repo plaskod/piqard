@@ -1,5 +1,6 @@
 import argparse
 
+from benchmarks.hotpotqa.evaluate import HotPotQAEvaluator
 from benchmarks.openbookqa.evaluate import OpenBookQAEvaluator
 from benchmarks.realtimeqa.evaluate import RealTimeQAEvaluator
 from piqard.PIQARD_loader import PIQARDLoader
@@ -12,7 +13,6 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--config",
-        nargs="?",
         type=str,
         help="query",
         default="./benchmarks/openbookqa/openbookqa_config.yaml",
@@ -30,6 +30,10 @@ if __name__ == "__main__":
         "openbookqa": {
             "path": "./benchmarks/openbookqa/test.jsonl",
             "evaluator": OpenBookQAEvaluator,
+        },
+        "hotpotqa": {
+            "path": "./benchmarks/hotpotqa/queries_30.jsonl",
+            "evaluator": HotPotQAEvaluator,
         },
     }
 
