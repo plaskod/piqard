@@ -1,0 +1,5 @@
+information_retriever: !VectorRetriever
+  database: openbookqa
+  k: 3
+prompt_template: assets/prompting_templates/openbookqa/5_shot_3_documents.txt
+language_model: !BLOOM176bAPI
