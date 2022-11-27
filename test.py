@@ -15,7 +15,7 @@ if __name__ == "__main__":
         "--config",
         type=str,
         help="query",
-        default="./benchmarks/openbookqa/openbookqa_config.yaml",
+        default="./assets/configs/config.yaml",
     )
     parser.add_argument(
         "--output", default="./result/result.json", help="output path for results"
@@ -28,7 +28,7 @@ if __name__ == "__main__":
             "evaluator": RealTimeQAEvaluator,
         },
         "openbookqa": {
-            "path": "./benchmarks/openbookqa/test.jsonl",
+            "path": "./benchmarks/openbookqa/test_30.jsonl",
             "evaluator": OpenBookQAEvaluator,
         },
         "hotpotqa": {

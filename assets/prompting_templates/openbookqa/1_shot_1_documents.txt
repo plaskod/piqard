@@ -1,0 +1,13 @@
+Answer the question based on the facts.
+
+Question: The sun is responsible for
+Possible answers: A. puppies learning new tricks, B. children growing up and getting old, C. flowers wilting in a vase, D. plants sprouting, blooming and wilting
+Facts:
+- the sun is the source of energy for physical cycles on Earth
+Answer: D. plants sprouting, blooming and wilting
+
+Question: {{question}}
+Possible answers: {{possible_answers}}
+Facts: {% if context %}{% for fact in context %}
+- {{fact}}{% endfor %}{% endif %}
+Answer:

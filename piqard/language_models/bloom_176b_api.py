@@ -1,8 +1,7 @@
 import json
-import os
 import requests
 
-from piqard.language_models.language_model import LanguageModel
+from piqard.language_models.language_model import LanguageModel, LanguageModelAPIOverloadException
 
 
 class BLOOM176bAPI(LanguageModel):
@@ -21,7 +20,12 @@ class BLOOM176bAPI(LanguageModel):
 
     def query(self, payload: str) -> str:
         response = requests.post(self.API_URL, headers=self.headers, json={'inputs': payload, "parameters": self.options})
-        return response.json()
+        data = response.json()
+        if type(data) == dict and 'error' in data.keys():
+            raise LanguageModelAPIOverloadException
+        return data
 
     def __str__(self) -> str:
         return "BLOOM 176b huggingface.co API"
+
+
