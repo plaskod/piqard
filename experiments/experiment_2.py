@@ -20,4 +20,4 @@ if __name__ == "__main__":
         piqard = piqard_loader.load(config)
         evaluator = OpenBookQAEvaluator(piqard)
         results = evaluator.evaluate(benchmark, f"result/openbookqa/experiments/n_shots/{name}_checkpoint.jsonl")
-        save_results(f"result/openbookqa/tests/n_shots/{name}.json", results)
+        save_results(f"result/openbookqa/experiments/n_shots/{name}.json", results)
