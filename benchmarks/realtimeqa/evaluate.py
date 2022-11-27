@@ -16,23 +16,13 @@ class RealTimeQAEvaluator(Evaluator):
         answer = f"{question['answer'][0]}. {question['choices'][int(question['answer'][0])]}"
         return question_sentence, possible_answers, answer
 
-    def evaluate(self, benchamark: list[dict]) -> dict:
-        results = []
-        report = []
-        for question in tqdm.tqdm(benchamark, desc="Processing questions: "):
-            question_sentence, possible_answers, answer = self.preprocess(question)
-            predicted_answer, context = self.predict(
-                question_sentence, possible_answers
-            )
-            results.append((predicted_answer, answer))
-            report.append(
-                {
+    def evaluate_question(self, question: dict) -> dict:
+        question_sentence, possible_answers, answer = self.preprocess(question)
+        predicted_answer, context = self.predict(question_sentence, possible_answers)
+        return {
+                    "id": question['question_id'],
                     "question": question_sentence,
                     "answer": answer,
                     "context": context,
                     "predicted_answer": predicted_answer,
                 }
-            )
-
-        scores = self.gen_eval(results)
-        return {"scores": scores, "report": report}

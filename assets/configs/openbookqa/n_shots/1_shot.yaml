@@ -1,0 +1,5 @@
+information_retriever: !RankingRetriever
+  database: openbookqa
+  k: 1
+prompt_template: assets/prompting_templates/openbookqa/1_shot_1_documents.txt
+language_model: !BLOOM176bAPI

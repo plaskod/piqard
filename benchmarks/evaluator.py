@@ -1,7 +1,14 @@
+import json
 import string
+import time
 from collections import Counter
+from pathlib import Path
+
+import tqdm
 
 from piqard.PIQARD import PIQARD
+from piqard.language_models.language_model import LanguageModelAPIOverloadException
+from utils import load_jsonl, directory
 
 
 class Evaluator:
@@ -11,8 +18,40 @@ class Evaluator:
     def preprocess(self, benchmark: list[dict]) -> tuple[str, str, str]:
         pass
 
-    def evaluate(self, benchmark: list[dict]) -> dict:
+    def evaluate_question(self, question: dict) -> dict:
         pass
+
+    def evaluate(self, benchmark: list[dict], checkpoint: str = None) -> dict:
+        results = []
+        if checkpoint:
+            results = self.from_checkpoint(checkpoint)
+            checkpoint = open(checkpoint, "a+")
+
+        for question in tqdm.tqdm(benchmark[len(results):], desc="Processing questions: "):
+            done = False
+            while not done:
+                try:
+                    question_result = self.evaluate_question(question)
+                    results.append(question_result)
+                    done = True
+                except LanguageModelAPIOverloadException:
+                    print("\nAPI inference overload... waiting 60s")
+                    time.sleep(60)
+
+            if checkpoint:
+                checkpoint.write(json.dumps(question_result) + '\n')
+
+        if checkpoint:
+            checkpoint.close()
+
+        scores = self.gen_eval(results)
+        return {"scores": scores, "report": results}
+
+    @staticmethod
+    def from_checkpoint(checkpoint: str) -> list[dict]:
+        _ = directory("/".join(checkpoint.split('/')[:-1]))
+        Path(checkpoint).touch(exist_ok=True)
+        return load_jsonl(checkpoint)
 
     def predict(self, question: str, possible_answers: str = None) -> tuple[str, list[str]]:
         retrieved_documents = None
@@ -37,10 +76,11 @@ class Evaluator:
         ) / len(results)
         return {"accuracy": acc}
 
-    def gen_eval(self, results: list[tuple[str, str]]) -> dict:
+    def gen_eval(self, results: list[dict]) -> dict:
         em_total, cem_total, f1_total = 0, 0, 0
         count = len(results)
-        for prediction, ground_truth in results:
+        for result in results:
+            prediction, ground_truth = result['predicted_answer'], result['answer']
             em_total += self.exact_match_score(prediction, ground_truth)
             cem_total += self.cover_exact_match_score(prediction, ground_truth)
             f1_total += self.f1_score(prediction, ground_truth)
