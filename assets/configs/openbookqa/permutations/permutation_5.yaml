@@ -1,0 +1,5 @@
+information_retriever: !VectorRetriever
+  database: openbookqa
+  k: 1
+prompt_template: assets/prompting_templates/openbookqa/permutations/permutation_5.txt
+language_model: !BLOOM176bAPI
