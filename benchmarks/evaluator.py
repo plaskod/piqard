@@ -18,7 +18,7 @@ class Evaluator:
     def preprocess(self, benchmark: list[dict]) -> tuple[str, str, str]:
         pass
 
-    def evaluate_question(self, question: dict) -> dict:
+    def evaluate_question(self, question: dict, dynamic_prompt: bool = False ) -> dict:
         pass
 
     def evaluate(self, benchmark: list[dict], checkpoint: str = None) -> dict:
@@ -27,6 +27,12 @@ class Evaluator:
             results = self.from_checkpoint(checkpoint)
             checkpoint = open(checkpoint, "a+")
 
+        current_token = 0
+        tokens = {0: "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",
+                  1: "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",
+                  2: "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",
+                  3: "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",
+                  4: "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"}
         for question in tqdm.tqdm(benchmark[len(results):], desc="Processing questions: "):
             done = False
             while not done:
@@ -35,8 +41,10 @@ class Evaluator:
                     results.append(question_result)
                     done = True
                 except LanguageModelAPIOverloadException:
-                    print("\nAPI inference overload... waiting 60s")
-                    time.sleep(60)
+                    current_token = (current_token + 1) % 5
+                    self.piqard.language_model.API_KEY = tokens[current_token]
+                    print(f"\nAPI inference overload, change to: {self.piqard.language_model.API_KEY}... waiting 10s")
+                    time.sleep(10)
 
             if checkpoint:
                 checkpoint.write(json.dumps(question_result) + '\n')

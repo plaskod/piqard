@@ -15,7 +15,7 @@ class BLOOM176bAPI(LanguageModel):
             print("api_key.json not found or incorrect file structure.")
             exit(0)
         self.API_URL = "https://api-inference.huggingface.co/models/bigscience/bloom"
-        self.options = {"temperature": 1.0, "do_sample": False}
+        self.options = {}
 
     def query(self, payload: str) -> str:
         response = requests.post(self.API_URL,
