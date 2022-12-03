@@ -1,5 +1,6 @@
-information_retriever: !RankingRetriever
+information_retriever: !VectorRetriever
   database: openbookqa
-  k: 5
-prompt_template: assets/prompting_templates/context_prompt.txt
+  k: 3
+  n: 5
+prompt_template: assets/prompting_templates/dynamic_prompt.txt
 language_model: !BLOOM176bAPI

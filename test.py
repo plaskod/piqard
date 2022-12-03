@@ -1,10 +1,9 @@
 import argparse
 
-from benchmarks.hotpotqa.evaluate import HotPotQAEvaluator
-from benchmarks.openbookqa.evaluate import OpenBookQAEvaluator
-from benchmarks.realtimeqa.evaluate import RealTimeQAEvaluator
+from benchmarks.benchmark_evaluator import BenchmarkEvaluator
+from database_loaders.database_loader_factory import DataBaseLoaderFactory
 from piqard.PIQARD_loader import PIQARDLoader
-from utils import load_jsonl, save_results
+from utils import save_results
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -22,29 +21,12 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    benchmark_configs = {
-        "realtimeqa": {
-            "path": "./benchmarks/realtimeqa/20220617_qa.jsonl",
-            "evaluator": RealTimeQAEvaluator,
-        },
-        "openbookqa": {
-            "path": "./benchmarks/openbookqa/test_30.jsonl",
-            "evaluator": OpenBookQAEvaluator,
-        },
-        "hotpotqa": {
-            "path": "./benchmarks/hotpotqa/queries_30.jsonl",
-            "evaluator": HotPotQAEvaluator,
-        },
-    }
-
-    if args.benchmark not in benchmark_configs.keys():
-        print(f"Benchmark {args.benchmark} is not implemented")
-        exit(0)
-
-    benchmark = load_jsonl(benchmark_configs[args.benchmark]["path"])
+    database_loader = DataBaseLoaderFactory(args.benchmark)
+    benchmark = database_loader.load_questions(test=True)
 
     piqard_loader = PIQARDLoader()
     piqard = piqard_loader.load(args.config)
-    evaluator = benchmark_configs[args.benchmark]["evaluator"](piqard)
-    results = evaluator.evaluate(benchmark)
+
+    benchmark_evaluator = BenchmarkEvaluator(piqard)
+    results = benchmark_evaluator.evaluate(benchmark, args.output.replace('.json', '_checkpoint.jsonl'))
     save_results(args.output, results)

@@ -30,6 +30,6 @@ if __name__ == "__main__":
     result = piqard(args.query)
 
     with open(f"{directory(args.output)}/generated_result.txt", "w") as f:
-        json.dump(result, f)
+        json.dump(result, f, indent=4)
     print("== Result")
     print(result["answer"])
