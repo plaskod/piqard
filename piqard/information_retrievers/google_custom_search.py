@@ -5,11 +5,12 @@ import requests
 from tqdm import tqdm
 from newspaper import Article
 
+from piqard.information_retrievers.exceptions import DynamicPromptingNotImplementedException
 from piqard.information_retrievers.retriever import Retriever
 
 
 class GoogleCustomSearch(Retriever):
-    def __init__(self, database: str = None, k: int = 1):
+    def __init__(self, database: str = None, k: int = 1, n: int = 0):
         super().__init__(database, k)
         try:
             with open(
@@ -23,6 +24,9 @@ class GoogleCustomSearch(Retriever):
                 "Google Custom Search credentials not found or incorrect file structure."
             )
             exit(0)
+
+        if n > 0:
+            raise DynamicPromptingNotImplementedException
 
     def get_documents(
         self, query: str, start_date: str = "", end_date: str = ""

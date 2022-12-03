@@ -1,5 +1,6 @@
 import json
 import os
+import tqdm
 
 
 def directory(path: str) -> str:
@@ -9,7 +10,7 @@ def directory(path: str) -> str:
 
 def load_jsonl(path: str) -> list[dict]:
     with open(path, "r") as f:
-        data = [json.loads(jline) for jline in f.read().splitlines()]
+        data = [json.loads(jline) for jline in tqdm.tqdm(f.read().splitlines())]
     return data
 
 

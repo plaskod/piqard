@@ -11,17 +11,26 @@ class PIQARD:
             prompt_template: str,
             language_model: LanguageModel,
             information_retriever: Retriever = None,
+            use_dynamic_prompting: bool = False
     ):
         self.information_retriever = information_retriever
         self.prompt_template = JINJALoader.load(prompt_template)
         self.language_model = language_model
+        self.use_dynamic_prompting = use_dynamic_prompting
 
     def __call__(self, query: str) -> dict:
         retrieved_documents = None
+        prompt_examples = None
+
         if self.information_retriever:
             retrieved_documents = self.information_retriever.get_documents(query)
 
-        prompt = self.prompt_template.render(question=query, context=retrieved_documents)
+            if self.information_retriever.n > 0:
+                prompt_examples = self.information_retriever.get_questions(query)
+
+        prompt = self.prompt_template.render(question=query,
+                                             context=retrieved_documents,
+                                             prompt_examples=prompt_examples)
         generated_answer = self.language_model.query(prompt)
 
         final_answer = generated_answer[0]["generated_text"][len(prompt):]
