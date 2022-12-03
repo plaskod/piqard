@@ -13,7 +13,7 @@ class RankingRetriever(Retriever):
             try:
                 self.question_index = self.load_index(f"assets/database/{database}/question_bm25_index.pickle")
             except FileNotFoundError:
-                raise DynamicPromptingNotImplementedException
+                raise DynamicPromptingNotImplementedException(self.__str__())
         self.stemmer = PorterStemmer()
 
     def preprocess_query(self, query: str) -> list[str]:

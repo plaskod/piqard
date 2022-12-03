@@ -14,7 +14,7 @@ class AnnoyRetriever(Retriever):
             try:
                 self.question_index.load(f"assets/database/{database}/question_annoy_index_384.ann")
             except FileNotFoundError:
-                raise DynamicPromptingNotImplementedException
+                raise DynamicPromptingNotImplementedException(self.__str__())
         self.model = SentenceTransformer("multi-qa-MiniLM-L6-cos-v1")
 
     def get_documents(self, question: str):

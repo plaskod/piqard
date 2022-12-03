@@ -62,20 +62,8 @@ class Evaluator:
         return load_jsonl(checkpoint)
 
     def predict(self, question: str, possible_answers: str = None) -> tuple[str, list[str]]:
-        retrieved_documents = None
-        if self.piqard.information_retriever is not None:
-            retrieved_documents = self.piqard.information_retriever.get_documents(
-                question
-            )
-
-        prompt = self.piqard.prompt_template.render(
-            question=question, context=retrieved_documents, possible_answers=possible_answers
-        )
-        generated_answer = self.piqard.language_model.query(prompt)
-        final_answer = generated_answer[0]["generated_text"][len(prompt):].split("\n")[
-            0
-        ]
-        return final_answer, retrieved_documents
+        result = self.piqard(question, possible_answers)
+        return result['answer'], result['context']
 
     @staticmethod
     def accuracy(results: list[tuple[str, str]]) -> dict:

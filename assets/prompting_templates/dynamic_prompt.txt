@@ -1,0 +1,13 @@
+Answer the question based on the facts.
+{% for example in prompt_examples %}
+Question: {{example['text']}}
+Facts: {% if example['context'] %}{% for fact in example['context'] %}
+- {{fact}}{% endfor %}{% endif %}
+Answer: {{example['answer']}}
+
+{% endfor %}
+
+Question: {{question}}
+Facts: {% if context %}{% for fact in context %}
+- {{fact}}{% endfor %}{% endif %}
+Answer:

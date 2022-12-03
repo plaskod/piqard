@@ -26,7 +26,7 @@ class GoogleCustomSearch(Retriever):
             exit(0)
 
         if n > 0:
-            raise DynamicPromptingNotImplementedException
+            raise DynamicPromptingNotImplementedException(self.__str__())
 
     def get_documents(
         self, query: str, start_date: str = "", end_date: str = ""
