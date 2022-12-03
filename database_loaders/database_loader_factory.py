@@ -6,7 +6,7 @@ class DataBaseLoaderFactory:
         try:
             module = importlib.import_module(f"database_loaders.{database}_loader")
         except (ImportError, AttributeError):
-            raise ValueError(f"Unknown database {database}") from None
+            raise ValueError(f"Unknown database {database}")
 
         self.load_documents = getattr(module, f"load_documents")
         self.load_questions = getattr(module, f"load_questions")

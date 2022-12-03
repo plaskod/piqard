@@ -11,15 +11,20 @@ from piqard.language_models.language_model import LanguageModelAPIOverloadExcept
 from utils import load_jsonl, directory
 
 
-class Evaluator:
+class BenchmarkEvaluator:
     def __init__(self, piqard: PIQARD):
         self.piqard = piqard
 
-    def preprocess(self, benchmark: list[dict]) -> tuple[str, str, str]:
-        pass
-
-    def evaluate_question(self, question: dict, dynamic_prompt: bool = False ) -> dict:
-        pass
+    def evaluate_question(self, question: dict) -> dict:
+        predicted_answer, context = self.predict(question['text'], question['possible_answers'])
+        return {
+            "id": question['id'],
+            "question": question['text'],
+            "possible_answers": question['possible_answers'],
+            "answer": question['answer'],
+            "context": context,
+            "predicted_answer": predicted_answer,
+        }
 
     def evaluate(self, benchmark: list[dict], checkpoint: str = None) -> dict:
         results = []

@@ -1,25 +1,26 @@
 import os
 import sys
 import inspect
-from collections import defaultdict
+
 
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parentdir = os.path.dirname(currentdir)
 sys.path.insert(0, parentdir)
 
-import glob
-from benchmarks.openbookqa.evaluate import OpenBookQAEvaluator
+from benchmarks.benchmark_evaluator import BenchmarkEvaluator
+from database_loaders.database_loader_factory import DataBaseLoaderFactory
 from piqard.PIQARD_loader import PIQARDLoader
-from utils import load_jsonl, save_results
+from utils import save_results
 
 
 if __name__ == "__main__":
-    benchmark = load_jsonl("./benchmarks/openbookqa/test_30.jsonl")
+    database_loader = DataBaseLoaderFactory("openbookqa")
+    benchmark = database_loader.load_questions(test=True)
 
     piqard_loader = PIQARDLoader()
     config = "assets\\configs\\openbookqa\\dynamic_prompting\\config.yaml"
     name = config.split("\\")[-1].replace(".yaml", "")
     piqard = piqard_loader.load(config)
-    evaluator = OpenBookQAEvaluator(piqard)
-    results = evaluator.evaluate(benchmark, f"result/openbookqa/experiments/dynamic_prompting/{name}_checkpoint.jsonl")
+    benchmark_evaluator = BenchmarkEvaluator(piqard)
+    results = benchmark_evaluator.evaluate(benchmark, f"result/openbookqa/experiments/dynamic_prompting/{name}_checkpoint.jsonl")
     save_results(f"result/openbookqa/experiments/dynamic_prompting/{name}.json", results)

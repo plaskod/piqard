@@ -32,7 +32,6 @@ class PIQARD:
                                              possible_answers=possible_answers,
                                              prompt_examples=prompt_examples)
 
-        print(prompt)
         generated_answer = self.language_model.query(prompt)
 
         final_answer = generated_answer[0]["generated_text"][len(prompt):].split("\n")[0]
