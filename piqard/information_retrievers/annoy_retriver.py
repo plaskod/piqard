@@ -3,7 +3,7 @@ from annoy import AnnoyIndex
 from piqard.information_retrievers.retriever import Retriever
 
 
-class AnnoyRetriver(Retriever):
+class AnnoyRetriever(Retriever):
     def __init__(self, database: str, k: int = 1):
         super().__init__(database, k)
         self.index = AnnoyIndex(384, 'angular')
