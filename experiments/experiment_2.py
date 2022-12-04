@@ -10,7 +10,7 @@ sys.path.insert(0, parentdir)
 import glob
 from piqard.PIQARD_loader import PIQARDLoader
 from utils import save_results
-from benchmarks.benchmark_evaluator import BenchmarkEvaluator
+from experiments.benchmark_evaluator import BenchmarkEvaluator
 from database_loaders.database_loader_factory import DataBaseLoaderFactory
 
 if __name__ == "__main__":
