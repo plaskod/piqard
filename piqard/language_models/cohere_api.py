@@ -14,12 +14,13 @@ class CohereAPI(LanguageModel):
             exit(0)
         self.client = cohere.Client(self.API_KEY)
         self.parameters = {"model": 'xlarge',
+                           "max_tokens": 500,
                            "temperature": 0,
                            "k": 1} | {"stop_sequences": [self.stop_token]} if self.stop_token is not None else {}
 
     def query(self, payload: str) -> str:
         response = self.client.generate(prompt=payload, **self.parameters)
-        return response.generations[0].text
+        return response.generations[0].text.replace(self.stop_token, "").strip().strip("\n")
 
     def __str__(self) -> str:
         return "Cohere API"
