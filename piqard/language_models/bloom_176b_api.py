@@ -8,7 +8,8 @@ from piqard.language_models.language_model import (
 
 
 class BLOOM176bAPI(LanguageModel):
-    def __init__(self):
+    def __init__(self, stop_token: str = None):
+        super().__init__(stop_token)
         try:
             with open("assets/credentials/huggingface.json", "r") as f:
                 self.API_KEY = json.load(f)["APIkey"]
@@ -19,6 +20,14 @@ class BLOOM176bAPI(LanguageModel):
         self.parameters = {"use_cache": False, "temperature": 0.000001, "top_k": 1}
 
     def query(self, payload: str) -> str:
+        generated_answer = self.single_query(payload)
+        if self.stop_token:
+            while generated_answer.find(self.stop_token) == -1:
+                generated_text = self.single_query(payload + generated_answer)
+                generated_answer += generated_text
+        return generated_answer.split(self.stop_token)[0]
+
+    def single_query(self, payload: str) -> str:
         response = requests.post(
             self.API_URL,
             headers={"Authorization": f"Bearer {self.API_KEY}"},
@@ -30,7 +39,7 @@ class BLOOM176bAPI(LanguageModel):
         data = response.json()
         if type(data) == dict and "error" in data.keys():
             raise LanguageModelAPIOverloadException(self.__str__())
-        return data
+        return data[0]["generated_text"].split(payload)[1]
 
     def __str__(self) -> str:
         return "BLOOM 176b huggingface.co API"

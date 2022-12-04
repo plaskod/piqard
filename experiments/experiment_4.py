@@ -7,7 +7,7 @@ currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentfram
 parentdir = os.path.dirname(currentdir)
 sys.path.insert(0, parentdir)
 
-from benchmarks.benchmark_evaluator import BenchmarkEvaluator
+from experiments.benchmark_evaluator import BenchmarkEvaluator
 from database_loaders.database_loader_factory import DataBaseLoaderFactory
 from piqard.PIQARD_loader import PIQARDLoader
 from utils import save_results

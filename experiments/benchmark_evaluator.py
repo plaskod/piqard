@@ -42,7 +42,7 @@ class BenchmarkEvaluator:
             4: "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",
         }
         for question in tqdm.tqdm(
-            benchmark[len(results) :], desc="Processing questions: "
+            benchmark[len(results):], desc="Processing questions: "
         ):
             done = False
             while not done:
@@ -57,7 +57,6 @@ class BenchmarkEvaluator:
                         e.message + f" APIkey change to: {self.piqard.language_model.API_KEY}... waiting 10s"
                     )
                     time.sleep(10)
-
 
             if checkpoint:
                 checkpoint.write(json.dumps(question_result) + "\n")
