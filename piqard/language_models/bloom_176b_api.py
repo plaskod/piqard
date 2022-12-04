@@ -24,7 +24,7 @@ class BLOOM176bAPI(LanguageModel):
         if self.stop_token:
             while generated_answer.find(self.stop_token) == -1:
                 generated_text = self.single_query(payload + generated_answer)
-                generated_answer += generated_text.split(self.stop_token)
+                generated_answer += generated_text
         return generated_answer.split(self.stop_token)[0]
 
     def single_query(self, payload: str) -> str:
