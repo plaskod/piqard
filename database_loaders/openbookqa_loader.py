@@ -7,8 +7,12 @@ def load_documents() -> list[dict]:
     return prepared_documents
 
 
-def load_questions(test: bool = False) -> list[dict]:
-    raw_questions = load_jsonl(f"assets/database/openbookqa/{'test' if test else 'train'}.jsonl")
+def load_questions(test: bool = False, number: int = None) -> list[dict]:
+    raw_questions = load_jsonl(
+        f"assets/database/openbookqa/{'test' if test else 'train'}.jsonl"
+    )
+    if number is not None:
+        raw_questions = raw_questions[: min(len(raw_questions), number)]
     prepared_questions = []
     for question in raw_questions:
         question_id = question["id"]

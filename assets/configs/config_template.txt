@@ -3,5 +3,6 @@ information_retriever: {{information_retriever}}
     {% if database is not none %}database: {{database}}{% endif %}
     {% if k is not none %}k: {{k}}{% endif %}
 {% endif %}
-prompt_template: "{{prompt_template.replace("\n","\\n").replace("\"","\'")}}"
+prompt_template: !PromptTemplate
+    template: "{{prompt_template.replace("\n","\\n").replace("\"","\'")}}"
 language_model: {{language_model}}

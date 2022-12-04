@@ -1,20 +1,22 @@
 from piqard.extensions.dynamic_prompting import get_prompt_examples
+from piqard.utils.answer_postprocess import postprocess_answer
+from piqard.utils.multiply_inference_requests import multiply_inference_requests
+from piqard.utils.prompt_template import PromptTemplate
 from piqard.utils.yaml_constructor import yaml_constructor
 from piqard.information_retrievers.retriever import Retriever
 from piqard.language_models.language_model import LanguageModel
-from piqard.utils.jinja_loader import JINJALoader
 
 
 @yaml_constructor
 class PIQARD:
     def __init__(
-            self,
-            prompt_template: str,
-            language_model: LanguageModel,
-            information_retriever: Retriever = None,
+        self,
+        prompt_template: PromptTemplate,
+        language_model: LanguageModel,
+        information_retriever: Retriever = None,
     ):
         self.information_retriever = information_retriever
-        self.prompt_template = JINJALoader.load(prompt_template)
+        self.prompt_template = prompt_template
         self.language_model = language_model
 
     def __call__(self, query: str, possible_answers: str = None) -> dict:
@@ -27,16 +29,27 @@ class PIQARD:
             if self.information_retriever.n > 0:
                 prompt_examples = get_prompt_examples(query, self.information_retriever)
 
-        prompt = self.prompt_template.render(question=query,
-                                             context=retrieved_documents,
-                                             possible_answers=possible_answers,
-                                             prompt_examples=prompt_examples)
+        prompt = self.prompt_template.render(
+            question=query,
+            context=retrieved_documents,
+            possible_answers=possible_answers,
+            prompt_examples=prompt_examples,
+        )
 
-        generated_answer = self.language_model.query(prompt)
+        generated_answer = multiply_inference_requests(
+            prompt, self.language_model, self.prompt_template.stop_token
+        )
+        final_answer = postprocess_answer(
+            generated_answer, self.prompt_template.fix_text
+        )
 
-        final_answer = generated_answer[0]["generated_text"][len(prompt):].split("\n")[0]
-
-        return {"prompt": prompt, "answer": final_answer, "context": retrieved_documents, "prompt_examples": prompt_examples}
+        return {
+            "prompt": prompt,
+            "raw_answer": generated_answer,
+            "answer": final_answer,
+            "context": retrieved_documents,
+            "prompt_examples": prompt_examples,
+        }
 
     def show_info(self):
         print("===== PIQARD =====")

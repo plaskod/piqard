@@ -10,5 +10,3 @@ class DataBaseLoaderFactory:
 
         self.load_documents = getattr(module, f"load_documents")
         self.load_questions = getattr(module, f"load_questions")
-
-

@@ -16,14 +16,15 @@ class BenchmarkEvaluator:
         self.piqard = piqard
 
     def evaluate_question(self, question: dict) -> dict:
-        predicted_answer, context = self.predict(question['text'], question['possible_answers'])
+        result = self.piqard(question["text"], question["possible_answers"])
         return {
-            "id": question['id'],
-            "question": question['text'],
-            "possible_answers": question['possible_answers'],
-            "answer": question['answer'],
-            "context": context,
-            "predicted_answer": predicted_answer,
+            "id": question["id"],
+            "question": question["text"],
+            "possible_answers": question["possible_answers"],
+            "answer": question["answer"],
+            "context": result["context"],
+            "predicted_answer": result["answer"],
+            "raw_predicted_answer": result["raw_answer"],
         }
 
     def evaluate(self, benchmark: list[dict], checkpoint: str = None) -> dict:
@@ -33,12 +34,16 @@ class BenchmarkEvaluator:
             checkpoint = open(checkpoint, "a+")
 
         current_token = 0
-        tokens = {0: "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",
-                  1: "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",
-                  2: "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",
-                  3: "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",
-                  4: "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"}
-        for question in tqdm.tqdm(benchmark[len(results):], desc="Processing questions: "):
+        tokens = {
+            0: "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",
+            1: "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",
+            2: "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",
+            3: "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",
+            4: "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",
+        }
+        for question in tqdm.tqdm(
+            benchmark[len(results) :], desc="Processing questions: "
+        ):
             done = False
             while not done:
                 try:
@@ -48,11 +53,13 @@ class BenchmarkEvaluator:
                 except LanguageModelAPIOverloadException:
                     current_token = (current_token + 1) % 5
                     self.piqard.language_model.API_KEY = tokens[current_token]
-                    print(f"\nAPI inference overload, change to: {self.piqard.language_model.API_KEY}... waiting 10s")
+                    print(
+                        f"\nAPI inference overload, change to: {self.piqard.language_model.API_KEY}... waiting 10s"
+                    )
                     time.sleep(10)
 
             if checkpoint:
-                checkpoint.write(json.dumps(question_result) + '\n')
+                checkpoint.write(json.dumps(question_result) + "\n")
 
         if checkpoint:
             checkpoint.close()
@@ -62,13 +69,9 @@ class BenchmarkEvaluator:
 
     @staticmethod
     def from_checkpoint(checkpoint: str) -> list[dict]:
-        _ = directory("/".join(checkpoint.split('/')[:-1]))
+        _ = directory("/".join(checkpoint.split("/")[:-1]))
         Path(checkpoint).touch(exist_ok=True)
         return load_jsonl(checkpoint)
-
-    def predict(self, question: str, possible_answers: str = None) -> tuple[str, list[str]]:
-        result = self.piqard(question, possible_answers)
-        return result['answer'], result['context']
 
     @staticmethod
     def accuracy(results: list[tuple[str, str]]) -> dict:
@@ -81,7 +84,7 @@ class BenchmarkEvaluator:
         em_total, cem_total, f1_total = 0, 0, 0
         count = len(results)
         for result in results:
-            prediction, ground_truth = result['predicted_answer'], result['answer']
+            prediction, ground_truth = result["predicted_answer"], result["answer"]
             em_total += self.exact_match_score(prediction, ground_truth)
             cem_total += self.cover_exact_match_score(prediction, ground_truth)
             f1_total += self.f1_score(prediction, ground_truth)
@@ -92,7 +95,9 @@ class BenchmarkEvaluator:
         }
 
     def exact_match_score(self, prediction: str, ground_truth: str) -> int:
-        return self.__normalize_answer(prediction) == self.__normalize_answer(ground_truth)
+        return self.__normalize_answer(prediction) == self.__normalize_answer(
+            ground_truth
+        )
 
     def f1_score(self, prediction: str, ground_truth: str) -> float:
         prediction_tokens = self.__normalize_answer(prediction).split()
@@ -110,14 +115,19 @@ class BenchmarkEvaluator:
     def cover_exact_match_score(self, prediction: str, ground_truth: str) -> int:
         return (
             1
-            if self.__normalize_answer(prediction).find(self.__normalize_answer(ground_truth)) != -1
+            if self.__normalize_answer(prediction).find(
+                self.__normalize_answer(ground_truth)
+            )
+            != -1
             else 0
         )
 
     @staticmethod
     def __normalize_answer(answer: str) -> str:
         def remove_counter(text):
-            return text.replace("年", "").replace("歳", "").replace("人", "").replace("년", "")
+            return (
+                text.replace("年", "").replace("歳", "").replace("人", "").replace("년", "")
+            )
 
         def white_space_fix(text):
             return " ".join(text.split())

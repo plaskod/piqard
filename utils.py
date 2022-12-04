@@ -9,8 +9,12 @@ def directory(path: str) -> str:
 
 
 def load_jsonl(path: str) -> list[dict]:
+    file_name = path.split("/")[-1]
     with open(path, "r") as f:
-        data = [json.loads(jline) for jline in tqdm.tqdm(f.read().splitlines())]
+        data = [
+            json.loads(jline)
+            for jline in tqdm.tqdm(f.read().splitlines(), desc=f"{file_name}")
+        ]
     return data
 
 
