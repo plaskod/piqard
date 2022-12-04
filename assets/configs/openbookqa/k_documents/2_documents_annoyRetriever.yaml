@@ -1,0 +1,6 @@
+information_retriever: !AnnoyRetriever
+  database: openbookqa
+  k: 2
+prompt_template: !PromptTemplate
+  template: assets/prompting_templates/openbookqa/5_shot_2_documents.txt
+language_model: !BLOOM176bAPI

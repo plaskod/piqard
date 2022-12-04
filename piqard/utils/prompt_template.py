@@ -15,4 +15,4 @@ class PromptTemplate:
 
     @staticmethod
     def preprocess_template(template: str) -> str:
-        return template.replace(" ,", ",").replace(" '", "'")
+        return template.replace(" ,", ",").replace(" '", "'").replace(" ?", "?").replace(" !", "!").replace(" .", ".")

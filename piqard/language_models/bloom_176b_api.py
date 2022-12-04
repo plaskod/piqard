@@ -29,7 +29,7 @@ class BLOOM176bAPI(LanguageModel):
 
         data = response.json()
         if type(data) == dict and "error" in data.keys():
-            raise LanguageModelAPIOverloadException
+            raise LanguageModelAPIOverloadException(self.__str__())
         return data
 
     def __str__(self) -> str:
