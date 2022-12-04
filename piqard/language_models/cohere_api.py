@@ -15,7 +15,6 @@ class CohereAPI(LanguageModel):
         self.client = cohere.Client(self.API_KEY)
         self.parameters = {"model": 'xlarge',
                            "temperature": 0,
-                           ""
                            "k": 1} | {"stop_sequences": [self.stop_token]} if self.stop_token is not None else {}
 
     def query(self, payload: str) -> str:
@@ -23,4 +22,4 @@ class CohereAPI(LanguageModel):
         return response.generations[0].text
 
     def __str__(self) -> str:
-        return "Co:here API"
+        return "Cohere API"
