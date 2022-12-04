@@ -1,0 +1,3 @@
+prompt_template: !PromptTemplate
+  template: assets/prompting_templates/openbookqa/0_shot_1_documents.txt
+language_model: !BLOOM176bAPI

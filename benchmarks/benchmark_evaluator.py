@@ -7,7 +7,7 @@ from pathlib import Path
 import tqdm
 
 from piqard.PIQARD import PIQARD
-from piqard.language_models.language_model import LanguageModelAPIOverloadException
+from piqard.language_models.exceptions import Response500Exception, LanguageModelAPIOverloadException
 from utils import load_jsonl, directory
 
 
@@ -50,13 +50,14 @@ class BenchmarkEvaluator:
                     question_result = self.evaluate_question(question)
                     results.append(question_result)
                     done = True
-                except LanguageModelAPIOverloadException:
+                except (LanguageModelAPIOverloadException, Response500Exception) as e:
                     current_token = (current_token + 1) % 5
                     self.piqard.language_model.API_KEY = tokens[current_token]
                     print(
-                        f"\nAPI inference overload, change to: {self.piqard.language_model.API_KEY}... waiting 10s"
+                        e.message + f" APIkey change to: {self.piqard.language_model.API_KEY}... waiting 10s"
                     )
                     time.sleep(10)
+
 
             if checkpoint:
                 checkpoint.write(json.dumps(question_result) + "\n")

@@ -1,9 +1,9 @@
 import json
 import requests
 
+from piqard.language_models.exceptions import Response500Exception, LanguageModelAPIOverloadException
 from piqard.language_models.language_model import (
     LanguageModel,
-    LanguageModelAPIOverloadException,
 )
 
 
@@ -24,6 +24,9 @@ class BLOOM176bAPI(LanguageModel):
             headers={"Authorization": f"Bearer {self.API_KEY}"},
             json={"inputs": payload, "parameters": self.parameters},
         )
+        if response.status_code == 500:
+            raise Response500Exception(self.__str__())
+
         data = response.json()
         if type(data) == dict and "error" in data.keys():
             raise LanguageModelAPIOverloadException

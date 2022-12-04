@@ -1,0 +1,8 @@
+Answer the question based on the facts.
+
+
+Question: {{question}}
+Possible answers: {{possible_answers}}
+Facts: {% if context %}{% for fact in context %}
+- {{fact}}{% endfor %}{% endif %}
+Answer:
