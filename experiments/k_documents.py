@@ -2,12 +2,12 @@ import os
 import sys
 import inspect
 
+
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parentdir = os.path.dirname(currentdir)
 sys.path.insert(0, parentdir)
 
 from utils import save_results
-from benchmarks.benchmark_evaluator import BenchmarkEvaluator
 from database_loaders.database_loader_factory import DataBaseLoaderFactory
 from piqard.PIQARD import PIQARD
 from piqard.information_retrievers.annoy_retriver import AnnoyRetriever
@@ -16,6 +16,7 @@ from piqard.information_retrievers.vector_retirever import VectorRetriever
 from piqard.language_models.bloom_176b_api import BLOOM176bAPI
 from piqard.language_models.cohere_api import CohereAPI
 from piqard.utils.prompt_template import PromptTemplate
+from experiments.benchmark_evaluator import BenchmarkEvaluator
 
 
 if __name__ == "__main__":
