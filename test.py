@@ -7,9 +7,7 @@ from utils import save_results
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "benchmark", type=str, help="benchmark"
-    )
+    parser.add_argument("benchmark", type=str, help="benchmark")
     parser.add_argument(
         "--config",
         type=str,
@@ -22,11 +20,13 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     database_loader = DataBaseLoaderFactory(args.benchmark)
-    benchmark = database_loader.load_questions(test=True)
+    benchmark = database_loader.load_questions(test=True, number=30)
 
     piqard_loader = PIQARDLoader()
     piqard = piqard_loader.load(args.config)
 
     benchmark_evaluator = BenchmarkEvaluator(piqard)
-    results = benchmark_evaluator.evaluate(benchmark, args.output.replace('.json', '_checkpoint.jsonl'))
+    results = benchmark_evaluator.evaluate(
+        benchmark, args.output.replace(".json", "_checkpoint.jsonl")
+    )
     save_results(args.output, results)

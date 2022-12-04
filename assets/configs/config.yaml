@@ -1,6 +1,8 @@
 information_retriever: !VectorRetriever
   database: openbookqa
-  k: 3
-  n: 5
-prompt_template: assets/prompting_templates/dynamic_prompt.txt
+  k: 1
+prompt_template: !PromptTemplate
+  template: assets/prompting_templates/openbookqa/chain_of_thought/cot_5_shot.txt
+  stop_token: "|||"
+  fix_text: "So the final answer is:"
 language_model: !BLOOM176bAPI

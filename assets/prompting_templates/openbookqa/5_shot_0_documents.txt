@@ -1,0 +1,25 @@
+Answer the question based on the facts.
+
+Question: The sun is responsible for
+Possible answers: A. puppies learning new tricks, B. children growing up and getting old, C. flowers wilting in a vase, D. plants sprouting, blooming and wilting
+Answer: D. plants sprouting, blooming and wilting
+
+Question: with which could you tell the exact size of an object?
+Possible answers: A. a plain stick with irregular shape, B. a plastic tape with graduated markings, C. a thermometer with mercury in it, D. a metal cooking spoon
+Answer: B. a plastic tape with graduated markings
+
+Question: When food is reduced in the stomach
+Possible answers: A. the mind needs time to digest, B. take a second to digest what I said, C. nutrients are being deconstructed, D. reader's digest is a body of works
+Answer: C. nutrients are being deconstructed
+
+Question: Stars are
+Possible answers: A. warm lights that float, B. made out of nitrate, C. great balls of gas burning billions of miles away, D. lights in the sky
+Answer: C. great balls of gas burning billions of miles away
+
+Question: Poison causes harm to which of the following?
+Possible answers:  A. a tree, B. a robot, C. a house, D. a car
+Answer: A. a tree
+
+Question: {{question}}
+Possible answers: {{possible_answers}}
+Answer:

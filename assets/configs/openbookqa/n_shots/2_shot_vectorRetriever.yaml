@@ -1,5 +1,6 @@
 information_retriever: !VectorRetriever
   database: openbookqa
   k: 1
-prompt_template: assets/prompting_templates/openbookqa/2_shot_1_documents.txt
+prompt_template: !PromptTemplate
+  template: assets/prompting_templates/openbookqa/2_shot_1_documents.txt
 language_model: !BLOOM176bAPI

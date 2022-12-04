@@ -9,6 +9,7 @@ from piqard.information_retrievers.vector_retirever import VectorRetriever
 from piqard.information_retrievers.annoy_retriver import AnnoyRetriever
 from piqard.language_models.bloom_176b_api import BLOOM176bAPI
 from piqard.language_models.gpt_j6b_api import GPTj6bAPI
+from piqard.utils.prompt_template import PromptTemplate
 
 
 class PIQARDLoader:
@@ -20,7 +21,7 @@ class PIQARDLoader:
         self.yaml.register_class(GoogleCustomSearch)
         self.yaml.register_class(BLOOM176bAPI)
         self.yaml.register_class(GPTj6bAPI)
-
+        self.yaml.register_class(PromptTemplate)
 
     def load(self, config: str) -> PIQARD:
         if os.path.isfile(config):
