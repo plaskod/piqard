@@ -1,3 +1,3 @@
 prompt_template: !PromptTemplate
   template: assets/prompting_templates/openbookqa/5_shot_0_documents.txt
-language_model: !BLOOM176bAPI
+language_model: !CohereAPI

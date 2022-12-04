@@ -6,6 +6,7 @@ from piqard.language_models.language_model import LanguageModel
 
 class GPTj6b(LanguageModel):
     def __init__(self):
+        super().__init__()
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.model = GPTJForCausalLM.from_pretrained(
             "EleutherAI/gpt-j-6B", revision="float16", low_cpu_mem_usage=True

@@ -4,9 +4,8 @@ from piqard.utils.yaml_constructor import yaml_constructor
 
 @yaml_constructor
 class PromptTemplate:
-    def __init__(self, template: str, stop_token: str = "\n", fix_text: str = None):
+    def __init__(self, template: str, fix_text: str = None):
         self.template = JINJALoader.load(template)
-        self.stop_token = stop_token
         self.fix_text = fix_text
 
     def render(self, **kwargs):
@@ -15,4 +14,4 @@ class PromptTemplate:
 
     @staticmethod
     def preprocess_template(template: str) -> str:
-        return template.replace(" ,", ",").replace(" '", "'").replace(" ?", "?").replace(" !", "!").replace(" .", ".")
+        return template.replace(" ,", ",").replace(" '", "'").replace(" ?", "?").replace(" !", "!").replace(" .", ".").strip()

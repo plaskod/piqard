@@ -1,6 +1,5 @@
 from piqard.extensions.dynamic_prompting import get_prompt_examples
 from piqard.utils.answer_postprocess import postprocess_answer
-from piqard.utils.multiply_inference_requests import multiply_inference_requests
 from piqard.utils.prompt_template import PromptTemplate
 from piqard.utils.yaml_constructor import yaml_constructor
 from piqard.information_retrievers.retriever import Retriever
@@ -36,9 +35,7 @@ class PIQARD:
             prompt_examples=prompt_examples,
         )
 
-        generated_answer = multiply_inference_requests(
-            prompt, self.language_model, self.prompt_template.stop_token
-        )
+        generated_answer = self.language_model.query(prompt)
         final_answer = postprocess_answer(
             generated_answer, self.prompt_template.fix_text
         )

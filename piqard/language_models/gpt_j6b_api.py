@@ -7,6 +7,7 @@ from piqard.language_models.language_model import LanguageModel
 
 class GPTj6bAPI(LanguageModel):
     def __init__(self):
+        super().__init__()
         try:
             with open(
                 "assets/credentials/huggingface.json", "r"
