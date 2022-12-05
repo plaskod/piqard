@@ -43,5 +43,5 @@ if __name__ == "__main__":
                         language_model)
         benchmark_evaluator = BenchmarkEvaluator(piqard)
         results = benchmark_evaluator.evaluate(benchmark,
-                                               f"result/openbookqa/experiments/k_documents/{language_model}/{retriver}/{k}_documents_checkpoint.jsonl")
-        save_results(f"result/openbookqa/experiments/k_documents/{language_model}/{retriver}/{k}_documents.json", results)
+                                               f"result/openbookqa/experiments/k_documents/{language_model}/0_documents_checkpoint.jsonl")
+        save_results(f"result/openbookqa/experiments/k_documents/{language_model}/0_documents.json", results)
