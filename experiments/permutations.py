@@ -3,12 +3,14 @@ import sys
 import inspect
 from collections import defaultdict
 
+
+
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parentdir = os.path.dirname(currentdir)
 sys.path.insert(0, parentdir)
 
+from experiments.benchmark_evaluator import BenchmarkEvaluator
 from utils import save_results
-from benchmarks.benchmark_evaluator import BenchmarkEvaluator
 from database_loaders.database_loader_factory import DataBaseLoaderFactory
 from piqard.PIQARD import PIQARD
 from piqard.information_retrievers.annoy_retriver import AnnoyRetriever
@@ -21,7 +23,7 @@ from piqard.utils.prompt_template import PromptTemplate
 
 if __name__ == "__main__":
     database_loader = DataBaseLoaderFactory("openbookqa")
-    benchmark = database_loader.load_questions(test=True, number=1)
+    benchmark = database_loader.load_questions(test=True)
 
     language_models = [CohereAPI(stop_token="\n"), BLOOM176bAPI(stop_token="\n")]
     information_retrievers = [AnnoyRetriever, RankingRetriever, VectorRetriever]
