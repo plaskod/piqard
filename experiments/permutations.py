@@ -26,14 +26,15 @@ if __name__ == "__main__":
     benchmark = database_loader.load_questions(test=True)
 
     language_models = [CohereAPI(stop_token="\n"), BLOOM176bAPI(stop_token="\n")]
-    information_retrievers = [AnnoyRetriever, RankingRetriever, VectorRetriever]
+    # information_retrievers = [AnnoyRetriever, RankingRetriever, VectorRetriever]
+    information_retrievers = [VectorRetriever]
     prompting_tempates_dir = "assets/prompting_templates/openbookqa/permutations/"
 
     for language_model in language_models:
         for information_retriever in information_retrievers:
             results_agg = {}
-            for n in range(1, 6):
-                retriver = information_retriever("openbookqa")
+            retriver = information_retriever("openbookqa")
+            for n in range(1, 7):
                 piqard = PIQARD(PromptTemplate(f"{prompting_tempates_dir}permutation_{n}.txt"),
                                 language_model,
                                 retriver)
