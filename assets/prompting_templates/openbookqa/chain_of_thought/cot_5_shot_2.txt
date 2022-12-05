@@ -1,0 +1,54 @@
+Answer the question
+
+Question: Another source of pollution may be
+Possible answers: A. throwing things in the ocean, B. buying a new solar panel, C. biking instead of driving the car, D. using old food as compost for the plants
+Let's think step by step:
+- most of things thrown into the ocean are never disposed of or recycled
+- solar panels are an energy source producing little waste and byproducts
+- bikes are green and zero-waste means of transport, in contrast to cars which create significant volumes of exhaust fumes
+- turning household biowaste into fertilizers reduces the ecological footprint
+So the final answer is: A. throwing things in the ocean
+
+Question: A person lost in a maze will need to find their way out alone, but a person lost in a forest may
+Possible answers: A. rely on television, B. rely on magnets, C. rely on spirits, D. rely on deer
+Let's think step by step:
+- television is a medium requiring electricy and satelite signal
+- there is no satelite signal or electricy in a forest
+- magnets can be turned into a compass
+- compasses are used to navigate
+- spirits do not exist
+- deer can't communicate with humans
+So the final answer is: B. rely on magnets
+
+Question: High humidity can damage materials which
+Possible answers: A. must remain dry to function, B. will dry out unless they are soaked in water, C. depend on abundance amounts of water vapor, D. need to be kept wet
+Let's think step by step:
+- a material is dry when water is absent from it
+- in high humidity enviroments materials get wet
+- high amounts of water vapor create high humidity
+So the final answer is: A. must remain dry to function
+
+Question: two women have a baby, it is unlikely to be
+Possible answers: A. their biological child, B. a human, C. formula fed, D. an adopted child
+Let's think step by step:
+- without a costly in vitro treatment two females cannot have a biological child
+- babies are humans
+- more than a half of families are using baby formula
+- many couples that cannot have babies decide to adopt children
+So the final answer is: A. their biological child
+
+Question: Which event includes melting?
+Possible answers: A. making ice, B. cooking in butter, C. cutting carrots, D. buttering bread
+Let's think step by step:
+- ice is made by cooling water so it's temperature reaches the freezing point
+- cooking occurs when applying high temperatures to food
+- butter melting point is above room temperature
+- cutting a carrot doesn't change it's state of matter
+- buttering bread is spreading, occurring at room temperature
+So the final answer is: B. cooking in butter
+
+Question: {{question}}
+Possible answers: {{possible_answers}}
+Facts: {% if context %}{% for fact in context %}
+- {{fact}}{% endfor %}{% endif %}
+Answer:
