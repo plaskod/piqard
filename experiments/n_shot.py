@@ -24,12 +24,12 @@ if __name__ == "__main__":
     benchmark = database_loader.load_questions(test=True)
 
     language_models = [CohereAPI(stop_token="\n"), BLOOM176bAPI(stop_token="\n")]
-    information_retrievers = [AnnoyRetriever, RankingRetriever, VectorRetriever]
+    information_retrievers = [VectorRetriever]
     prompting_tempates_dir = "assets/prompting_templates/openbookqa/"
 
     for language_model in language_models:
         for information_retriever in information_retrievers:
-            for n in range(0, 5):
+            for n in range(0, 6):
                 retriver = information_retriever("openbookqa")
                 piqard = PIQARD(PromptTemplate(f"{prompting_tempates_dir}{n}_shot_1_documents.txt"),
                                 language_model,
