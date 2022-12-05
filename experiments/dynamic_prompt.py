@@ -23,24 +23,17 @@ if __name__ == "__main__":
     benchmark = database_loader.load_questions(test=True, number=1)
 
     language_models = [CohereAPI(stop_token="\n"), BLOOM176bAPI(stop_token="\n")]
-    information_retrievers = [AnnoyRetriever, RankingRetriever, VectorRetriever]
+    information_retrievers = [VectorRetriever]
     prompting_tempates_dir = "assets/prompting_templates/openbookqa/"
 
     for language_model in language_models:
         for information_retriever in information_retrievers:
-            for k in range(1, 4):
-                retriver = information_retriever("openbookqa", k=k)
-                piqard = PIQARD(PromptTemplate(f"{prompting_tempates_dir}5_shot_{k}_documents.txt"),
+            for n in range(1, 6):
+                retriver = information_retriever("openbookqa", k=1, n=n)
+                piqard = PIQARD(PromptTemplate(f"{prompting_tempates_dir}dynamic_prompt.txt"),
                                 language_model,
                                 retriver)
                 benchmark_evaluator = BenchmarkEvaluator(piqard)
                 results = benchmark_evaluator.evaluate(benchmark,
-                                                       f"result/openbookqa/experiments/k_documents/{language_model}/{retriver}/{k}_documents_checkpoint.jsonl")
-                save_results(f"result/openbookqa/experiments/k_documents/{language_model}/{retriver}/{k}_documents.json", results)
-
-        piqard = PIQARD(PromptTemplate(f"{prompting_tempates_dir}5_shot_{0}_documents.txt"),
-                        language_model)
-        benchmark_evaluator = BenchmarkEvaluator(piqard)
-        results = benchmark_evaluator.evaluate(benchmark,
-                                               f"result/openbookqa/experiments/k_documents/{language_model}/{retriver}/{k}_documents_checkpoint.jsonl")
-        save_results(f"result/openbookqa/experiments/k_documents/{language_model}/{retriver}/{k}_documents.json", results)
+                                                       f"result/openbookqa/experiments/dynamic_prompting/{language_model}/{retriver}/dynamic_prompting_{n}_shot_checkpoint.jsonl")
+                save_results(f"result/openbookqa/experiments/dynamic_prompting/{language_model}/{retriver}/dynamic_prompting_{n}_shot.json", results)
