@@ -1,0 +1,25 @@
+Given the following question, write the step-by-step thought process and provide an answer:
+
+Question: Who was born first, Francis Nethersole or Elizabeth Stuart?
+Context: Sir Francis Nethersole (1587\u20131659) was an English diplomat, secretary to the Electress Elizabeth, Member of Parliament for Corfe Castle, Dorset, and a Civil War political pamphleteer. Elizabeth Stuart (19 August 1596 \u2013 13 February 1662) was Electress of the Palatinate and briefly Queen of Bohemia as the wife of Frederick V of the Palatinate. Due to her husband\u2019s reign in Bohemia lasting for just one winter, Elizabeth is often referred to as The Winter Queen.
+Answer: Sir Francis Nethersole
+
+Question: What occupation was shared by both John Frankenheimer and Tiffanie DeBartolo?
+Context: ohn Michael Frankenheimer (February 19, 1930 \u2013 July 6, 2002) was an American film and television director known for social dramas and action/suspense films. Among his credits were \"Birdman of Alcatraz\" (1962), \"The Manchurian Candidate\" (1962), \"Seven Days in May\" (1964), \"The Train\" (1964), \"Seconds\" (1966), \"Grand Prix\" (1966), \"French Connection II\" (1975), \"Black Sunday\" (1977), and \"Ronin\" (1998). Tiffanie DeBartolo (born November 27, 1970) is an American novelist, filmmaker, and co-founder of independent record label Bright Antenna. She has written two novels, \"God-Shaped Hole\" and \"How To Kill a Rock Star\". She wrote and directed the film \"Dream for an Insomniac\", featuring Jennifer Aniston, but which had a very limited release in 1996.
+Answer: director
+
+Question: When was American actor who acted Spock in The City on the Edge of Forever born?
+Context: \"The City on the Edge of Forever\" is the 28th episode of the American science fiction television series \"\", and the penultimate episode of the . It was first broadcast in the United States on NBC on April\u00a06, 1967. In the episode, after Doctor Leonard McCoy (DeForest Kelley) travels back in time and changes history, Kirk (William Shatner) and Spock (Leonard Nimoy) follow him to correct the timeline. "Leonard Simon Nimoy ( ; March 26, 1931 \u2013 February 27, 2015) was an American actor, film director, photographer, author, singer and songwriter. He was best known for his role as Spock of the \"Star Trek\" franchise, a character he portrayed in television and film from shot in late 1964 to his final film performance in 2013."
+Answer: March 26, 1931
+
+Question: Florence MacLeod Harper covered World War I on the eastern front for a newspaper that was was founded in what year?
+Context: Florence MacLeod Harper was a Canadian journalist sent by U.S. newspaper \"Frank Leslie's Illustrated Newspaper\" as a staff reporter with an assignment to cover World War I on the Eastern front. She was an early female war correspondent and one of a handful of western journalists to leave a first-hand journalistic account of the early stages of the Russian revolution.
+Answer: 1855
+
+Question: The pop singer in the lead role in "Tere Bin Laden" received how many Lux Style Awards?
+Context: Tere Bin Laden (English: Your Bin Laden ) is a 2010 Bollywood satire film produced by Walkwater Media and written and directed by Abhishek Sharma. The film stars Pakistani pop singer Ali Zafar in the lead role as an ambitious young reporter, who, in his desperation to migrate to the United States, makes a fake Osama bin Laden video using a look-alike, and sells it to TV channels. Osama bin Laden was played by Pradhuman Singh. The film is a spoof on Osama Bin Laden as well as a comic satire on America's war against terror and the realities of the post-9/11 world. The film was released worldwide, except the United States, on 16 July 2010. Ali Mohammad Zafar (born 18 May 1980) is a Pakistani singer-songwriter, model, actor and painter. Zafar started out on Pakistani TV before becoming a popular musician. He then also established a career in Hindi cinema and his success led many Pakistani actors to venture into Hindi films. He has received five Lux Style Awards and a Filmfare Award nomination.
+Answer: five
+
+Question: {{question}}
+Context: {% if context %}{{" ".join(context)}}{% endif %}
+Answer:

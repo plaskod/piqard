@@ -1,0 +1,57 @@
+Answer the question
+
+Question: What purpose does a plant light serve?
+Possible answers: A. Comfort them, B. replicate sunlight, C. Protect from bugs, D. Keep plants warm
+Let's think step by step:
+- plant light emits light for plants to use
+- plants don't have feelings so they don't need comfort
+- plants use sunlight for producing nutrients
+- light doesn't affect bugs
+- light emitted by plant light does not produce big amounts of warmth
+So the final answer is: B. replicate sunlight
+
+Question: Which is a positive impact on the bio environment?
+Possible answers: A. dumping toxic waste in rivers, B. contaminating the ground with poison, C. building cars in large numbers, D. making sure trash is reused for new reasons
+Let's think step by step:
+- positive impact on the bio environment
+- toxic waste is harmful to the environment
+- poisoned ground is not good for biological growth
+- car fumes destroy the ozone layer
+- recycling trash reduces waste on earth
+- waste has a negative impact on environment
+So the final answer is: D. making sure trash is reused for new reasons
+
+Question: Digestion is when stomach acid breaks down
+Possible answers: A. a pizza, B. a house, C. a rock, D. a car
+Let's think step by step:
+- digestion is the process of breaking down food
+- pizza is food
+- a house is not food
+- a rock is not food
+- a car is not food
+So the final answer is: A. a pizza
+
+Question: If a warm potato is left on a steel sink, the potato will
+Possible answers: A. burn, B. lose heat, C. get hotter, D. warm up
+Let's think step by step:
+- warm potato has a lot of heat energy
+- steel sink is a heat conductor
+- burning happens when heat is added
+- heat conductors remove heat from source
+So the final answer is: B. lose heat
+
+Question: Which is most harmful to a human?
+Possible answers: A. dynamite going off, B. reading email, C. balloons popping, D. opening a soda
+Let's think step by step:
+- things harmful to a human cause physical damage and pain
+- dynamite creates high-energy explosions
+- emails cannot cause damage to people
+- balloons popping are loud but not harmful
+- opening a soda releases low levels of energy from compressed gas
+So the final answer is: A. dynamite going off
+
+Question: {{question}}
+Possible answers: {{possible_answers}}
+Facts: {% if context %}{% for fact in context %}
+- {{fact}}{% endfor %}{% endif %}
+Answer:

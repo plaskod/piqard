@@ -1,0 +1,24 @@
+Given the following question, write the step-by-step thought process and provide an answer:
+
+Question: Which author was born first, Lorraine Hansberry or Sandra Gulland?
+Thought: Let's think step by step. Lorraine Vivian Hansberry was born on May 19 1930. Sandra Gulland was born on November 3 1944. May 19 1930 was before November 3 1944. So the answer is Lorraine Vivian Hansberry.
+Answer: Lorraine Vivian Hansberry
+
+Question: What was the name of the Mafia faction headed by the person responsible for the assassination of Placido Rizzotto?
+Thought: Let's think step by step. The person responsible for the assassination of Placido Rizzotto is Luciano Leggio. The Mafia faction headed by Luciano Leggio was Corleonesi. So the answer is Corleonesi.
+Answer: Corleonesi
+
+Question: Door into the Dark is a poetry collection by a man that received the Nobel Prize in Literature in what year?
+Thought: Let's think step by step. Door into the Dark is a poetry collection by Seamus Heaney. Seamus Heaney received the Nobel Prize in Literature in 1995. So the answer is 1995.
+Answer: 1995
+
+Question: Which documentary was released earlier, Almost Sunrise or 51 Birch Street?
+Thought: Let's think step by step. Almost Sunrise is a 2016 American documentary film. 51 Birch Street is a 2005 documentary film. 2005 was earlier than 2016. So the answer is 51 Birch Street.
+Answer: 51 Birch Street
+
+Question: What William Shakespeare play was written in 1599 and based on true events in Roman history?
+Thought: Let's think step by step. William Shakespeare plays written in 1599 are The Tragedy of Julis Caesar and Hamlet. Julius Caesar is a play based on Julius Caesar's life. Julius Caesar was a real Roman general and politician. Hamlet was based on a Norse legend and is not a true story. So the answer is Julius Caesar.
+Answer: Julius Caesar
+
+Question: {{question}}
+Context: Let's think step by step.

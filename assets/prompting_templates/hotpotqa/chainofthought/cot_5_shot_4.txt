@@ -1,0 +1,24 @@
+Given the following question, write the step-by-step thought process and provide an answer:
+
+Question: Girard city is located in a county with how many inhabitants ?
+Thought: Let's think step by step. Girard is a city in southern Trumbull County, Ohio. Trumbull County has the population of 201,335. So the answer is 201,335.
+Answer: 201,335
+
+Question: Was Winnie the Pooh or The Jungle Book released first?
+Thought: Let's think step by step. Winnie the Pooh was released on October 14 1926. The Jungle Book was released in 1894. 1894 was before 1926. So the answer is The Jungle Book.
+Answer: The Jungle Book
+
+Question: Summit1g started streaming the battle royale game published by which company?
+Thought: Let's think step by step. Summit1g is an American twitch streamer. He currently streams a variety of video games, such as Escape from Tarkov, Grand Theft Auto V, PUBG: Battlegrounds, Sea of Thieves, Overwatch. Escape from Tarkov is not a battle royale game. Grand Theft Auto V is not a battle royale game. PUBG: Battlegrounds is a battle royale game. PUBG: Battlegrounds is published by PUBG Studios. So the answer is PUBG Studios.
+Answer: PUBG Studios.
+
+Question: Are The Million Dollar Duck and A Far Off Place both American films?
+Thought: Let's think step by step. The Million Dollar Duck is a 1971 American comedy film. A Far Off Place if a 1993 American adventure drama film. So the answer is yes.
+Answer: yes
+
+Question: Who publishes a horror game with protagonist Ellie?
+Thought: Let's think step by step. Horror game with protagonist Ellie is The Last of Us. The publisher of The Last of Us is Sony Interactive Entertainment. So the answer is Sony Interactive Entertainment.
+Answer: Sony Interactive Entertainment
+
+Question: {{question}}
+Context: Let's think step by step.

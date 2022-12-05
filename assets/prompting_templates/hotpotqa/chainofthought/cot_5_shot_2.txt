@@ -1,0 +1,24 @@
+Given the following question, write the step-by-step thought process and provide an answer:
+
+Question: Who was born first, Francis Nethersole or Elizabeth Stuart?
+Thought: Let's think step by step. Sir Francis Nethersole was born in 1587. Elizabeth Stuart's birth date is 19 August 1596. 1587 was before 1596. So the answer is Sir Francis Nethersole.
+Answer: Sir Francis Nethersole
+
+Question: What occupation was shared by both John Frankenheimer and Tiffanie DeBartolo?
+Thought: Let's think step by step. John Frankenheimer is a film director. Tiffanie DeBartolo is a novelist, film director, co-founded a record label and a foundation. Their shared occupation is film director, so the answer is director.
+Answer: director
+
+Question: When was American actor who acted Spock in The City on the Edge of Forever born?
+Thought: Let's think step by step. Spock in The City on the Edge of Forever is an episode of the American science fiction television series Star Trek. Leonard Nimoy acted as Spock in the Star Trek series. Leonard Nimoy was born on March 26, 1931. So the final answer is March 26, 1931.
+Answer: March 26, 1931
+
+Question: Florence MacLeod Harper covered World War I on the eastern front for a newspaper that was was founded in what year?
+Thought: Let's think step by step. Florence MacLeod Harper covered World War I on the eastern front for the newspaper Frank Leslie's Illustrated Newspaper. Frank Leslie's Illustrated Newspaper was founded in 1855. So the answer is 1855.
+Answer: 1855
+
+Question: The pop singer in the lead role in "Tere Bin Laden" received how many Lux Style Awards?
+Thought: Let's think step by step. "Tere Bin Laden" is a 2010 Indian satire comedy film. The lead role of Ali Hassan is performed by pop singer Ali Zafar. Ali Zafar has received five Lux Style awards. So the answer is five.
+Answer: five
+
+Question: {{question}}
+Context: Let's think step by step.

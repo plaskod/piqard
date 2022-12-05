@@ -1,0 +1,58 @@
+Answer the question
+
+Question: The volume of water in a pond could increase if
+Possible answers: A. the water drains out of the pond, B. a large flock of ducks visits the pond, C. people swim in the pond, D. there is stormy weather
+Let's think step by step:
+- draining out means turing water into vapor, which decreases the volume of water in reservoirs
+- creatures swimming in a water body don't affect the volume of the liquid itself
+- there is a lot of rainfall in stormy weathers
+- rainfall causes the water level in reservoirs to rise
+So the final answer is: D. there is stormy weather
+
+Question: John was able to read at night even though the electricity had gone out. John was using
+Possible answers: A. a pepperoni and cheese pizza, B. a heavy maple desk, C. an item made from a petroleum product with a cord sticking out the top, D. an old step ladder
+Let's think step by step:
+- food doesn't produce light
+- furniture don't produce light
+- item made from a petroleum product with a cord is a candle
+- candles produce light
+- ladders don't produce light
+So the final answer is: C. an item made from a petroleum product with a cord sticking out the top
+
+Question: A guy wants to be able to remember the evening. He can be sure that he has a visual and audio backup of the night by
+Possible answers: A. bringing his camera, B. bringing his son, C. bringing a drink, D. bringing a chair
+Let's think step by step:
+- camera is for recording visuals and audio
+- humans forget things
+- drinks contain alcohol
+- large amounts of alcohol impair memorization
+- chairs are not items that can record anything
+So the final answer is: A. bringing his camera
+
+Question: If someone is dying of liquid needs, they can hydrate the body by
+Possible answers: A. high temperature snow, B. catching falling ash, C. visiting a valley, D. pray
+Let's think step by step:
+- applying high temperatures to snow creates water
+- water hydrates creatures
+- ash is dry
+- finding and marching to a valley is time consuming, a dying person can't travel long distances
+- praying doesn't create water
+So the final answer is: A. high temp snow
+
+Question: Bats might use what to get home
+Possible answers: A. a map, B. time travel, C. their voice, D. their magic
+Let's think step by step:
+- getting home requires navigation
+- bats use echolocation to navigate by using their voice
+- reading a map requires vision
+- bats are blind
+- time travel is not real
+- magic does not exist
+So the final answer is: C. their voice
+
+
+Question: {{question}}
+Possible answers: {{possible_answers}}
+Facts: {% if context %}{% for fact in context %}
+- {{fact}}{% endfor %}{% endif %}
+Answer:
