@@ -1,6 +1,7 @@
 import os
 import sys
 import inspect
+from collections import defaultdict
 
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parentdir = os.path.dirname(currentdir)
@@ -24,23 +25,26 @@ if __name__ == "__main__":
 
     language_models = [CohereAPI(stop_token="\n"), BLOOM176bAPI(stop_token="\n")]
     information_retrievers = [AnnoyRetriever, RankingRetriever, VectorRetriever]
-    prompting_tempates_dir = "assets/prompting_templates/openbookqa/"
+    prompting_tempates_dir = "assets/prompting_templates/openbookqa/permutations/"
 
     for language_model in language_models:
         for information_retriever in information_retrievers:
-            for k in range(1, 4):
-                retriver = information_retriever("openbookqa", k=k)
-                piqard = PIQARD(PromptTemplate(f"{prompting_tempates_dir}5_shot_{k}_documents.txt"),
+            results_agg = {}
+            for n in range(1, 6):
+                retriver = information_retriever("openbookqa")
+                piqard = PIQARD(PromptTemplate(f"{prompting_tempates_dir}permutation_{n}.txt"),
                                 language_model,
                                 retriver)
                 benchmark_evaluator = BenchmarkEvaluator(piqard)
                 results = benchmark_evaluator.evaluate(benchmark,
-                                                       f"result/openbookqa/experiments/k_documents/{language_model}/{retriver}/{k}_documents_checkpoint.jsonl")
-                save_results(f"result/openbookqa/experiments/k_documents/{language_model}/{retriver}/{k}_documents.json", results)
+                                                       f"result/openbookqa/experiments/permutations/{language_model}/{retriver}/permutations_{n}_checkpoint.jsonl")
+                save_results(f"result/openbookqa/experiments/permutations/{language_model}/{retriver}/permutations_{n}.json", results)
 
-        piqard = PIQARD(PromptTemplate(f"{prompting_tempates_dir}5_shot_{0}_documents.txt"),
-                        language_model)
-        benchmark_evaluator = BenchmarkEvaluator(piqard)
-        results = benchmark_evaluator.evaluate(benchmark,
-                                               f"result/openbookqa/experiments/k_documents/{language_model}/{retriver}/{k}_documents_checkpoint.jsonl")
-        save_results(f"result/openbookqa/experiments/k_documents/{language_model}/{retriver}/{k}_documents.json", results)
+                results_agg[f"{n}_shot"] = results['report']
+
+            consistency = defaultdict(int)
+            for i in range(len(benchmark)):
+                consistency[len(set([question[i]['predicted_answer'] for question in results_agg.values()]))] += 1
+            save_results(f"result/openbookqa/experiments/permutations/{language_model}/{retriver}/consistency_report.json",
+                         {"percent_of_consistent_answers": consistency[1] / len(benchmark),
+                          "numbers_of_unique_answers": consistency})

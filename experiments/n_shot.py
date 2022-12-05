@@ -28,19 +28,12 @@ if __name__ == "__main__":
 
     for language_model in language_models:
         for information_retriever in information_retrievers:
-            for k in range(1, 4):
-                retriver = information_retriever("openbookqa", k=k)
-                piqard = PIQARD(PromptTemplate(f"{prompting_tempates_dir}5_shot_{k}_documents.txt"),
+            for n in range(0, 5):
+                retriver = information_retriever("openbookqa")
+                piqard = PIQARD(PromptTemplate(f"{prompting_tempates_dir}{n}_shot_1_documents.txt"),
                                 language_model,
                                 retriver)
                 benchmark_evaluator = BenchmarkEvaluator(piqard)
                 results = benchmark_evaluator.evaluate(benchmark,
-                                                       f"result/openbookqa/experiments/k_documents/{language_model}/{retriver}/{k}_documents_checkpoint.jsonl")
-                save_results(f"result/openbookqa/experiments/k_documents/{language_model}/{retriver}/{k}_documents.json", results)
-
-        piqard = PIQARD(PromptTemplate(f"{prompting_tempates_dir}5_shot_{0}_documents.txt"),
-                        language_model)
-        benchmark_evaluator = BenchmarkEvaluator(piqard)
-        results = benchmark_evaluator.evaluate(benchmark,
-                                               f"result/openbookqa/experiments/k_documents/{language_model}/{retriver}/{k}_documents_checkpoint.jsonl")
-        save_results(f"result/openbookqa/experiments/k_documents/{language_model}/{retriver}/{k}_documents.json", results)
+                                                       f"result/openbookqa/experiments/n_shot/{language_model}/{retriver}/{n}_shot_checkpoint.jsonl")
+                save_results(f"result/openbookqa/experiments/n_shot/{language_model}/{retriver}/{n}_shot.json", results)
