@@ -1,5 +1,6 @@
 import json
 import requests
+from transformers import BloomTokenizerFast
 
 from piqard.language_models.exceptions import Response500Exception, LanguageModelAPIOverloadException
 from piqard.language_models.language_model import (
@@ -10,6 +11,7 @@ from piqard.language_models.language_model import (
 class BLOOM176bAPI(LanguageModel):
     def __init__(self, stop_token: str = None):
         super().__init__(stop_token)
+        self.tokenizer = BloomTokenizerFast.from_pretrained("bigscience/bloom")
         try:
             with open("assets/credentials/huggingface.json", "r") as f:
                 self.API_KEY = json.load(f)["APIkey"]
@@ -20,10 +22,11 @@ class BLOOM176bAPI(LanguageModel):
         self.parameters = {"use_cache": False, "temperature": 0.000001, "top_k": 1}
 
     def query(self, payload: str) -> str:
-        generated_answer = self.single_query(payload)
+        generated_answer = self.single_query(self.preprocess_prompt(payload))
         if self.stop_token:
-            while generated_answer.find(self.stop_token) == -1:
-                generated_text = self.single_query(payload + generated_answer)
+            while True:
+                prompt = self.preprocess_prompt(payload + generated_answer)
+                generated_text = self.single_query(prompt)
                 generated_answer += generated_text
         return generated_answer.split(self.stop_token)[0]
 
@@ -43,3 +46,10 @@ class BLOOM176bAPI(LanguageModel):
 
     def __str__(self) -> str:
         return "BLOOM 176b huggingface.co API"
+
+    def preprocess_prompt(self, prompt: str) -> str:
+        tokenized = self.tokenizer(prompt)['input_ids']
+        prompt_len = len(tokenized)
+        if prompt_len > 1000:
+            return self.tokenizer.decode(tokenized[-1000:])
+        return prompt
