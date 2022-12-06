@@ -1,5 +1,7 @@
 import json
 import cohere
+from cohere import CohereError
+
 from piqard.language_models.language_model import LanguageModel
 
 
@@ -19,8 +21,12 @@ class CohereAPI(LanguageModel):
                            "k": 1} | {"stop_sequences": [self.stop_token]} if self.stop_token is not None else {}
 
     def query(self, payload: str) -> str:
-        response = self.client.generate(prompt=payload, **self.parameters)
-        return response.generations[0].text.replace(self.stop_token, "").strip().strip("\n")
+        try:
+            response = self.client.generate(prompt=payload, **self.parameters)
+            return response.generations[0].text.replace(self.stop_token, "").strip().strip("\n")
+        except CohereError as e:
+            if e.http_status == 598:# locked output
+                return "Error: adjust template; locked output"
 
     def __str__(self) -> str:
         return "Cohere API"
