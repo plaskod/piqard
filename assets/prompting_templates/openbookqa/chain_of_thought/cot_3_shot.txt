@@ -1,0 +1,36 @@
+Answer the question
+
+Question: The sun is responsible for
+Possible answers: A. puppies learning new tricks, B. children growing up and getting old, C. flowers wilting in a vase, D. plants sprouting, blooming and wilting
+Let's think step by step:
+- puppies can learn new tricks even in the dark or inside a house
+- children growing up and getting old is a natural cycle of life
+- flowers wilting in a vase could result from not suppyling enough water
+- sunlight is essential for plants for photosynthesis which make them grow, sprout, bloom and wilt when there's not enough of it
+So the final answer is: D. plants sprouting, blooming and wilting
+|||
+
+Question: A magnet will stick to
+Possible answers: A. a belt buckle, B. a wooden table, C. a plastic cup, D. a paper plate
+Let's think step by step:
+- a magnet will attract magnetic metals through magnetism
+- a belt buckle is usually made out of metal such as nickel, zinc or copper alloys which are magnetic
+- wood, plastic or paper are materials that do not contain metal and thus are not magnetic
+So the final answer is: A. a belt buckle
+|||
+
+Question: Which would be a logical hypothesis after viewing a white substance on the floor, with a yellow carton on the counter?
+Possible answers: A. milk was spilled, B. white juice was spilled, C. bleach was spilled, D. was an illusion
+Let's think step by step:
+- hypothesis means scientific guess about the cause and effect of an event
+- the yellow carton on the counter was most likely found in the kitchen
+- milk is a white liquid which is usually stored in carton boxes
+- white juice is not very specific
+- bleach is a white liquid but it's unlikely to be found on a counter
+- let's not consider the possiblity of being mistaken about seeing the white substance on the floor and it being just an illusion
+So the final answer is: A. milk was spilled
+|||
+
+Question: {{question}}
+Possible answers: {{possible_answers}}
+Let's think step by step:

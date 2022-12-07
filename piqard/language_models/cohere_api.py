@@ -16,7 +16,7 @@ class CohereAPI(LanguageModel):
             exit(0)
         self.client = cohere.Client(self.API_KEY)
         self.parameters = {"model": 'xlarge',
-                           "max_tokens": 50,
+                           "max_tokens": 200,
                            "temperature": 0,
                            "k": 1} | {"stop_sequences": [self.stop_token]} if self.stop_token is not None else {}
 
