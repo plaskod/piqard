@@ -23,11 +23,16 @@ class BLOOM176bAPI(LanguageModel):
 
     def query(self, payload: str) -> str:
         generated_answer = self.single_query(self.preprocess_prompt(payload))
+        requests_number = 1
         if self.stop_token:
-            while generated_answer.find(self.stop_token) == -1:
+            while generated_answer.find(self.stop_token) == -1 and requests_number < 5:
+                requests_number += 1
                 prompt = self.preprocess_prompt(payload + generated_answer)
                 generated_text = self.single_query(prompt)
                 generated_answer += generated_text
+
+        if generated_answer.find(self.stop_token) == -1:
+            return generated_answer
         return generated_answer.split(self.stop_token)[0]
 
     def single_query(self, payload: str) -> str:

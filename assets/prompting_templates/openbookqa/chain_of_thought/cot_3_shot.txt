@@ -31,16 +31,6 @@ Let's think step by step:
 So the final answer is: A. milk was spilled
 |||
 
-Question: A heavier object
-Possible answers: A. requires less force to move, B. requires minimal effort to move, C. requires more muscle power to shift, D. requires a light touch to move
-Let's think step by step:
-- classical mechanics deals with the motion of bodies under the influence of forces or with the equilibrium of bodies when all forces are balanced
-- Newton's second law is F=ma, where F is the force applied to the body, m is mass and a is acceleration
-- consider a body with mass m1 and a heavier body of mass m2 = m1+1, the force required to move the heavier body needs to be greater according to the Newton's second law
-- force, effort, muscle power, touch in possible answers are the same words for making the object move
-So the final answer is: C. requires more muscle power to shift
-|||
-
 Question: {{question}}
 Possible answers: {{possible_answers}}
 Let's think step by step:

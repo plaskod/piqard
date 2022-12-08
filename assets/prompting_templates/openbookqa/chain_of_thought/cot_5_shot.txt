@@ -1,63 +1,54 @@
 Answer the question
 
-Question: What purpose does a plant light serve?
-Possible answers: A. Comfort them, B. replicate sunlight, C. Protect from bugs, D. Keep plants warm
+Question: The sun is responsible for
+Possible answers: A. puppies learning new tricks, B. children growing up and getting old, C. flowers wilting in a vase, D. plants sprouting, blooming and wilting
 Let's think step by step:
-- plant light emits light for plants to use
-- plants don't have feelings so they don't need comfort
-- plants use sunlight for producing nutrients
-- light doesn't affect bugs
-- light emitted by plant light does not produce big amounts of warmth
-So the final answer is: B. replicate sunlight
-
+- puppies can learn new tricks even in the dark or inside a house
+- children growing up and getting old is a natural cycle of life
+- flowers wilting in a vase could result from not suppyling enough water
+- sunlight is essential for plants for photosynthesis which make them grow, sprout, bloom and wilt when there's not enough of it
+So the final answer is: D. plants sprouting, blooming and wilting
 |||
 
-Question: Which is a positive impact on the bio environment?
-Possible answers: A. dumping toxic waste in rivers, B. contaminating the ground with poison, C. building cars in large numbers, D. making sure trash is reused for new reasons
+Question: A magnet will stick to
+Possible answers: A. a belt buckle, B. a wooden table, C. a plastic cup, D. a paper plate
 Let's think step by step:
-- positive impact on the bio environment
-- toxic waste is harmful to the environment
-- poisoned ground is not good for biological growth
-- car fumes destroy the ozone layer
-- recycling trash reduces waste on earth
-- waste has a negative impact on environment
-So the final answer is: D. making sure trash is reused for new reasons
-
+- a magnet will attract magnetic metals through magnetism
+- a belt buckle is usually made out of metal such as nickel, zinc or copper alloys which are magnetic
+- wood, plastic or paper are materials that do not contain metal and thus are not magnetic
+So the final answer is: A. a belt buckle
 |||
 
-Question: Digestion is when stomach acid breaks down
-Possible answers: A. a pizza, B. a house, C. a rock, D. a car
+Question: Which would be a logical hypothesis after viewing a white substance on the floor, with a yellow carton on the counter?
+Possible answers: A. milk was spilled, B. white juice was spilled, C. bleach was spilled, D. was an illusion
 Let's think step by step:
-- digestion is the process of breaking down food
-- pizza is food
-- a house is not food
-- a rock is not food
-- a car is not food
-So the final answer is: A. a pizza
-
+- hypothesis means scientific guess about the cause and effect of an event
+- the yellow carton on the counter was most likely found in the kitchen
+- milk is a white liquid which is usually stored in carton boxes
+- white juice is not very specific
+- bleach is a white liquid but it's unlikely to be found on a counter
+- let's not consider the possiblity of being mistaken about seeing the white substance on the floor and it being just an illusion
+So the final answer is: A. milk was spilled
 |||
 
-Question: If a warm potato is left on a steel sink, the potato will
-Possible answers: A. burn, B. lose heat, C. get hotter, D. warm up
+Question: A heavier object
+Possible answers: A. requires less force to move, B. requires minimal effort to move, C. requires more muscle power to shift, D. requires a light touch to move
 Let's think step by step:
-- warm potato has a lot of heat energy
-- steel sink is a heat conductor
-- burning happens when heat is added
-- heat conductors remove heat from source
-So the final answer is: B. lose heat
-
+- classical mechanics deals with the motion of bodies under the influence of forces or with the equilibrium of bodies when all forces are balanced
+- Newton's second law is F=ma, where F is the force applied to the body, m is mass and a is acceleration
+- consider a body with mass m1 and a heavier body of mass m2 = m1+1, the force required to move the heavier body needs to be greater according to the Newton's second law
+- force, effort, muscle power, touch in possible answers are the same words for making the object move
+So the final answer is: C. requires more muscle power to shift
 |||
 
 Question: Which is most harmful to a human?
 Possible answers: A. dynamite going off, B. reading email, C. balloons popping, D. opening a soda
 Let's think step by step:
-- things harmful to a human cause physical damage and pain
-- dynamite creates high-energy explosions
-- emails cannot cause damage to people
-- balloons popping are loud but not harmful
-- opening a soda releases low levels of energy from compressed gas
+- a person may get killed if they're too close of a dynamite explosion, the schockwave can also damage hearing
+- reading an email is not dangerous, at worst the email contains a computer virus which does not directly impact human's health
+- balloons popping can be very irritating, but do not lead to hearing loss
+- it's very unlikely to be harmed while opening a soda, at worst you cut your finger on a piece of aluminium
 So the final answer is: A. dynamite going off
-
 |||
 
 Question: {{question}}
