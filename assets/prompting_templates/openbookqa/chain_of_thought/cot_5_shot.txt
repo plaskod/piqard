@@ -41,6 +41,16 @@ Let's think step by step:
 So the final answer is: C. requires more muscle power to shift
 |||
 
+Question: Which is most harmful to a human?
+Possible answers: A. dynamite going off, B. reading email, C. balloons popping, D. opening a soda
+Let's think step by step:
+- a person may get killed if they're too close of a dynamite explosion, the schockwave can also damage hearing
+- reading an email is not dangerous, at worst the email contains a computer virus which does not directly impact human's health
+- balloons popping can be very irritating, but do not lead to hearing loss
+- it's very unlikely to be harmed while opening a soda, at worst you cut your finger on a piece of aluminium
+So the final answer is: A. dynamite going off
+|||
+
 Question: {{question}}
 Possible answers: {{possible_answers}}
 Let's think step by step:

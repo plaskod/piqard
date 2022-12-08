@@ -31,12 +31,15 @@ function Question({question}){
                 {isContextVisible && (
                     <Container>
                         <ul>
-                            {question.context.map((doc) => (
+                            {question.context && question.context.map((doc) => (
                                 <li>{doc}</li>
                             ))}
                         </ul>
                     </Container>
                 )}
+            </Container>
+            <Container>
+                <span className="bold">Raw predicted answer: </span>{question.raw_predicted_answer}
             </Container>
         </Container>
     )
