@@ -1,0 +1,29 @@
+Given the following question and contexts provide an answer:
+
+Question: What is the elevation range for the area that the eastern sector of the
+Colorado orogeny extends into?
+Context: The Colorado orogeny, or Colorado orogen, was an orogeny in Colorado and surrounding areas which was a part of the development of the ancestral Rockies. The Colorado orogeny, formerly called the Colorado province, is a >500-km-wide belt of oceanic arc rock (1.78\u20131.65 Ga) that extends southward into New Mexico and composes a major part of the Proterozoic provinces of southwestern United States. This transcontinental collisional event occurred during the Paleoproterozoic (Statherian Period). The Wyoming sector of the Colorado orogeny was formerly called the Medicine Bow orogeny. The High Plains are a subregion of the Great Plains mostly in the Western United States, but also partly in the Midwest states of Nebraska, Kansas, and South Dakota, generally encompassing the western part of the Great Plains before the region reaches the Rocky Mountains. The High Plains are located in southeastern Wyoming, southwestern South Dakota, western Nebraska, eastern Colorado, western Kansas, eastern New Mexico, western Oklahoma, and south of the Texas Panhandle. The southern region of the Western High Plains ecology region contains the geological formation known as Llano Estacado which can be seen from a short distance or from on satellite maps.
+7,000 ft, so the answer is 1,800 to 7,000 ft.
+Answer: 1,800 to 7,000 ft
+
+Question: Musician and satirist Allie Goertz wrote a song about the "The Simpsons"
+character Milhouse, who Matt Groening named after who?
+Context: Allison Beth \"Allie\" Goertz (born March 2, 1991) is an American musician. Goertz is known for her satirical songs based on various pop culture topics. Her videos are posted on YouTube under the name of Cossbysweater. Subjects of her songs have included the film \"The Room\", the character Milhouse from the television show \"The Simpsons\", and the game Dungeons & Dragons. Her style has been compared to that of Bo Burnham. Milhouse Mussolini van Houten is a fictional character featured in the animated television series \"The Simpsons\", voiced by Pamela Hayden, and created by Matt Groening who named the character after President Richard Nixon's middle name. Later in the series, it is revealed that Milhouse's middle name is \"Mussolini.\"
+Answer: Richard Nixon
+
+Question: Which documentary is about Finnish rock groups, Adam Clayton Powell or The
+Saimaa Gesture?
+Context: Adam Clayton Powell is a 1989 American documentary film directed by Richard Kilberg about the civil rights leader. It was nominated for an Academy Award for Best Documentary Feature. The Saimaa Gesture (Finnish: \"Saimaa-ilmi\u00f6\" ) is a 1981 film by Finnish directors Aki and Mika Kaurism\u00e4ki. It is a documentary of three Finnish rock groups aboard the steamboat SS Hein\u00e4vesi on their tour around Lake Saimaa.
+Answer: The Saimaa Gesture
+
+Question: What profession does Nicholas Ray and Elia Kazan have in common?
+Context: Nicholas Ray (born Raymond Nicholas Kienzle Jr., August 7, 1911 \u2013 June 16, 1979) was an American film director best known for the movie \"Rebel Without a Cause.\". Elia Kazan (born Elias Kazantzoglou September 7, 1909 \u2013 September 28, 2003) was a Greek-American director, producer, writer and actor, described by \"The New York Times\" as \"one of the most honored and influential directors in Broadway and Hollywood history\".
+Answer: director, screenwriter, actor
+
+Question: Which magazine was started first Arthur’s Magazine or First for Women?
+Context: Arthur's Magazine (1844\u20131846) was an American literary periodical published in Philadelphia in the 19th century. Edited by T.S. Arthur, it featured work by Edgar A. Poe, J.H. Ingraham, Sarah Josepha Hale, Thomas G. Spear, and others. In May 1846 it was merged into \"Godey's Lady's Book\"."First for Women is a woman's magazine published by Bauer Media Group in the USA. The magazine was started in 1989. It is based in Englewood Cliffs, New Jersey. In 2011 the circulation of the magazine was 1,310,696 copies.
+Answer: Arthur’s Magazine
+
+Question: {{question}}
+Context: {% if context %}{{" ".join(context)}}{% endif %}
+Answer:

@@ -1,0 +1,11 @@
+Given the following question, write the step-by-step thought process and provide an answer:
+
+Question: What is the elevation range for the area that the eastern sector of the
+Colorado orogeny extends into?
+Thought: Let’s think step by step. The eastern sector of Colorado orogeny extends
+into the High Plains. High Plains rise in elevation from around 1,800 to
+7,000 ft, so the answer is 1,800 to 7,000 ft.
+Answer: 1,800 to 7,000 ft
+
+Question: {{question}}
+Thought: Let's think step by step.

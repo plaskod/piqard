@@ -1,0 +1,5 @@
+Given the following question and contexts provide an answer:
+
+Question: {{question}}
+Context: {% if context %}{{" ".join(context)}}{% endif %}
+Answer:
