@@ -6,6 +6,7 @@ Thought: Let’s think step by step. The eastern sector of Colorado orogeny exte
 into the High Plains. High Plains rise in elevation from around 1,800 to
 7,000 ft, so the answer is 1,800 to 7,000 ft.
 Answer: 1,800 to 7,000 ft
+|||
 
 Question: {{question}}
 Thought: Let's think step by step.
