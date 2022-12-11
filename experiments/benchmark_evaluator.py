@@ -5,6 +5,7 @@ from collections import Counter
 from pathlib import Path
 
 import tqdm
+from nltk.translate.bleu_score import sentence_bleu
 
 from piqard.PIQARD import PIQARD
 from piqard.language_models.exceptions import Response500Exception, LanguageModelAPIOverloadException
@@ -82,16 +83,23 @@ class BenchmarkEvaluator:
 
     def gen_eval(self, results: list[dict]) -> dict:
         em_total, cem_total, f1_total = 0, 0, 0
+        bleu1_total, bleu2_total, bleu3_total = 0, 0, 0
         count = len(results)
         for result in results:
             prediction, ground_truth = result["predicted_answer"], result["answer"]
             em_total += self.exact_match_score(prediction, ground_truth)
             cem_total += self.cover_exact_match_score(prediction, ground_truth)
             f1_total += self.f1_score(prediction, ground_truth)
+            bleu1_total += self.bleu_score(prediction, ground_truth, n=1)
+            bleu2_total += self.bleu_score(prediction, ground_truth, n=2)
+            bleu3_total += self.bleu_score(prediction, ground_truth, n=3)
         return {
             "Exact match": em_total / count,
             "Cover Exact Match": cem_total / count,
             "F1": f1_total / count,
+            "Bleu-1": bleu1_total / count,
+            "Bleu-2": bleu2_total / count,
+            "Bleu-3": bleu3_total / count
         }
 
     def exact_match_score(self, prediction: str, ground_truth: str) -> int:
@@ -121,6 +129,12 @@ class BenchmarkEvaluator:
             != -1
             else 0
         )
+
+    def bleu_score(self, prediction: str, ground_truth: str, n: int = 1) -> float:
+        prediction_tokens = self.__normalize_answer(prediction).split()
+        ground_truth_tokens = self.__normalize_answer(ground_truth).split()
+        weights = [(1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0)]
+        return sentence_bleu([ground_truth_tokens], prediction_tokens, weights=weights[n - 1])
 
     @staticmethod
     def __normalize_answer(answer: str) -> str:

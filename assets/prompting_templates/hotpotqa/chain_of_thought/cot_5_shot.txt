@@ -34,4 +34,4 @@ Women), so Arthur’s Magazine was started first.
 Answer: Arthur’s Magazine
 
 Question: {{question}}
-Context: Let's think step by step.
+Thought: Let's think step by step.
