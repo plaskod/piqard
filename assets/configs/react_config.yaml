@@ -1,0 +1,12 @@
+prompt_template: !PromptTemplate
+  template: assets/prompting_templates/react/react_prompt.txt
+language_model: !BLOOM176bAPI
+  stop_token: "\n"
+  temperature: 1
+  top_k: 1
+actions:
+  - !Action
+      name: Wikipedia
+      func: !WikiAPI
+        k: 2
+      prefix: Search
