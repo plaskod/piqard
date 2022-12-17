@@ -1,19 +1,34 @@
 import React from 'react';
 import {Navbar, Nav, Container} from 'react-bootstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithub } from '@fortawesome/free-brands-svg-icons'
+import { faTwitter } from '@fortawesome/free-brands-svg-icons'
 
 import './MainNavbar.css'
 
+
 function MainNavbar(){
     return(
-        <Navbar bg="dark" variant="dark" className='main-navbar'>
-        <Container>
-          <Navbar.Brand href="/">PIQARD</Navbar.Brand>
-          <Nav className="me-auto">
-            <Nav.Link href="/benchmarks">Benchmarks</Nav.Link>
-            <Nav.Link href="/playground">Playground</Nav.Link>
-          </Nav>
-        </Container>
-      </Navbar>
+        
+        <Navbar variant="dark" className='main-navbar' collapseOnSelect expand="sm">
+            <Container>
+              <Navbar.Brand href="/">PIQARD</Navbar.Brand>
+              <Navbar.Toggle />
+
+              <Navbar.Collapse>
+                  <Nav className="me-auto">
+                    <Nav.Link href="/playground">Playground</Nav.Link>
+                    <Nav.Link href="/opensystem">OpenSystem</Nav.Link>
+                    <Nav.Link href="/benchmarks">Benchmarks</Nav.Link>
+                  </Nav>
+
+                  <Nav className="justify-content-end" activeKey="/home">
+                    <div className='social-icon'><FontAwesomeIcon icon={faGithub} /></div>
+                    <div className='social-icon'><FontAwesomeIcon icon={faTwitter} /></div>
+                  </Nav>
+              </Navbar.Collapse>
+            </Container> 
+        </Navbar>
     )
 }
 

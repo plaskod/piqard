@@ -1,5 +1,26 @@
 .main-navbar{
     background-color: var(--primary-color)!important;
-    box-shadow: 0px 9px 24px 4px rgba(66, 68, 90, 1);
-    height: 8%;
+    box-shadow: 0px 9px 24px 4px rgb(3, 3, 4);
+    height: var(--top-navbar-height);
+    z-index: 999;
+}
+
+.social-icon{
+    padding: 0 10px;
+    font-size: 25px;
+}
+
+.social-icon:hover{
+    color: rgb(177, 177, 177);
+    cursor: pointer;
+}
+
+
+@media (max-width: 768px)  { 
+    .main-navbar{
+        background-color: var(--primary-color)!important;
+        box-shadow: 0px 9px 24px 4px rgb(3, 3, 4);
+        height: auto;
+        z-index: 999;
+    }
 }

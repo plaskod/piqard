@@ -3,10 +3,9 @@ import { Container, Row, Col } from "react-bootstrap";
 
 import './Button.css'
 
-function Button({label, name, onClick}){
-   
+function Button({label, name, className, onClick}){
     return(
-        <button className="custom-button" name={name} onClick={onClick}>
+        <button name={name} onClick={onClick} className={!className ? "custom-button" : className}>
             {label}
         </button>
     )

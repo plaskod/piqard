@@ -1,3 +1,18 @@
+@font-face {
+  font-family: "Prompt";
+  src: local("Prompt"), url("./fonts/prompt/Prompt-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "PromptLight";
+  src: local("PromptLight"), url("./fonts/prompt/Prompt-ExtraLight.ttf") format("truetype");
+}
+
+
+.content-view{
+  height: calc(100vh - var(--top-navbar-height));
+}
+
 .center{
   display: flex;
   justify-content: center;
@@ -18,3 +33,4 @@
   padding: 0!important;
   margin: 0!important;
 }
+
