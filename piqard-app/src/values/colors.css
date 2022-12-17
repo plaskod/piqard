@@ -1,17 +1,23 @@
 :root {
     --white: #ffffff;
     --black: #000000;
-    --primary-color: #110E16;
-    --secondary-color: #251717;
+    --primary-color: #18181a;
+    --secondary-color: #353741;
     --third-color: #6D5648;
     --shadow-color: #171D26;
-    --background-color: rgb(242, 238, 233);
+    --background-color: #444654;
     --red: #da0000;
     --green: #14b103;
     --gray: #727272;
     --light-gray: #e9ecef;
-    --border-color-gray: #ced4da;
+    --border-color-gray: #616163;
 
     --button-color: #48362a;
     --button-second-color: #6D5648;
+
+    --button-prompt-color: #3d2c41;
+    --button-prompt-second-color: #5a4160;
+
+    --text-main: #ececf1;
+    --text-secondary: #fcb079;
 }
