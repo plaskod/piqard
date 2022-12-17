@@ -30,5 +30,9 @@ class Retriever:
     def get_questions(self, question: str) -> list[dict]:
         pass
 
+    def __call__(self, *args, **kwargs):
+        return self.get_documents(*args)
+
     def __str__(self):
         return self.__class__.__name__
+

@@ -6,7 +6,7 @@ from piqard.language_models.language_model import LanguageModel
 
 
 class CohereAPI(LanguageModel):
-    def __init__(self, stop_token: str = None):
+    def __init__(self, stop_token: str = None, max_tokens: int = 50, temperature: float = 0, top_k: int = 1):
         super().__init__(stop_token)
         try:
             with open("assets/credentials/cohere.json", "r") as f:
@@ -16,14 +16,27 @@ class CohereAPI(LanguageModel):
             exit(0)
         self.client = cohere.Client(self.API_KEY)
         self.parameters = {"model": 'xlarge',
-                           "max_tokens": 200,
-                           "temperature": 0,
-                           "k": 1} | {"stop_sequences": [self.stop_token]} if self.stop_token is not None else {}
+                           "max_tokens": max_tokens,
+                           "temperature": temperature,
+                           "k": top_k}
 
     def query(self, payload: str) -> str:
+        generated_answer = self.single_query(payload)
+        requests_number = 1
+        if self.stop_token:
+            while generated_answer.find(self.stop_token) == -1 and requests_number < 5:
+                requests_number += 1
+                generated_text = self.single_query(payload + generated_answer)
+                generated_answer += generated_text
+
+        if self.stop_token is None or generated_answer.find(self.stop_token) == -1:
+            return generated_answer
+        return generated_answer.split(self.stop_token)[0]
+
+    def single_query(self, payload: str) -> str:
         try:
             response = self.client.generate(prompt=payload, **self.parameters)
-            return response.generations[0].text.replace(self.stop_token, "").strip().strip("\n")
+            return response.generations[0].text.strip().strip("\n")
         except CohereError as e:
             if e.http_status == 598:# locked output
                 return "Error: adjust template; locked output"

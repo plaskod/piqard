@@ -11,3 +11,17 @@
 .custom-button:hover{
     background-color: var(--button-second-color);
 }
+
+.prompt-button{
+    border-radius: var(--border-radius);
+    border: 1px solid black;
+    cursor: pointer;
+    padding: 5px 10px;
+    margin: 10px 0;
+    background-color: var(--button-prompt-color);
+    color: white;
+}
+
+.prompt-button:hover{
+    background-color: var(--button-prompt-second-color);
+}

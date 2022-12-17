@@ -15,11 +15,13 @@ function App() {
   return (
     <BrowserRouter>
       <MainNavbar />
+      <div className='content-view'>
         <Routes>
           <Route exact path="/" element={<HomeView />} />
           <Route path="/benchmarks" element={<BenchmarkView />} />
           <Route path="/playground" element={<PlaygroundView />} />
         </Routes>
+      </div>
     </BrowserRouter>
   );
 }
