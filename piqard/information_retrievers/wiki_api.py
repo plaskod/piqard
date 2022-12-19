@@ -1,5 +1,7 @@
 import wikipedia
-from piqard.information_retrievers.exceptions import DynamicPromptingNotImplementedException
+from piqard.information_retrievers.exceptions import (
+    DynamicPromptingNotImplementedException,
+)
 from piqard.information_retrievers.retriever import Retriever
 
 

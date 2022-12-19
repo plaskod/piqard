@@ -4,7 +4,9 @@ import requests
 from tqdm import tqdm
 from newspaper import Article
 
-from piqard.information_retrievers.exceptions import DynamicPromptingNotImplementedException
+from piqard.information_retrievers.exceptions import (
+    DynamicPromptingNotImplementedException,
+)
 from piqard.information_retrievers.retriever import Retriever
 
 
@@ -12,9 +14,7 @@ class GoogleCustomSearch(Retriever):
     def __init__(self, database: str = None, k: int = 1, n: int = 0):
         super().__init__(database, k)
         try:
-            with open(
-                "assets/credentials/google_custom_search.json", "r"
-            ) as f:
+            with open("assets/credentials/google_custom_search.json", "r") as f:
                 credentials = json.load(f)
                 self.engineID = credentials["engineID"]
                 self.APIkey = credentials["APIkey"]

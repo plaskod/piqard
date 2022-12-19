@@ -1,7 +1,9 @@
 from nltk.stem import PorterStemmer
 from gensim.parsing.preprocessing import remove_stopwords
 
-from piqard.information_retrievers.exceptions import DynamicPromptingNotImplementedException
+from piqard.information_retrievers.exceptions import (
+    DynamicPromptingNotImplementedException,
+)
 from piqard.information_retrievers.retriever import Retriever
 
 
@@ -11,7 +13,9 @@ class RankingRetriever(Retriever):
         self.index = self.load_index(f"assets/database/{database}/bm25_index.pickle")
         if n > 0:
             try:
-                self.question_index = self.load_index(f"assets/database/{database}/question_bm25_index.pickle")
+                self.question_index = self.load_index(
+                    f"assets/database/{database}/question_bm25_index.pickle"
+                )
             except FileNotFoundError:
                 raise DynamicPromptingNotImplementedException(self.__str__())
         self.stemmer = PorterStemmer()
@@ -24,14 +28,18 @@ class RankingRetriever(Retriever):
         return new_sentance
 
     def get_documents(self, question: str):
-        document_list = self.index.top_k_sentence(self.preprocess_query(question), k=self.k)
+        document_list = self.index.top_k_sentence(
+            self.preprocess_query(question), k=self.k
+        )
         retrieved_documents = [
             self.documents[document_info[1]] for document_info in document_list
         ]
         return retrieved_documents
 
     def get_questions(self, question: str) -> list[dict]:
-        question_list = self.question_index.top_k_sentence(self.preprocess_query(question), k=self.n)
+        question_list = self.question_index.top_k_sentence(
+            self.preprocess_query(question), k=self.n
+        )
         retrieved_questions = [
             self.questions[question_info[1]] for question_info in question_list
         ]
