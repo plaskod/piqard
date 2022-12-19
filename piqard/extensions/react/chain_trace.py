@@ -1,18 +1,27 @@
 class ChainTrace:
-    __type_of_nodes = ['base_prompt', 'thought', 'action', 'observation', 'finish']
-    __color_mapping = {'base_prompt': 'white', 'thought': 'blue', 'action': 'red', 'observation': 'yellow',
-                       'finish': 'green'}
+    __type_of_nodes = ["base_prompt", "thought", "action", "observation", "finish"]
+    __color_mapping = {
+        "base_prompt": "white",
+        "thought": "blue",
+        "action": "red",
+        "observation": "yellow",
+        "finish": "green",
+    }
 
     def __init__(self, data: str, type_of_node: str, depth: int = 0) -> None:
-        assert type_of_node in self.__type_of_nodes, f"Type of node must be one of {self.__type_of_nodes}"
+        assert (
+            type_of_node in self.__type_of_nodes
+        ), f"Type of node must be one of {self.__type_of_nodes}"
         self.type_of_node = type_of_node
         self.depth = depth
         if self.depth == 0:
-            assert self.type_of_node == 'base_prompt', f"Type of node must be 'base_prompt' for depth 0"
+            assert (
+                self.type_of_node == "base_prompt"
+            ), f"Type of node must be 'base_prompt' for depth 0"
         self.next = None
         self.data = data
         self.is_leaf = False
-        if self.type_of_node == 'finish':
+        if self.type_of_node == "finish":
             self.is_leaf = True
 
     def add(self, data: str, type_of_node: str) -> None:
@@ -42,12 +51,16 @@ class ChainTrace:
             return self.next.get_deepest_node()
 
     def __str__(self) -> str:
-        trace = ''
-        trace += self.data
+        trace = ""
+        trace += colored(self.data, self.__color_mapping[self.type_of_node])
         while self.next is not None:
             self = self.next
-            trace += self.data
+            trace += colored(self.data, self.__color_mapping[self.type_of_node])
         return trace
 
     def __len__(self) -> int:
         return len(self.compose())
+
+
+def colored(st, color):
+    return f"\u001b[{30+['black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white'].index(color)}m{st}\u001b[0m"

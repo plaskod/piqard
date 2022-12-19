@@ -5,7 +5,8 @@ class Response500Exception(Exception):
         super().__init__(self.message)
 
     def __str__(self):
-        return f'\n{self.language_model} -> {self.message}'
+        return f"\n{self.language_model} -> {self.message}"
+
 
 class LanguageModelAPIOverloadException(Exception):
     def __init__(self, language_model: str, message="API key hourly ratio exceeded."):
@@ -14,5 +15,4 @@ class LanguageModelAPIOverloadException(Exception):
         super().__init__(self.message)
 
     def __str__(self):
-        return f'\n{self.language_model} -> {self.message}'
-
+        return f"\n{self.language_model} -> {self.message}"

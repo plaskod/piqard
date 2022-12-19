@@ -9,9 +9,7 @@ class GPTj6bAPI(LanguageModel):
     def __init__(self):
         super().__init__()
         try:
-            with open(
-                "assets/credentials/huggingface.json", "r"
-            ) as f:
+            with open("assets/credentials/huggingface.json", "r") as f:
                 API_KEY = json.load(f)["APIkey"]
         except (FileNotFoundError, KeyError):
             print("api_key.json not found or incorrect file structure.")
