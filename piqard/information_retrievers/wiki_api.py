@@ -13,13 +13,13 @@ class WikiAPI(Retriever):
 
     def get_documents(self, question: str):
         try:
-            return wikipedia.summary(question, sentences=self.k)
+            return [wikipedia.summary(question, sentences=self.k)]
         except wikipedia.exceptions.PageError as e:
             possible_results = wikipedia.search(question)
-            return wikipedia.summary(possible_results[0], sentences=self.k)
+            return [wikipedia.summary(possible_results[0], sentences=self.k)]
         except wikipedia.exceptions.DisambiguationError as e:
             possible_results = wikipedia.search(question)
-            return wikipedia.summary(possible_results[0], sentences=self.k)
+            return [wikipedia.summary(possible_results[0], sentences=self.k)]
 
     def __str__(self):
         return "WikiAPI"

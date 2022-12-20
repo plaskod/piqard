@@ -14,10 +14,6 @@ class ChainTrace:
         ), f"Type of node must be one of {self.__type_of_nodes}"
         self.type_of_node = type_of_node
         self.depth = depth
-        if self.depth == 0:
-            assert (
-                self.type_of_node == "base_prompt"
-            ), f"Type of node must be 'base_prompt' for depth 0"
         self.next = None
         self.data = data
         self.is_leaf = False
