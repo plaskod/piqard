@@ -18,6 +18,12 @@ Observation: First for Women is a woman's magazine published by Bauer Media Grou
 Thought 3: First for Women was started in 1989. 1844 < 1989, so Arthur's Magazine was started first.
 Action 3: Finish[Arthur's Magazine]
 ---
+Question: What is the longest bridge in the world?
+Thought 1: I need to search the name of the longest bridge in the world.
+Action 1: Search[the longest bridge in the world]
+Observation 1: The Danyang-Kunshan Grand Bridge is officially the longest bridge in the world. It stretches out for no less than 102.4 miles (164.8 kilometres) and forms part of one of China's most important railway connections: the high-speed train between Beijing and Shanghai.
+Action 2: Finish[The Danyang-Kunshan Grand Bridge]
+---
 Question: Were Pavel Urysohn and Leonid Levin known for the same type of work?
 Thought 1: I need to search Pavel Urysohn and Leonid Levin, find their types of work, then find if they are the same.
 Action 1: Search[Pavel Urysohn]
