@@ -15,11 +15,11 @@ class WikiAPI(Retriever):
         try:
             return wikipedia.summary(question, sentences=self.k)
         except wikipedia.exceptions.PageError as e:
-            possible_results = wikipedia.search(question)
-            return wikipedia.summary(possible_results[0], sentences=self.k)
+            possible_results = wikipedia.search(f"[{question}]")
+            return f"Could not find {question}. Similar: {possible_results[:5]}."
         except wikipedia.exceptions.DisambiguationError as e:
-            possible_results = wikipedia.search(question)
-            return wikipedia.summary(possible_results[0], sentences=self.k)
+            possible_results = wikipedia.search(f"[{question}]")
+            return f"Could not find {question}. Similar: {possible_results[:5]}."
 
     def __str__(self):
         return "WikiAPI"
