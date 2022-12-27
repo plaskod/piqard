@@ -17,12 +17,14 @@ class SelfAsk:
         should_browse_info = "Should I browse the web for an answer?: {should_browse}"
         if self.should_browse(query):
             self.trace = ChainTrace(should_browse_info.format(should_browse="yes") + "\n", "thought")
-            self.if_should_browse.set_trace(self.trace)
-            return self.if_should_browse(query)
+            result = self.if_should_browse(query)
+            result['chain_trace'] = self.trace.to_json() + result['chain_trace']
+            return result
         else:
             self.trace = ChainTrace(should_browse_info.format(should_browse="no") + "\n", "thought")
-            self.if_should_not_browse.set_trace(self.trace)
-            return self.if_should_not_browse(query)
+            result = self.if_should_not_browse(query)
+            result['chain_trace'] = self.trace.to_json() + result['chain_trace']
+            return result
 
     def should_browse(self, question: str) -> bool:
         prompt = self.prompt_template.render(question=question)
