@@ -1,10 +1,12 @@
 from piqard.PIQARD import PIQARD
 from piqard.extensions.react.action import Action
-from piqard.extensions.react.chain_trace import ChainTrace
+from piqard.utils.yaml_constructor import yaml_constructor
+from piqard.utils.chain_trace import ChainTrace
 from piqard.language_models.language_model import LanguageModel
 from piqard.utils.prompt_template import PromptTemplate
 
 
+@yaml_constructor
 class Agent(PIQARD):
     def __init__(
         self,
@@ -17,7 +19,6 @@ class Agent(PIQARD):
         self.sequence_stopper = Action(
             name="Sequence stopper", func=lambda x: x, prefix="Finish"
         )
-        self.trace = None
 
     def __call__(self, query: str, possible_answers: str = None) -> dict:
         prompt = self.prompt_template.render(
@@ -25,9 +26,13 @@ class Agent(PIQARD):
             possible_answers=possible_answers,
         )
 
-        self.trace = ChainTrace(
-            prompt + "\n", "base_prompt"
-        )  # initialize the trace with the base prompt
+        if self.trace is None:
+            self.trace = ChainTrace(
+                prompt + "\n", "base_prompt"
+            )  # initialize the trace with the base prompt
+        else:
+            self.trace.add(prompt + "\n", "base_prompt")
+
         intermediate_answer = self.language_model.query(prompt)
 
         max_iterations = 20
@@ -42,7 +47,6 @@ class Agent(PIQARD):
                 if self.sequence_stopper.check(intermediate_answer):
                     final_answer = self.sequence_stopper(intermediate_answer)
                     self.trace.add(final_answer + "\n", "finish")
-                    flag = False
                     break
                 for action in self.actions:
                     if action.check(intermediate_answer):
@@ -50,13 +54,13 @@ class Agent(PIQARD):
                         retrieved_context = f"Observation: {retrieved_context}"
                         self.trace.add(retrieved_context + "\n", "observation")
 
-            print(self.trace.compose())
             intermediate_answer = self.language_model.query(self.trace.compose())
 
         return {
             "prompt": prompt,
-            "raw_answer": self.trace.compose()[len(prompt) :],
+            "raw_answer": self.trace.compose()[len(prompt):],
             "answer": self.trace.get_deepest_node().data,
             "context": None,
             "prompt_examples": None,
+            "chain_trace": self.trace.compose(),
         }
