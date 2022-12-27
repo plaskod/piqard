@@ -1,5 +1,8 @@
 import { Container, Row, Col } from "react-bootstrap";
+import { useNavigate } from 'react-router-dom';
+
 import Button from "../components/Button";
+
 
 import './HomeView.css';
 
@@ -8,7 +11,14 @@ import question from '../assets/icons/question.png';
 import workflow from '../assets/icons/workflow.png';
 import command from '../assets/icons/command.png';
 
+
 function HomeView(){
+    const navigate = useNavigate();
+
+    function redirect(path) {
+        navigate(path);
+      }
+
     return(
         <Container className="home-view-container" fluid>
             <Container className="main-hero" fluid>
@@ -27,7 +37,7 @@ function HomeView(){
                                 <br/>
                                 <span className="slogan">C:\Piqard{">"} Prompting is the future!<br/></span>
                                 C:\Piqard{">"} Do you want to start? [y/n]:<br/>
-                                <Button label="Get started now!" className="prompt-button"/>
+                                <Button label="Get started now!" className="prompt-button" onClick={()=>(redirect('/opensystem'))}/>
                             </div>
                         </div>
                     </Col>

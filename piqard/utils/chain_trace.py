@@ -34,6 +34,12 @@ class ChainTrace:
         else:
             return self.data + self.next.compose()
 
+    def to_json(self) -> list:
+        if self.is_leaf or self.next is None:
+            return [{"type": self.type_of_node, "data": self.data}]
+        else:
+            return [{"type": self.type_of_node, "data": self.data}] + self.next.to_json()
+
     def get_max_depth(self) -> int:
         if self.is_leaf == True or self.next is None:
             return self.depth

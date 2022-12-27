@@ -5,6 +5,8 @@ from fastapi.middleware.cors import CORSMiddleware
 import os
 import sys
 import inspect
+
+
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parentdir = os.path.dirname(currentdir)
 sys.path.insert(0, parentdir)
@@ -12,6 +14,7 @@ sys.path.insert(0, parentdir)
 import config
 from api_utils import prepare_config_components, yaml_config_from_dict
 from piqard.PIQARD_loader import PIQARDLoader
+from piqard.extensions.self_ask.self_ask_loader import SelfAskLoader
 
 
 
@@ -57,6 +60,15 @@ async def get_prompt_template(query: Request):
         template = f.read()
     return {"template": template}
 
+
+@app.post("/opensystem")
+async def opensystem_query(query: Request):
+    message = await query.json()
+    question = message['question']
+    self_ask_loader = SelfAskLoader()
+    self_ask = self_ask_loader.load(f"{config.OPEN_SYSTEM_CONFIG}")
+    result = self_ask(question)
+    return result
 
 if __name__ == "__main__":
     uvicorn.run("__main__:app", host="0.0.0.0", port=8000, reload=True)

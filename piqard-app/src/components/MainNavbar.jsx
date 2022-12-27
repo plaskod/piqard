@@ -17,14 +17,18 @@ function MainNavbar(){
 
               <Navbar.Collapse>
                   <Nav className="me-auto">
-                    <Nav.Link href="/playground">Playground</Nav.Link>
                     <Nav.Link href="/opensystem">OpenSystem</Nav.Link>
-                    <Nav.Link href="/benchmarks">Benchmarks</Nav.Link>
+                    {/* <Nav.Link href="/playground">Playground</Nav.Link> */}
+                    {/* <Nav.Link href="/benchmarks">Benchmarks</Nav.Link> */}
                   </Nav>
 
                   <Nav className="justify-content-end" activeKey="/home">
-                    <div className='social-icon'><FontAwesomeIcon icon={faGithub} /></div>
-                    <div className='social-icon'><FontAwesomeIcon icon={faTwitter} /></div>
+                    <a href='https://github.com/plaskod/piqard' className='a-link'>
+                      <div className='social-icon'>
+                        <FontAwesomeIcon icon={faGithub} />
+                      </div>
+                    </a>
+                    {/* <div className='social-icon'><FontAwesomeIcon icon={faTwitter} /></div> */}
                   </Nav>
               </Navbar.Collapse>
             </Container> 

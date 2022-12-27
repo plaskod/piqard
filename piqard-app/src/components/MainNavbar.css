@@ -24,3 +24,7 @@
         z-index: 999;
     }
 }
+
+.a-link{
+    color: var(--text-primary);
+}

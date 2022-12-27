@@ -32,10 +32,7 @@ class SelfAsk:
         )
         if final_answer == "No":
             return False
-        elif final_answer == "Yes":
-            return True
         else:
-            # raise Exception("Invalid answer from language model")
             return True
 
     def show_info(self):

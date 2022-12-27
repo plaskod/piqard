@@ -62,5 +62,5 @@ class Agent(PIQARD):
             "answer": self.trace.get_deepest_node().data,
             "context": None,
             "prompt_examples": None,
-            "chain_trace": self.trace.compose(),
+            "chain_trace": self.trace.to_json(),
         }

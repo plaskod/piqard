@@ -64,7 +64,7 @@ class PIQARD:
             "answer": final_answer,
             "context": retrieved_documents,
             "prompt_examples": prompt_examples,
-            "chain_trace": self.trace.compose(),
+            "chain_trace": self.trace.to_json(),
         }
 
     def set_trace(self, trace: ChainTrace):
