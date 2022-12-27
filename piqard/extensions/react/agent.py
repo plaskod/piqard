@@ -51,7 +51,7 @@ class Agent(PIQARD):
                 for action in self.actions:
                     if action.check(intermediate_answer):
                         retrieved_context = action(intermediate_answer)
-                        retrieved_context = f"Observation: {retrieved_context}"
+                        retrieved_context = f"Observation: {' '.join(retrieved_context)}"
                         self.trace.add(retrieved_context + "\n", "observation")
 
             intermediate_answer = self.language_model.query(self.trace.compose())
