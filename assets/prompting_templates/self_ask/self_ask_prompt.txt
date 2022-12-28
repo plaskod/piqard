@@ -1,0 +1,21 @@
+For each input, determine if the answerer will need to access the internet to respond.
+Statements or question of opinion do not require the internet, factual question or commands might.
+In general, simple factual questions whose answers do not change over time can be answered without the internet access.
+Questions that refer to current events, news, sports, websites that change frequently, etc. will require the internet access.
+Questions that refer highly specific events that the answer may not have memorized also require the internet access.
+If they do not need to access the internet, the answerer will respond with "No". If they do, rephrase the question in the form of search command.
+
+Input: Hello, how are you?
+Output: No
+Input: What is the capital of France?
+Output: No
+Input: Who won the 2022 World Cup?
+Output: Find the 2022 Would Cup winner
+Input: What's your name?
+Output: No
+Input: What is the current temperature in Paris?
+Output: Find the current temperature in Paris
+Input: What is machine learning?
+Output: No
+Input: {{question}}
+Output:

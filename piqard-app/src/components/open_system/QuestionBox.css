@@ -1,0 +1,38 @@
+.questionbox-container{
+    padding-top: 50px;
+}
+
+
+.questionbox{
+    background-color: var(--secondary-color);
+    border-radius: var(--border-radius);
+    padding: 40px;
+    width: 60%;
+    box-shadow: 0px 0px 25px 2px var(--shadow-color);
+}
+
+
+.questionbox-question{
+    border-radius: var(--border-radius);
+    width: 90%;
+    padding: 5px;
+}
+
+.questionbox-question:disabled{
+    color: black;
+}
+
+.enter-icon{
+    padding-left: 10px;
+    font-size: 20px;
+    color: var(--text-secondary);
+}
+
+.enter-icon:hover{
+    color: var(--text-secondary-hover);
+    cursor: pointer;
+}
+
+.disabled-icon{
+    color: gray!important;
+}

@@ -14,10 +14,6 @@ class ChainTrace:
         ), f"Type of node must be one of {self.__type_of_nodes}"
         self.type_of_node = type_of_node
         self.depth = depth
-        if self.depth == 0:
-            assert (
-                self.type_of_node == "base_prompt"
-            ), f"Type of node must be 'base_prompt' for depth 0"
         self.next = None
         self.data = data
         self.is_leaf = False
@@ -37,6 +33,12 @@ class ChainTrace:
             return self.data
         else:
             return self.data + self.next.compose()
+
+    def to_json(self) -> list:
+        if self.is_leaf or self.next is None:
+            return [{"type": self.type_of_node, "data": self.data}]
+        else:
+            return [{"type": self.type_of_node, "data": self.data}] + self.next.to_json()
 
     def get_max_depth(self) -> int:
         if self.is_leaf == True or self.next is None:

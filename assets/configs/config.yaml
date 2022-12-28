@@ -1,5 +1,4 @@
 prompt_template: !PromptTemplate
-  template: assets/prompting_templates/openbookqa/chain_of_thought/cot_5_shot.txt
-  fix_text: "So the final answer is:"
-language_model: !BLOOM176bAPI
-  stop_token: "|||"
+  template: assets/prompting_templates/like_chat_gpt/without_context.txt
+language_model: !CohereAPI
+  stop_token: "\n"

@@ -9,6 +9,7 @@ import PlaygroundView from './views/PlaygroundView';
 import './App.css';
 import './values/constants.css'
 import './values/colors.css'
+import OpenSystemView from './views/OpenSystemView';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Route exact path="/" element={<HomeView />} />
           <Route path="/benchmarks" element={<BenchmarkView />} />
           <Route path="/playground" element={<PlaygroundView />} />
+          <Route path="/opensystem" element={<OpenSystemView />} />
         </Routes>
       </div>
     </BrowserRouter>

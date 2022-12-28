@@ -23,6 +23,7 @@ class CohereAPI(LanguageModel):
         self.client = cohere.Client(self.API_KEY)
         self.parameters = {
             "model": "xlarge",
+            "truncate": "START",
             "max_tokens": max_tokens,
             "temperature": temperature,
             "k": top_k,
@@ -48,6 +49,8 @@ class CohereAPI(LanguageModel):
         except CohereError as e:
             if e.http_status == 598:  # locked output
                 return "Error: adjust template; locked output"
+            else:
+                raise Exception
 
     def __str__(self) -> str:
         return "Cohere API"
