@@ -2,7 +2,7 @@ from utils import load_jsonl
 
 
 def load_documents() -> list[dict]:
-    raise NotImplemented
+    raise NotImplementedError
 
 
 def load_questions(test: bool = False, number: int = None) -> list[dict]:
