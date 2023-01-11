@@ -7,9 +7,6 @@ setup(
     description='Prompted Intelligent Question Answering with Retrieval of Documents',
     author='Mateusz Politycki, Dawid Plaskowski, Marcin Korcz, Alex Terentowicz',
     license='MIT',
-    package_data={
-        '': ['*.ann', '*.pickle', '*.jsonl'],
-    },
     install_requires=[
         'requests==2.28.1',
         'newspaper3k==0.2.8',
@@ -24,7 +21,8 @@ setup(
         'uvicorn==0.19.0',
         'annoy==1.17.1',
         'cohere==2.9.1',
-        'wikipedia==1.4.0'
+        'wikipedia==1.4.0',
+        'jinja2==3.1.2'
     ],
     setup_requires=['pytest-runner'],
     tests_require=['pytest==4.4.1'],

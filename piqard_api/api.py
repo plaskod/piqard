@@ -1,7 +1,7 @@
 import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from piqard.extensions.self_ask.self_ask_loader import SelfAskLoader
+from piqard.extensions.self_aware.self_ask_loader import SelfAskLoader
 
 import os
 os.environ["COHERE_API_KEY"] = "eYDbpsxzTril5NSJTGhv3olRwtNuuAkl9WHK5Vl5"
@@ -29,6 +29,7 @@ async def opensystem_query(query: Request):
     self_ask_loader = SelfAskLoader()
     self_ask = self_ask_loader.load(OPEN_SYSTEM_CONFIG)
     result = self_ask(question)
+    result['chain_trace'] = result['chain_trace'].to_json()
     return result
 
 if __name__ == "__main__":

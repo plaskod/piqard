@@ -7,14 +7,16 @@ from piqard.information_retrievers.retriever import Retriever
 
 
 class FAISSRetriever(Retriever):
-    def __init__(self,
-                 database: str,
-                 database_index: str = None,
-                 database_path: str = None,
-                 questions_index: str = None,
-                 questions_path: str = None,
-                 k: int = 1,
-                 n: int = 0):
+    def __init__(
+        self,
+        database: str,
+        database_index: str = None,
+        database_path: str = None,
+        questions_index: str = None,
+        questions_path: str = None,
+        k: int = 1,
+        n: int = 0,
+    ):
         super().__init__(database, database_path, questions_path, k=k, n=n)
         self.index = self.load_index(database_index)
         if n > 0:

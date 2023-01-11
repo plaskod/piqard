@@ -1,7 +1,5 @@
 from piqard.utils.io import load_jsonl
 
-DATA_PATH = 'data/openbookqa'
-
 
 def load_documents(path: str) -> list[dict]:
     raw_documents = load_jsonl(path)

@@ -1,7 +1,10 @@
 import requests
 from transformers import AutoTokenizer
 
-from piqard.language_models.exceptions import Response500Exception, LanguageModelAPIOverloadException
+from piqard.language_models.exceptions import (
+    Response500Exception,
+    LanguageModelAPIOverloadException,
+)
 from piqard.language_models.language_model import LanguageModel
 from piqard.utils.io import get_env_variable
 
@@ -43,7 +46,6 @@ class GPTj6bAPI(LanguageModel):
 
     def __str__(self) -> str:
         return "GPT-J6B huggingface.co API"
-
 
     def preprocess_prompt(self, prompt: str) -> str:
         tokenized = self.tokenizer(prompt)["input_ids"]

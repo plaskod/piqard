@@ -1,9 +1,6 @@
 import json
 import os
-import urllib.request
-
 import tqdm
-from mega import Mega
 
 
 def directory(path: str) -> str:

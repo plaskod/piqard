@@ -1,5 +1,3 @@
-import os
-
 from piqard.utils.io import load_jsonl
 
 

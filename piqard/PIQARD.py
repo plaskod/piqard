@@ -44,9 +44,7 @@ class PIQARD:
             prompt_examples=prompt_examples,
         )
         if self.trace is None:
-            self.trace = ChainTrace(
-                prompt + "\n", "base_prompt"
-            )
+            self.trace = ChainTrace(prompt + "\n", "base_prompt")
         else:
             self.trace.add(prompt + "\n", "base_prompt")
 
@@ -64,7 +62,7 @@ class PIQARD:
             "answer": final_answer,
             "context": retrieved_documents,
             "prompt_examples": prompt_examples,
-            "chain_trace": self.trace.to_json(),
+            "chain_trace": self.trace,
         }
 
     def set_trace(self, trace: ChainTrace):

@@ -1,5 +1,3 @@
-import json
-
 import requests
 from tqdm import tqdm
 from newspaper import Article

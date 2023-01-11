@@ -51,16 +51,18 @@ class Agent(PIQARD):
                 for action in self.actions:
                     if action.check(intermediate_answer):
                         retrieved_context = action(intermediate_answer)
-                        retrieved_context = f"Observation: {' '.join(retrieved_context)}"
+                        retrieved_context = (
+                            f"Observation: {' '.join(retrieved_context)}"
+                        )
                         self.trace.add(retrieved_context + "\n", "observation")
 
             intermediate_answer = self.language_model.query(self.trace.compose())
 
         return {
             "prompt": prompt,
-            "raw_answer": self.trace.compose()[len(prompt):],
+            "raw_answer": self.trace.compose()[len(prompt) :],
             "answer": self.trace.get_deepest_node().data,
             "context": None,
             "prompt_examples": None,
-            "chain_trace": self.trace.to_json(),
+            "chain_trace": self.trace,
         }

@@ -10,12 +10,14 @@ from piqard.utils.yaml_constructor import yaml_constructor
 
 @yaml_constructor
 class Retriever:
-    def __init__(self,
-                 database: str = None,
-                 database_path: str = None,
-                 questions_path: str = None,
-                 k: int = 1,
-                 n: int = 0):
+    def __init__(
+        self,
+        database: str = None,
+        database_path: str = None,
+        questions_path: str = None,
+        k: int = 1,
+        n: int = 0,
+    ):
         self.k = k
         self.n = n
         if database:

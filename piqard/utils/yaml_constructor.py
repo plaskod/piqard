@@ -8,9 +8,7 @@ def yaml_constructor(clss):
         for key, val in node.value:
             if type(val) is SequenceNode:
                 val = [
-                    loader.construct_object(item)
-                    if item.value != "null"
-                    else None
+                    loader.construct_object(item) if item.value != "null" else None
                     for item in val.value
                 ]
             else:

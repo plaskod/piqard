@@ -1,3 +1,5 @@
+prompt_template: !PromptTemplate
+  template: assets/prompting_templates/self_aware/self_aware_prompt.txt
 language_model: !CohereAPI
   stop_token: "\n"
   temperature: 0
