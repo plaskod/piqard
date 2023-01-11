@@ -14,9 +14,9 @@ def load_questions(path: str, number: int = None) -> list[dict]:
     prepared_questions = []
     for question in raw_questions:
         question_id = question["_id"]
-        question_sentence = question["text"]
+        question_sentence = question["question"]
         possible_answers = None
-        answer = question["metadata"]["answer"]
+        answer = question["answer"]
         prepared_questions.append(
             {
                 "id": question_id,
