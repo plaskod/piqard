@@ -9,6 +9,7 @@ from piqard.language_models.exceptions import (
 from piqard.language_models.language_model import (
     LanguageModel,
 )
+from piqard.utils.io import get_env_variable
 
 
 class BLOOM176bAPI(LanguageModel):
@@ -17,12 +18,7 @@ class BLOOM176bAPI(LanguageModel):
     ):
         super().__init__(stop_token)
         self.tokenizer = BloomTokenizerFast.from_pretrained("bigscience/bloom")
-        try:
-            with open("assets/credentials/huggingface.json", "r") as f:
-                self.API_KEY = json.load(f)["APIkey"]
-        except (FileNotFoundError, KeyError):
-            print("api_key.json not found or incorrect file structure.")
-            exit(0)
+        self.API_KEY = get_env_variable("HUGGINGFACE_API_KEY")
         self.API_URL = "https://api-inference.huggingface.co/models/bigscience/bloom"
         self.parameters = {
             "use_cache": False,

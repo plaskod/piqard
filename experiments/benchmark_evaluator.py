@@ -9,7 +9,7 @@ from nltk.translate.bleu_score import sentence_bleu
 
 from piqard.PIQARD import PIQARD
 from piqard.language_models.exceptions import Response500Exception, LanguageModelAPIOverloadException
-from utils import load_jsonl, directory
+from piqard.utils.io import directory, load_jsonl
 
 
 class BenchmarkEvaluator:

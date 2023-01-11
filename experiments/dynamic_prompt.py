@@ -9,10 +9,8 @@ sys.path.insert(0, parentdir)
 
 from experiments.benchmark_evaluator import BenchmarkEvaluator
 from utils import save_results
-from database_loaders.database_loader_factory import DataBaseLoaderFactory
+from piqard.data_loaders.database_loader_factory import DataBaseLoaderFactory
 from piqard.PIQARD import PIQARD
-from piqard.information_retrievers.annoy_retriver import AnnoyRetriever
-from piqard.information_retrievers.ranking_retriever import RankingRetriever
 from piqard.information_retrievers.vector_retirever import VectorRetriever
 from piqard.language_models.bloom_176b_api import BLOOM176bAPI
 from piqard.language_models.cohere_api import CohereAPI

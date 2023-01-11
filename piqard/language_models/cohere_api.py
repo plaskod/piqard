@@ -3,6 +3,7 @@ import cohere
 from cohere import CohereError
 
 from piqard.language_models.language_model import LanguageModel
+from piqard.utils.io import get_env_variable
 
 
 class CohereAPI(LanguageModel):
@@ -14,12 +15,7 @@ class CohereAPI(LanguageModel):
         top_k: int = 1,
     ):
         super().__init__(stop_token)
-        try:
-            with open("assets/credentials/cohere.json", "r") as f:
-                self.API_KEY = json.load(f)["APIkey"]
-        except (FileNotFoundError, KeyError):
-            print("api_key.json not found or incorrect file structure.")
-            exit(0)
+        self.API_KEY = get_env_variable("COHERE_API_KEY")
         self.client = cohere.Client(self.API_KEY)
         self.parameters = {
             "model": "xlarge",

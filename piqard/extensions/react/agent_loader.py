@@ -5,8 +5,8 @@ import ruamel.yaml
 from piqard.extensions.react.action import Action
 from piqard.extensions.react.agent import Agent
 from piqard.information_retrievers.google_custom_search import GoogleCustomSearch
-from piqard.information_retrievers.ranking_retriever import RankingRetriever
-from piqard.information_retrievers.vector_retirever import VectorRetriever
+from piqard.information_retrievers.faiss_retirever import FAISSRetriever
+from piqard.information_retrievers.BM25_retriever import BM25Retriever
 from piqard.information_retrievers.annoy_retriver import AnnoyRetriever
 from piqard.information_retrievers.wiki_api import WikiAPI
 from piqard.language_models.bloom_176b_api import BLOOM176bAPI
@@ -18,8 +18,8 @@ from piqard.utils.prompt_template import PromptTemplate
 class AgentLoader:
     def __init__(self):
         self.yaml = ruamel.yaml.YAML()
-        self.yaml.register_class(RankingRetriever)
-        self.yaml.register_class(VectorRetriever)
+        self.yaml.register_class(FAISSRetriever)
+        self.yaml.register_class(BM25Retriever)
         self.yaml.register_class(AnnoyRetriever)
         self.yaml.register_class(GoogleCustomSearch)
         self.yaml.register_class(BLOOM176bAPI)

@@ -8,21 +8,14 @@ from piqard.information_retrievers.exceptions import (
     DynamicPromptingNotImplementedException,
 )
 from piqard.information_retrievers.retriever import Retriever
+from piqard.utils.io import get_env_variable
 
 
 class GoogleCustomSearch(Retriever):
     def __init__(self, database: str = None, k: int = 1, n: int = 0):
-        super().__init__(database, k)
-        try:
-            with open("assets/credentials/google_custom_search.json", "r") as f:
-                credentials = json.load(f)
-                self.engineID = credentials["engineID"]
-                self.APIkey = credentials["APIkey"]
-        except (FileNotFoundError, KeyError):
-            print(
-                "Google Custom Search credentials not found or incorrect file structure."
-            )
-            exit(0)
+        super().__init__(database, k=k)
+        self.engineID = get_env_variable("GOOGLE_CUSTOM_SEARCH_ENGINE_ID")
+        self.APIkey = get_env_variable("GOOGLE_CUSTOM_SEARCH_API_KEY")
 
         if n > 0:
             raise DynamicPromptingNotImplementedException(self.__str__())

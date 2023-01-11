@@ -18,5 +18,5 @@ if_should_browse: !Agent
     - !Action
         name: Wikipedia
         func: !WikiAPI
-          k: 5
+          k: 10
         prefix: Search

@@ -1,6 +1,0 @@
-information_retriever: !VectorRetriever
-  database: hotpotqa
-  k: 2
-prompt_template: !PromptTemplate
-  template: assets/prompting_templates/hotpotqa/3_shot.txt
-language_model: !BLOOM176bAPI

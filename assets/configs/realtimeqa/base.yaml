@@ -1,6 +1,0 @@
-information_retriever: !GoogleCustomSearch
-  database:
-  k: 1
-prompt_template: !PromptTemplate
-  template: prompting/templates/realtimeqa/5_shot.txt
-language_model: !BLOOM176bAPI

@@ -7,7 +7,7 @@ from piqard.information_retrievers.retriever import Retriever
 
 class WikiAPI(Retriever):
     def __init__(self, database: str = None, k: int = 1, n: int = 0):
-        super().__init__(database, k)
+        super().__init__(database, k=k)
         if n > 0:
             raise DynamicPromptingNotImplementedException(self.__str__())
 

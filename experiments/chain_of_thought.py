@@ -1,26 +1,15 @@
-import os
-import sys
-import inspect
-
-
-currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-parentdir = os.path.dirname(currentdir)
-sys.path.insert(0, parentdir)
+from piqard.utils.io import save_results
 
 from experiments.benchmark_evaluator import BenchmarkEvaluator
-from utils import save_results
-from database_loaders.database_loader_factory import DataBaseLoaderFactory
+from piqard.data_loaders.database_loader_factory import DatabaseLoaderFactory
 from piqard.PIQARD import PIQARD
-from piqard.information_retrievers.annoy_retriver import AnnoyRetriever
-from piqard.information_retrievers.ranking_retriever import RankingRetriever
-from piqard.information_retrievers.vector_retirever import VectorRetriever
 from piqard.language_models.bloom_176b_api import BLOOM176bAPI
 from piqard.language_models.cohere_api import CohereAPI
 from piqard.utils.prompt_template import PromptTemplate
 
 
 if __name__ == "__main__":
-    database_loader = DataBaseLoaderFactory("openbookqa")
+    database_loader = DatabaseLoaderFactory("openbookqa")
     benchmark = database_loader.load_questions(test=True)
 
     language_models = [CohereAPI(stop_token="|||"), BLOOM176bAPI(stop_token="|||")]
