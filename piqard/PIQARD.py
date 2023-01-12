@@ -9,12 +9,22 @@ from piqard.language_models.language_model import LanguageModel
 
 @yaml_constructor
 class PIQARD:
+    """
+    PIQARD is a class that contains all the components of the PIQARD system.
+    """
     def __init__(
         self,
         prompt_template: PromptTemplate,
         language_model: LanguageModel,
         information_retriever: Retriever = None,
     ):
+        """
+        Constructor of the PIQARD class.
+
+        :param prompt_template: The prompt template to use.
+        :param language_model: The language model to use.
+        :param information_retriever: The retriever to use.
+        """
         self.information_retriever = information_retriever
         self.prompt_template = prompt_template
         self.language_model = language_model
@@ -65,7 +75,13 @@ class PIQARD:
             "chain_trace": self.trace,
         }
 
-    def set_trace(self, trace: ChainTrace):
+    def set_trace(self, trace: ChainTrace) -> None:
+        """
+        Set the chain trace.
+
+        :param trace: The chain trace to set.
+        :return: None
+        """
         self.trace = trace
 
     def show_info(self):
