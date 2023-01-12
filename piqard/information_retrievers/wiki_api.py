@@ -4,12 +4,29 @@ from piqard.information_retrievers.retriever import Retriever
 
 
 class WikiAPI(Retriever):
+    """
+    Wrapper around Wikipedia API.
+    """
+
     def __init__(self, database: str = None, k: int = 1, n: int = 0):
+        """
+        Constructor for the WikiAPI class.
+
+        :param database: The database name to use. WARNING WikiAPI does not support this parameter.
+        :param k: The number of documents to retrieve.
+        :param n: The number of questions to retrieve.
+        """
         super().__init__(database, k=k)
         if n > 0:
             raise DynamicPromptingNotImplementedException(self.__str__())
 
     def get_documents(self, question: str):
+        """
+        Retrieves the documents for the given question.
+
+        :param question: The question to retrieve the documents for.
+        :return: The retrieved documents.
+        """
         try:
             return [wikipedia.summary(question, sentences=self.k)]
         except wikipedia.exceptions.PageError as e:

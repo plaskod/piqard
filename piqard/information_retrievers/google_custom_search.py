@@ -8,7 +8,21 @@ from piqard.utils.io import get_env_variable
 
 
 class GoogleCustomSearch(Retriever):
+    """
+    Wrapper around Google Custom Search API.
+
+    To use, you should have the environment variables ``GOOGLE_CUSTOM_SEARCH_API_KEY`` and
+    ``GOOGLE_CUSTOM_SEARCH_ENGINE_ID`` set with your API key and Engine id.
+    """
+
     def __init__(self, database: str = None, k: int = 1, n: int = 0):
+        """
+        Constructor for the GoogleCustomSearch class.
+
+        :param database: The database name to use. WARNING GoogleCustomSearch does not support this parameter.
+        :param k: The number of documents to retrieve.
+        :param n: The number of questions to retrieve. WARNING GoogleCustomSearch does not support this parameter.
+        """
         super().__init__(database, k=k)
         self.engineID = get_env_variable("GOOGLE_CUSTOM_SEARCH_ENGINE_ID")
         self.APIkey = get_env_variable("GOOGLE_CUSTOM_SEARCH_API_KEY")
@@ -16,17 +30,20 @@ class GoogleCustomSearch(Retriever):
         if n > 0:
             raise DynamicPromptingNotImplementedException(self.__str__())
 
-    def get_documents(
-        self, query: str, start_date: str = "", end_date: str = ""
-    ) -> list:
+    def get_documents(self, question: str) -> list[str]:
+        """
+        Retrieves the documents for the given question.
+
+        :param question: The question to retrieve the documents for.
+        :return: The retrieved documents.
+        """
         url = (
             f"https://www.googleapis.com/customsearch/v1?"
             f"key={self.APIkey}"
             f"&cx={self.engineID}"
-            f"&q={query}"
+            f"&q={question}"
             f"&start=1"
             f"&num={self.k}"
-            f"&sort=date:r:{start_date}:{end_date}"
         )
         data = requests.get(url).json()
         search_results = data.get("items", [])
@@ -38,6 +55,12 @@ class GoogleCustomSearch(Retriever):
 
     @staticmethod
     def parse_article(url: str) -> dict[str, str]:
+        """
+        Parses the article from the given url.
+
+        :param url: The url to parse the article from.
+        :return: The parsed article.
+        """
         article = Article(url)
         article.download()
         article.parse()
