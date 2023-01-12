@@ -59,7 +59,7 @@ class ChainTrace:
         trace += colored(f"[{self.type_of_node}] " + self.data, self.__color_mapping[self.type_of_node])
         while self.next is not None:
             self = self.next
-            trace += colored(self.data, self.__color_mapping[self.type_of_node])
+            trace += colored(f"[{self.type_of_node}] " + self.data, self.__color_mapping[self.type_of_node])
         return trace
 
     def __len__(self) -> int:
