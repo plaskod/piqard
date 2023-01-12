@@ -36,7 +36,7 @@ class BM25Retriever(Retriever):
         if n > 0:
             try:
                 self.question_index = self.load_index(questions_index)
-            except FileNotFoundError:
+            except Exception:
                 raise DynamicPromptingNotImplementedException(self.__str__())
         self.stemmer = PorterStemmer()
 

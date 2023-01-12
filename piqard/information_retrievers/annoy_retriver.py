@@ -38,7 +38,7 @@ class AnnoyRetriever(Retriever):
         if n > 0:
             try:
                 self.question_index.load(questions_index)
-            except FileNotFoundError:
+            except Exception:
                 raise DynamicPromptingNotImplementedException(self.__str__())
         self.model = SentenceTransformer("multi-qa-MiniLM-L6-cos-v1")
 

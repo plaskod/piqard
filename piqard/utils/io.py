@@ -1,6 +1,6 @@
 import json
 import os
-import tqdm
+from tqdm.notebook import tqdm
 
 from piqard.utils.exceptions import EnvironmentVariableNotSet
 
@@ -27,7 +27,7 @@ def load_jsonl(path: str) -> list[dict]:
     with open(path, "r") as f:
         data = [
             json.loads(jline)
-            for jline in tqdm.tqdm(f.read().splitlines(), desc=f"{file_name}")
+            for jline in tqdm(f.read().splitlines(), desc=f"{file_name}")
         ]
     return data
 

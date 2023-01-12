@@ -17,7 +17,7 @@ class DatabaseLoaderFactory:
         """
 
         module = importlib.import_module(
-            f".{database}_loader", package=f"piqard.data_loaders"
+            f".{database}_loader", package=f"piqard.utils.data_loaders"
         )
 
         self.load_documents = getattr(module, f"load_documents")
