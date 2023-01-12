@@ -67,7 +67,7 @@ class PIQARD:
         )
         self.trace.add(final_answer + "\n", "finish")
 
-        return {
+        result = {
             "prompt": prompt,
             "raw_answer": generated_answer,
             "answer": final_answer,
@@ -75,6 +75,8 @@ class PIQARD:
             "prompt_examples": prompt_examples,
             "chain_trace": self.trace,
         }
+        self.trace = None
+        return result
 
     def set_trace(self, trace: ChainTrace) -> None:
         """
