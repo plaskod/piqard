@@ -17,6 +17,15 @@ function QuestionBox({question, isLoading, handleSetQuestion, getPIQARDResult, c
                            required
                            value={question}
                            onChange={(e) => (handleSetQuestion(e))}
+                           onKeyDown={e => {
+                            if (e.key === 'Enter') {
+                                if(!isLoading){
+                                    getPIQARDResult(e);
+                                }else{
+                                    alert("Please wait for the previous request to finish");
+                                }
+                            }
+                          }}
                            placeholder="Question"
                            className="questionbox-question"/>
                     <FontAwesomeIcon className={`enter-icon ${isLoading ? "disabled-icon" : ""}`}

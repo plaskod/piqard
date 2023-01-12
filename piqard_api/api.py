@@ -1,15 +1,20 @@
 import uvicorn
+import json
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from piqard.extensions.self_aware.self_ask_loader import SelfAskLoader
+from piqard.extensions.self_aware.self_aware_loader import SelfAwareLoader
 
 import os
-os.environ["COHERE_API_KEY"] = "eYDbpsxzTril5NSJTGhv3olRwtNuuAkl9WHK5Vl5"
-os.environ["HUGGINGFACE_API_KEY"] = "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"
-os.environ["GOOGLE_CUSTOM_SEARCH_API_KEY"] = "AIzaSyAB46rrYmTj6_w-7qCME3Gve7vqcUGzwAY"
-os.environ["GOOGLE_CUSTOM_SEARCH_ENGINE_ID"] = "21b53499491814de3"
 
-OPEN_SYSTEM_CONFIG = "./assets/configs/self_ask_config_piqard_piqard.yaml"
+with open(os.path.join(os.path.dirname(__file__), "config.json")) as f:
+    config = json.load(f)
+    os.environ["COHERE_API_KEY"] = config["COHERE_API_KEY"]
+    os.environ["HUGGINGFACE_API_KEY"] = config["HUGGINGFACE_API_KEY"]
+    os.environ["GOOGLE_CUSTOM_SEARCH_API_KEY"] = config["GOOGLE_CUSTOM_SEARCH_API_KEY"]
+    os.environ["GOOGLE_CUSTOM_SEARCH_ENGINE_ID"] = config[
+        "GOOGLE_CUSTOM_SEARCH_ENGINE_ID"
+    ]
+
 
 app = FastAPI()
 
@@ -23,14 +28,20 @@ app.add_middleware(
 
 
 @app.post("/opensystem")
-async def opensystem_query(query: Request):
+async def opensystem_query(query: Request) -> dict:
+    """
+    OpenSystem query endpoint
+    :param query: query
+    :return: response
+    """
     message = await query.json()
-    question = message['question']
-    self_ask_loader = SelfAskLoader()
-    self_ask = self_ask_loader.load(OPEN_SYSTEM_CONFIG)
-    result = self_ask(question)
-    result['chain_trace'] = result['chain_trace'].to_json()
+    question = message["question"]
+    self_aware_loader = SelfAwareLoader()
+    self_aware = self_aware_loader.load(config["OPEN_SYSTEM_CONFIG"])
+    result = self_aware(question)
+    result["chain_trace"] = result["chain_trace"].to_json()
     return result
+
 
 if __name__ == "__main__":
     uvicorn.run("__main__:app", host="0.0.0.0", port=8000, reload=True)
