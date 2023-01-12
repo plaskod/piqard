@@ -8,7 +8,10 @@ import tqdm
 from nltk.translate.bleu_score import sentence_bleu
 
 from piqard.PIQARD import PIQARD
-from piqard.utils.exceptions import Response500Exception, LanguageModelAPIOverloadException
+from piqard.utils.exceptions import (
+    Response500Exception,
+    LanguageModelAPIOverloadException,
+)
 from piqard.utils.io import directory, load_jsonl
 
 
@@ -16,6 +19,7 @@ class BenchmarkEvaluator:
     """
     BenchmarkEvaluator is a class that evaluates the performance of a PIQARD model on a given benchmark.
     """
+
     def __init__(self, piqard: PIQARD):
         """
         Constructor of the BenchmarkEvaluator class.
@@ -57,7 +61,7 @@ class BenchmarkEvaluator:
             checkpoint = open(checkpoint, "a+")
 
         for question in tqdm.tqdm(
-            benchmark[len(results):], desc="Processing questions: "
+            benchmark[len(results) :], desc="Processing questions: "
         ):
             done = False
             while not done:
@@ -66,9 +70,7 @@ class BenchmarkEvaluator:
                     results.append(question_result)
                     done = True
                 except (LanguageModelAPIOverloadException, Response500Exception) as e:
-                    print(
-                        e.message + f"... waiting 10s"
-                    )
+                    print(e.message + f"... waiting 10s")
                     time.sleep(10)
 
             if checkpoint:
@@ -129,7 +131,7 @@ class BenchmarkEvaluator:
             "F1": f1_total / count,
             "Bleu-1": bleu1_total / count,
             "Bleu-2": bleu2_total / count,
-            "Bleu-3": bleu3_total / count
+            "Bleu-3": bleu3_total / count,
         }
 
     def exact_match_score(self, prediction: str, ground_truth: str) -> int:
@@ -193,7 +195,9 @@ class BenchmarkEvaluator:
         prediction_tokens = self.__normalize_answer(prediction).split()
         ground_truth_tokens = self.__normalize_answer(ground_truth).split()
         weights = [(1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0)]
-        return sentence_bleu([ground_truth_tokens], prediction_tokens, weights=weights[n - 1])
+        return sentence_bleu(
+            [ground_truth_tokens], prediction_tokens, weights=weights[n - 1]
+        )
 
     @staticmethod
     def __normalize_answer(answer: str) -> str:
@@ -203,6 +207,7 @@ class BenchmarkEvaluator:
         :param answer: Answer to normalize.
         :return: Normalized answer.
         """
+
         def remove_counter(text):
             return (
                 text.replace("年", "").replace("歳", "").replace("人", "").replace("년", "")
