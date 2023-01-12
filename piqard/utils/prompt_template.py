@@ -43,3 +43,6 @@ class PromptTemplate:
             .replace(" .", ".")
             .strip()
         )
+
+    def __str__(self):
+        return self.template
