@@ -18,6 +18,7 @@ class PIQARDLoader:
     """
     PIQARDLoader is a class that loads a PIQARD object from a YAML file or a string.
     """
+
     def __init__(self):
         self.yaml = ruamel.yaml.YAML()
         self.yaml.register_class(BM25Retriever)

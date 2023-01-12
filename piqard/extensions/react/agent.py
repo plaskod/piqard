@@ -8,12 +8,23 @@ from piqard.utils.prompt_template import PromptTemplate
 
 @yaml_constructor
 class Agent(PIQARD):
+    """
+    Agent is a class that implements prompting strategy named ReAct, which is based on the idea of possibility to perform the given actions.
+    """
+
     def __init__(
         self,
         actions: list[Action],
         prompt_template: PromptTemplate,
         language_model: LanguageModel,
     ) -> None:
+        """
+        Constructor of the Agent class.
+
+        :param actions: Possiblr actions to perform.
+        :param prompt_template: The prompt template to use.
+        :param language_model:  The language model to use.
+        """
         super().__init__(prompt_template, language_model)
         self.actions = actions
         self.sequence_stopper = Action(

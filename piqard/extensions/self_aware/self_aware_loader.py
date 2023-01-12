@@ -18,6 +18,10 @@ from piqard.utils.prompt_template import PromptTemplate
 
 
 class SelfAwareLoader:
+    """
+    SelfAwareLoader is a class that loads a SelfAware object from a YAML file or a string.
+    """
+
     def __init__(self):
         self.yaml = ruamel.yaml.YAML()
         self.yaml.register_class(FAISSRetriever)
@@ -34,6 +38,12 @@ class SelfAwareLoader:
         self.yaml.register_class(PIQARD)
 
     def load(self, config: str) -> SelfAware:
+        """
+        Loads a SelfAware object from a YAML file or a string.
+
+        :param config: The YAML file or string to load.
+        :return: The loaded SelfAware object.
+        """
         if os.path.isfile(config):
             with open(config, "r") as f:
                 return SelfAware(**self.yaml.load(f))

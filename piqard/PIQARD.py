@@ -12,6 +12,7 @@ class PIQARD:
     """
     PIQARD is a class that contains all the components of the PIQARD system.
     """
+
     def __init__(
         self,
         prompt_template: PromptTemplate,

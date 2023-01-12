@@ -6,6 +6,10 @@ from piqard.utils.prompt_template import PromptTemplate
 
 
 class SelfAware:
+    """
+    SelfAware is a class that implements prompting strategy that at the beginning asks the model if it should browse the web for an answer.
+    """
+
     def __init__(
         self,
         prompt_template: PromptTemplate,
@@ -13,6 +17,14 @@ class SelfAware:
         if_should_browse: PIQARD,
         if_should_not_browse: PIQARD,
     ):
+        """
+        Constructor of the SelfAsk class.
+
+        :param prompt_template: The prompt template to use.
+        :param language_model: Language model to use when asking about browsing the web.
+        :param if_should_browse: PIQARD instance to use if the model says it should browse the web.
+        :param if_should_not_browse: PIQARD instance to use if the model says it should not browse the web.
+        """
         self.language_model = language_model
         self.prompt_template = prompt_template
         self.if_should_browse = if_should_browse
@@ -38,6 +50,12 @@ class SelfAware:
             return result
 
     def should_browse(self, question: str) -> bool:
+        """
+        Asks the model if it should browse the web for an answer.
+
+        :param question: The base question.
+        :return: Decision to browse the web or not.
+        """
         prompt = self.prompt_template.render(question=question)
         generated_answer = self.language_model.query(prompt)
         final_answer = postprocess_answer(
@@ -49,7 +67,10 @@ class SelfAware:
             return True
 
     def show_info(self):
-        print("== SelfAsk")
-        print("If Should Browse: {}".format(self.if_should_browse))
-        print("If Should Not Browse: {}".format(self.if_should_not_browse))
-        print("")
+        print("===== SelfAware =====")
+        print(f"Language model: {self.language_model}")
+        print(f"Prompt template: {self.prompt_template}")
+        print("If Should Browse:")
+        self.if_should_browse.show_info()
+        print("If Should Not Browse:")
+        self.if_should_not_browse.show_info()

@@ -16,6 +16,10 @@ from piqard.utils.prompt_template import PromptTemplate
 
 
 class AgentLoader:
+    """
+    AgentLoader is a class that loads an Agent object from a YAML file or a string.
+    """
+
     def __init__(self):
         self.yaml = ruamel.yaml.YAML()
         self.yaml.register_class(FAISSRetriever)
@@ -30,6 +34,12 @@ class AgentLoader:
         self.yaml.register_class(WikiAPI)
 
     def load(self, config: str) -> Agent:
+        """
+        Loads an Agent object from a YAML file or a string.
+
+        :param config: The YAML file or string to load.
+        :return: The loaded Agent object.
+        """
         if os.path.isfile(config):
             with open(config, "r") as f:
                 return Agent(**self.yaml.load(f))
