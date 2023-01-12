@@ -1,10 +1,9 @@
 from sentence_transformers import SentenceTransformer
 from annoy import AnnoyIndex
 
-from piqard.information_retrievers.exceptions import (
-    DynamicPromptingNotImplementedException,
-)
+
 from piqard.information_retrievers.retriever import Retriever
+from piqard.utils.exceptions import DynamicPromptingNotImplementedException
 
 
 class AnnoyRetriever(Retriever):

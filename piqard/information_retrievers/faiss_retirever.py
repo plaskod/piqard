@@ -1,8 +1,6 @@
 from sentence_transformers import SentenceTransformer
 
-from piqard.information_retrievers.exceptions import (
-    DynamicPromptingNotImplementedException,
-)
+from piqard.utils.exceptions import DynamicPromptingNotImplementedException
 from piqard.information_retrievers.retriever import Retriever
 
 

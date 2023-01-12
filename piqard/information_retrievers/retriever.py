@@ -4,7 +4,7 @@ from typing import Union
 import faiss
 import fastbm25
 
-from piqard.data_loaders.database_loader_factory import DatabaseLoaderFactory
+from piqard.utils.data_loaders.database_loader_factory import DatabaseLoaderFactory
 from piqard.utils.yaml_constructor import yaml_constructor
 
 

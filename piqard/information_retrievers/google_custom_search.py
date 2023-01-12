@@ -2,9 +2,7 @@ import requests
 from tqdm import tqdm
 from newspaper import Article
 
-from piqard.information_retrievers.exceptions import (
-    DynamicPromptingNotImplementedException,
-)
+from piqard.utils.exceptions import DynamicPromptingNotImplementedException
 from piqard.information_retrievers.retriever import Retriever
 from piqard.utils.io import get_env_variable
 

@@ -1,9 +1,7 @@
 from nltk.stem import PorterStemmer
 from gensim.parsing.preprocessing import remove_stopwords
 
-from piqard.information_retrievers.exceptions import (
-    DynamicPromptingNotImplementedException,
-)
+from piqard.utils.exceptions import DynamicPromptingNotImplementedException
 from piqard.information_retrievers.retriever import Retriever
 
 
