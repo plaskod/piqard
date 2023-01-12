@@ -2,12 +2,25 @@ from piqard.utils.io import load_jsonl
 
 
 def load_documents(path: str) -> list[dict]:
+    """
+    Load documents from a specified path.
+
+    :param path: Path to the documents.
+    :return: List of documents.
+    """
     raw_documents = load_jsonl(path)
     prepared_documents = [document["text"] for document in raw_documents]
     return prepared_documents
 
 
 def load_questions(path: str, number: int = None) -> list[dict]:
+    """
+    Load questions from a specified path.
+
+    :param path: Path to the questions.
+    :param number: Number of questions to load.
+    :return: List of questions.
+    """
     raw_questions = load_jsonl(path)
     if number is not None:
         raw_questions = raw_questions[: min(len(raw_questions), number)]

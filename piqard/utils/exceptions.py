@@ -38,3 +38,13 @@ class LanguageModelAPILockedOutput(Exception):
 
     def __str__(self):
         return f"\n{self.language_model} -> {self.message}"
+
+
+class EnvironmentVariableNotSet(Exception):
+    def __init__(self, env_variable: str, message="Environment variable is not set"):
+        self.env_variable = env_variable
+        self.message = message
+        super().__init__(self.message)
+
+    def __str__(self):
+        return f"\n{self.env_variable} -> {self.message}"
