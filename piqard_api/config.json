@@ -1,7 +1,0 @@
-{
-  "COHERE_API_KEY": "eYDbpsxzTril5NSJTGhv3olRwtNuuAkl9WHK5Vl5",
-  "HUGGINGFACE_API_KEY": "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",
-  "GOOGLE_CUSTOM_SEARCH_API_KEY": "AIzaSyAB46rrYmTj6_w-7qCME3Gve7vqcUGzwAY",
-  "GOOGLE_CUSTOM_SEARCH_ENGINE_ID": "21b53499491814de3",
-  "OPEN_SYSTEM_CONFIG": "./assets/configs/self_aware_config_piqard_piqard.yaml"
-}
