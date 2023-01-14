@@ -2,7 +2,7 @@ import cohere
 from cohere import CohereError
 
 from piqard.language_models.language_model import LanguageModel
-from piqard.utils.exceptions import LanguageModelAPILockedOutput
+from piqard.utils.exceptions import LanguageModelAPIBlockedOutput
 from piqard.utils.io import get_env_variable
 
 
@@ -70,9 +70,9 @@ class CohereAPI(LanguageModel):
             return response.generations[0].text.strip().strip("\n")
         except CohereError as e:
             if e.http_status == 598:
-                raise LanguageModelAPILockedOutput(self.__str__())
+                raise LanguageModelAPIBlockedOutput(self.__str__())
             else:
-                raise Exception
+                raise e
 
     def __str__(self) -> str:
         return "Cohere API"

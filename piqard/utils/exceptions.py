@@ -30,8 +30,8 @@ class LanguageModelAPIOverloadException(Exception):
         return f"\n{self.language_model} -> {self.message}"
 
 
-class LanguageModelAPILockedOutput(Exception):
-    def __init__(self, language_model: str, message="Locked output"):
+class LanguageModelAPIBlockedOutput(Exception):
+    def __init__(self, language_model: str, message="Blocked output: this generation may be a potential violation of terms of service."):
         self.language_model = language_model
         self.message = message
         super().__init__(self.message)
