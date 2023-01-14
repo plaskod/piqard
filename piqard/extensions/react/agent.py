@@ -69,7 +69,7 @@ class Agent(PIQARD):
 
             intermediate_answer = self.language_model.query(self.trace.compose())
 
-        return {
+        result = {
             "prompt": prompt,
             "raw_answer": self.trace.compose()[len(prompt) :],
             "answer": self.trace.get_deepest_node().data,
@@ -77,3 +77,5 @@ class Agent(PIQARD):
             "prompt_examples": None,
             "chain_trace": self.trace,
         }
+        self.trace = None
+        return result

@@ -1,5 +1,5 @@
 from benchmark_evaluator import BenchmarkEvaluator
-from experiments.utils import set_env_variables
+from utils import set_env_variables
 from piqard.PIQARD import PIQARD
 from piqard.information_retrievers import FAISSRetriever
 from piqard.language_models.bloom_176b_api import BLOOM176bAPI
