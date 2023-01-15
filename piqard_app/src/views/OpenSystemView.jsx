@@ -35,7 +35,7 @@ function OpenSystemView(){
             setResult(response.data);
             setIsLoading(false);
           } catch (error) {
-            setResult({'chain_trace': [{'type': 'error', 'data': 'Sorry, I couldn\'t find an answer to your question.'}]});
+            setResult({'chain_trace': [{'type': 'error', 'data': "Sorry, I couldn't answer your question. \nPossible solutions: \n- check your internet connection \n- try to rephrase your question \n- wait a while for the external API to restart and try again"}]});
             setIsLoading(false);
             console.log("Error with PIQARD api");
           }
