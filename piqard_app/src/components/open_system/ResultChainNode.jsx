@@ -27,7 +27,7 @@ function ResultChainNode({node}){
                     </Container>
                 </Col>
                 <Col md={9}>
-                    <p>{node.data}</p>
+                    <p style={{whiteSpace: "pre-wrap"}}>{node.data}</p>
                 </Col>
             </Row>
 
