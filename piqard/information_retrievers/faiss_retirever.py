@@ -18,6 +18,7 @@ class FAISSRetriever(Retriever):
         questions_path: str = None,
         k: int = 1,
         n: int = 0,
+        sentence_transformer: str = "multi-qa-MiniLM-L6-cos-v1"
     ):
         """
         Constructor for the FAISSRetriever class.
@@ -29,6 +30,7 @@ class FAISSRetriever(Retriever):
         :param questions_path: The path to the questions.
         :param k: The number of documents to retrieve.
         :param n: The number of questions to retrieve.
+        :param sentence_transformer: The name of the model used in SentenceTransformer function.
         """
         super().__init__(database, database_path, questions_path, k=k, n=n)
         self.index = self.load_index(database_index)
@@ -37,7 +39,7 @@ class FAISSRetriever(Retriever):
                 self.question_index = self.load_index(questions_index)
             except Exception:
                 raise DynamicPromptingNotImplementedException(self.__str__())
-        self.model = SentenceTransformer("multi-qa-MiniLM-L6-cos-v1")
+        self.model = SentenceTransformer(sentence_transformer)
 
     def get_documents(self, question: str) -> list[str]:
         """

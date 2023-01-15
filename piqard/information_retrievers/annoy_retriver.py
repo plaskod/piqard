@@ -20,6 +20,8 @@ class AnnoyRetriever(Retriever):
         questions_path: str = None,
         k: int = 1,
         n: int = 0,
+        dimensions: int = 384,
+        sentence_transformer: str = "multi-qa-MiniLM-L6-cos-v1"
     ):
         """
         Constructor for the AnnoyRetriever class.
@@ -31,16 +33,19 @@ class AnnoyRetriever(Retriever):
         :param questions_path: The path to the questions.
         :param k: The number of documents to retrieve.
         :param n: The number of questions to retrieve.
+        :param dimensions: The number of questions to retrieve.
+        :param sentence_transformer: The name of the model used in SentenceTransformer function to encode datasets (MUST BE THE SAME).
         """
         super().__init__(database, database_path, questions_path, k=k, n=n)
-        self.index = AnnoyIndex(384, "angular")
+        self.index = AnnoyIndex(dimensions, "angular")
         self.index.load(database_index)
         if n > 0:
             try:
+                self.question_index = AnnoyIndex(dimensions, "angular")
                 self.question_index.load(questions_index)
             except Exception:
                 raise DynamicPromptingNotImplementedException(self.__str__())
-        self.model = SentenceTransformer("multi-qa-MiniLM-L6-cos-v1")
+        self.model = SentenceTransformer(sentence_transformer)
 
     def get_documents(self, question: str) -> list[str]:
         """
@@ -62,7 +67,7 @@ class AnnoyRetriever(Retriever):
         :param question: The question to retrieve the questions for.
         :return: The retrieved questions.
         """
-        question_indexes = self.index.get_nns_by_vector(
+        question_indexes = self.question_index.get_nns_by_vector(
             self.model.encode(question), self.n
         )
         retrieved_questions = [self.questions[i] for i in question_indexes]
