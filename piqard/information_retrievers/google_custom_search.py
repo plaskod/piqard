@@ -54,7 +54,7 @@ class GoogleCustomSearch(Retriever):
         return results
 
     @staticmethod
-    def parse_article(url: str) -> dict[str, str]:
+    def parse_article(url: str) -> str:
         """
         Parses the article from the given url.
 
