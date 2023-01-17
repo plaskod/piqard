@@ -6,7 +6,7 @@ from piqard.PIQARD import PIQARD
 from piqard.information_retrievers.google_custom_search import GoogleCustomSearch
 from piqard.information_retrievers.BM25_retriever import BM25Retriever
 from piqard.information_retrievers.faiss_retirever import FAISSRetriever
-from piqard.information_retrievers.annoy_retriver import AnnoyRetriever
+from piqard.information_retrievers.annoy_retriever import AnnoyRetriever
 from piqard.information_retrievers.wiki_api import WikiAPI
 from piqard.language_models.bloom_176b_api import BLOOM176bAPI
 from piqard.language_models.cohere_api import CohereAPI

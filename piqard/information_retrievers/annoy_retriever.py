@@ -46,6 +46,7 @@ class AnnoyRetriever(Retriever):
             except Exception:
                 raise DynamicPromptingNotImplementedException(self.__str__())
         self.model = SentenceTransformer(sentence_transformer)
+        # TODO raise error when dimensions are not equal
 
     def get_documents(self, question: str) -> list[str]:
         """
