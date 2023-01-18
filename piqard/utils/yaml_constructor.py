@@ -1,6 +1,5 @@
 from ruamel.yaml import SequenceNode
 
-
 def yaml_constructor(clss):
     """
     Decorator for YAML constructors.
