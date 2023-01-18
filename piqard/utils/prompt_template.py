@@ -14,6 +14,7 @@ class PromptTemplate:
         :param template: Path to the template or template in string format.
         :param fix_text: Text, which indicates the final answer.
         """
+        self.template_path = template
         self.template = JINJALoader.load(template)
         self.fix_text = fix_text
 
@@ -45,4 +46,4 @@ class PromptTemplate:
         )
 
     def __str__(self):
-        return self.template
+        return self.template_path
