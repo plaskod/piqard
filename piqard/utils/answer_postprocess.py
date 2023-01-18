@@ -1,7 +1,7 @@
 from typing import Optional
 
 
-def postprocess_answer(answer: str, fix_text: Optional[str]) -> str:
+def postprocess_answer(answer: str, fix_text: Optional[str] = None) -> str:
     """
     Postprocess answer.
 
