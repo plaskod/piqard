@@ -30,24 +30,25 @@ def test_call_without_retriever():
     assert result["answer"] == postprocess_answer(result["raw_answer"], prompt_template.fix_text)
     assert result["prompt"] == prompt_template.render()
     assert result["chain_trace"] is not None
-#
-# def test_call_with_retriever():
-#     prompt_template = MagicMock()
-#     language_model = MagicMock()
-#     information_retriever = MagicMock()
-#     information_retriever.get_documents.return_value = ["document1", "document2"]
-#     piqard = PIQARD(prompt_template, language_model, information_retriever)
-#     query = "What is the capital of France?"
-#     with patch("PIQARD.get_prompt_examples") as mock_get_prompt_examples:
-#         mock_get_prompt_examples.return_value = ["example1", "example2"]
-#         result = piqard(query)
-#         information_retriever.get_documents.assert_called_once()
-#         mock_get_prompt_examples.assert_called_once()
-#         prompt_template.render.assert_called_once()
-#         language_model.query.assert_called_once()
-#         assert result["context"] == ["document1", "document2"]
-#         assert result["prompt_examples"] == ["example1", "example2"]
-#         assert result["raw_answer"] == language_model.query()
-#         assert result["answer"] == postprocess_answer(result["raw_answer"], prompt_template.fix_text)
-#         assert result["prompt"] == prompt_template.render()
-#         assert result["chain_trace"] is None
+
+def test_call_with_retriever():
+    prompt_template = MagicMock()
+    language_model = MagicMock()
+    information_retriever = MagicMock()
+    information_retriever.configure_mock(n=1)
+    information_retriever.get_documents.return_value = ["document1", "document2"]
+    piqard = PIQARD(prompt_template, language_model, information_retriever)
+    query = "What is the capital of France?"
+    with patch("piqard.PIQARD.get_prompt_examples") as mock_get_prompt_examples:
+        mock_get_prompt_examples.return_value = ["example1", "example2"]
+        result = piqard(query)
+        information_retriever.get_documents.assert_called_once()
+        mock_get_prompt_examples.assert_called_once()
+        prompt_template.render.assert_called_once()
+        language_model.query.assert_called_once()
+        assert result["context"] == ["document1", "document2"]
+        assert result["prompt_examples"] == ["example1", "example2"]
+        assert result["raw_answer"] == language_model.query()
+        assert result["answer"] == postprocess_answer(result["raw_answer"], prompt_template.fix_text)
+        assert result["prompt"] == prompt_template.render()
+        assert result["chain_trace"] is not None
