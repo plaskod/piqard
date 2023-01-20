@@ -45,10 +45,9 @@ class Agent(PIQARD):
             self.trace.add(prompt + "\n", "base_prompt")
 
         intermediate_answer = self.language_model.query(prompt)
-
+        last_answer = intermediate_answer
         max_iterations = 20
-        flag = True
-        while flag and max_iterations > 0:
+        while max_iterations > 0:
             max_iterations -= 1
             if intermediate_answer.startswith("Thought"):
                 self.trace.add(intermediate_answer + "\n", "thought")
@@ -66,7 +65,10 @@ class Agent(PIQARD):
                             f"Observation: {' '.join(retrieved_context)}"
                         )
                         self.trace.add(retrieved_context + "\n", "observation")
-
+            elif intermediate_answer == last_answer:
+                self.trace.add("Sorry, I could not answer your question" + "\n", "finish")
+                break
+            last_answer = intermediate_answer
             intermediate_answer = self.language_model.query(self.trace.compose())
 
         result = {

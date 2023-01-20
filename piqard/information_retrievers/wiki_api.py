@@ -28,7 +28,8 @@ class WikiAPI(Retriever):
         :return: The retrieved documents.
         """
         try:
-            return [wikipedia.summary(question, sentences=self.k)]
+            most_relevant_page = wikipedia.page(question, auto_suggest=False)
+            return [wikipedia.summary(most_relevant_page, sentences=self.k).replace("==", "").replace("===", "").replace("\n", " ")]
         except wikipedia.exceptions.PageError as e:
             possible_results = wikipedia.search(f"[{question}]")
             return [f"Could not find {question}. Similar: {possible_results[:5]}."]
