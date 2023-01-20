@@ -5,7 +5,7 @@ import ruamel.yaml
 from piqard.extensions.react.action import Action
 from piqard.extensions.react.agent import Agent
 from piqard.information_retrievers.google_custom_search import GoogleCustomSearch
-from piqard.information_retrievers.faiss_retirever import FAISSRetriever
+from piqard.information_retrievers.faiss_retriever import FAISSRetriever
 from piqard.information_retrievers.BM25_retriever import BM25Retriever
 from piqard.information_retrievers.annoy_retriever import AnnoyRetriever
 from piqard.information_retrievers.wiki_api import WikiAPI
