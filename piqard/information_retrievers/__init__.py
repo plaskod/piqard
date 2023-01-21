@@ -1,6 +1,6 @@
-from .annoy_retriver import AnnoyRetriever
+from .annoy_retriever import AnnoyRetriever
 from .BM25_retriever import BM25Retriever
-from .faiss_retirever import FAISSRetriever
+from .faiss_retriever import FAISSRetriever
 from .google_custom_search import GoogleCustomSearch
 from .wiki_api import WikiAPI
 

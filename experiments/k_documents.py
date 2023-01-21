@@ -2,7 +2,7 @@ from benchmark_evaluator import BenchmarkEvaluator
 from utils import set_env_variables
 from piqard.PIQARD import PIQARD
 from piqard.information_retrievers import BM25Retriever, FAISSRetriever
-from piqard.information_retrievers.annoy_retriver import AnnoyRetriever
+from piqard.information_retrievers.annoy_retriever import AnnoyRetriever
 from piqard.language_models.bloom_176b_api import BLOOM176bAPI
 from piqard.language_models.cohere_api import CohereAPI
 from piqard.utils.data_loaders import DatabaseLoaderFactory

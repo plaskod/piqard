@@ -1,0 +1,3 @@
+"A bee is a pollinating animal"
+"A bird is a pollinating animal"
+"An electrical conductor is a vehicle for the flow of electricity"
