@@ -8,15 +8,33 @@ import tqdm
 from nltk.translate.bleu_score import sentence_bleu
 
 from piqard.PIQARD import PIQARD
-from piqard.language_models.exceptions import Response500Exception, LanguageModelAPIOverloadException
-from utils import load_jsonl, directory
+from piqard.utils.exceptions import (
+    Response500Exception,
+    LanguageModelAPIOverloadException,
+)
+from piqard.utils.io import directory, load_jsonl
 
 
 class BenchmarkEvaluator:
+    """
+    BenchmarkEvaluator is a class that evaluates the performance of a PIQARD model on a given benchmark.
+    """
+
     def __init__(self, piqard: PIQARD):
+        """
+        Constructor of the BenchmarkEvaluator class.
+
+        :param piqard: PIQARD model to evaluate.
+        """
         self.piqard = piqard
 
-    def evaluate_question(self, question: dict) -> dict:
+    def query(self, question: dict) -> dict:
+        """
+        Query the PIQARD model with a question.
+
+        :param: question: Question to query the PIQARD model with.
+        :return: Query result.
+        """
         result = self.piqard(question["text"], question["possible_answers"])
         return {
             "id": question["id"],
@@ -26,37 +44,33 @@ class BenchmarkEvaluator:
             "context": result["context"],
             "predicted_answer": result["answer"],
             "raw_predicted_answer": result["raw_answer"],
+            "chain_trace": result["chain_trace"].to_json(),
         }
 
     def evaluate(self, benchmark: list[dict], checkpoint: str = None) -> dict:
+        """
+        Evaluate the PIQARD model on a given benchmark.
+
+        :param benchmark: Questions to evaluate the PIQARD model on.
+        :param checkpoint: Checkpoint to load the actual results of evaluation.
+        :return: Evaluation results.
+        """
         results = []
         if checkpoint:
             results = self.from_checkpoint(checkpoint)
             checkpoint = open(checkpoint, "a+")
 
-        current_token = 0
-        tokens = {
-            0: "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",
-            1: "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",
-            2: "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",
-            3: "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",
-            4: "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",
-        }
         for question in tqdm.tqdm(
-            benchmark[len(results):], desc="Processing questions: "
+            benchmark[len(results) :], desc="Processing questions: "
         ):
             done = False
             while not done:
                 try:
-                    question_result = self.evaluate_question(question)
+                    question_result = self.query(question)
                     results.append(question_result)
                     done = True
                 except (LanguageModelAPIOverloadException, Response500Exception) as e:
-                    current_token = (current_token + 1) % 5
-                    self.piqard.language_model.API_KEY = tokens[current_token]
-                    print(
-                        e.message + f" APIkey change to: {self.piqard.language_model.API_KEY}... waiting 10s"
-                    )
+                    print(e.message + f"... waiting 10s")
                     time.sleep(10)
 
             if checkpoint:
@@ -70,18 +84,36 @@ class BenchmarkEvaluator:
 
     @staticmethod
     def from_checkpoint(checkpoint: str) -> list[dict]:
+        """
+        Load the results of evaluation from a checkpoint.
+
+        :param checkpoint: Checkpoint to load the results of evaluation from.
+        :return: Results of evaluation from checkpoint.
+        """
         _ = directory("/".join(checkpoint.split("/")[:-1]))
         Path(checkpoint).touch(exist_ok=True)
         return load_jsonl(checkpoint)
 
     @staticmethod
     def accuracy(results: list[tuple[str, str]]) -> dict:
+        """
+        Compute the accuracy of the PIQARD model on a given benchmark.
+
+        :param results: Results of evaluation.
+        :return: Accuracy of the PIQARD model on a given benchmark.
+        """
         acc = sum(
             [prediction == ground_truth for prediction, ground_truth in results]
         ) / len(results)
         return {"accuracy": acc}
 
     def gen_eval(self, results: list[dict]) -> dict:
+        """
+        Compute the evaluation metrics of the PIQARD model on a given benchmark.
+
+        :param results: Results of evaluation.
+        :return: Evaluation metrics of the PIQARD model on a given benchmark.
+        """
         em_total, cem_total, f1_total = 0, 0, 0
         bleu1_total, bleu2_total, bleu3_total = 0, 0, 0
         count = len(results)
@@ -99,15 +131,29 @@ class BenchmarkEvaluator:
             "F1": f1_total / count,
             "Bleu-1": bleu1_total / count,
             "Bleu-2": bleu2_total / count,
-            "Bleu-3": bleu3_total / count
+            "Bleu-3": bleu3_total / count,
         }
 
     def exact_match_score(self, prediction: str, ground_truth: str) -> int:
+        """
+        Compute the exact match score of the PIQARD model on a given question.
+
+        :param prediction: Prediction of the PIQARD model.
+        :param ground_truth: Ground truth.
+        :return: Exact match score of the PIQARD model on a given question.
+        """
         return self.__normalize_answer(prediction) == self.__normalize_answer(
             ground_truth
         )
 
     def f1_score(self, prediction: str, ground_truth: str) -> float:
+        """
+        Compute the F1 score of the PIQARD model on a given question.
+
+        :param prediction: Prediction of the PIQARD model.
+        :param ground_truth: Ground truth.
+        :return: F1 score of the PIQARD model on a given question.
+        """
         prediction_tokens = self.__normalize_answer(prediction).split()
         ground_truth_tokens = self.__normalize_answer(ground_truth).split()
         common = Counter(prediction_tokens) & Counter(ground_truth_tokens)
@@ -121,6 +167,13 @@ class BenchmarkEvaluator:
         return f1
 
     def cover_exact_match_score(self, prediction: str, ground_truth: str) -> int:
+        """
+        Compute the cover exact match score of the PIQARD model on a given question.
+
+        :param prediction: Prediction of the PIQARD model.
+        :param ground_truth: Ground truth.
+        :return: Cover exact match score of the PIQARD model on a given question.
+        """
         return (
             1
             if self.__normalize_answer(prediction).find(
@@ -131,13 +184,30 @@ class BenchmarkEvaluator:
         )
 
     def bleu_score(self, prediction: str, ground_truth: str, n: int = 1) -> float:
+        """
+        Compute the BLEU score of the PIQARD model on a given question.
+
+        :param prediction: Prediction of the PIQARD model.
+        :param ground_truth: Ground truth.
+        :param n: N-gram order.
+        :return: BLEU score of the PIQARD model on a given question.
+        """
         prediction_tokens = self.__normalize_answer(prediction).split()
         ground_truth_tokens = self.__normalize_answer(ground_truth).split()
         weights = [(1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0)]
-        return sentence_bleu([ground_truth_tokens], prediction_tokens, weights=weights[n - 1])
+        return sentence_bleu(
+            [ground_truth_tokens], prediction_tokens, weights=weights[n - 1]
+        )
 
     @staticmethod
     def __normalize_answer(answer: str) -> str:
+        """
+        Normalize the answer.
+
+        :param answer: Answer to normalize.
+        :return: Normalized answer.
+        """
+
         def remove_counter(text):
             return (
                 text.replace("年", "").replace("歳", "").replace("人", "").replace("년", "")

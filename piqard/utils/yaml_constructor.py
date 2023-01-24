@@ -1,16 +1,28 @@
 from ruamel.yaml import SequenceNode
 
-
 def yaml_constructor(clss):
+    """
+    Decorator for YAML constructors.
+
+    :param clss: Class to decorate
+    :return: Decorated class
+    """
+
     @classmethod
     def from_yaml(cls, loader, node):
+        """
+        YAML constructor.
+
+        :param cls: Class to construct
+        :param loader: YAML loader
+        :param node: YAML node
+        :return: Constructed class
+        """
         class_data = {}
         for key, val in node.value:
             if type(val) is SequenceNode:
                 val = [
-                    loader.construct_object(item)
-                    if item.value != "null"
-                    else None
+                    loader.construct_object(item) if item.value != "null" else None
                     for item in val.value
                 ]
             else:

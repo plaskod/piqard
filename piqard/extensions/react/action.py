@@ -8,6 +8,14 @@ from piqard.utils.yaml_constructor import yaml_constructor
 @yaml_constructor
 @dataclass
 class Action:
+    """
+    Action is the class that represents an action that can be performed by the ReAct Agent.
+
+    :param prefix: The prefix of the action, e.g. 'Search' for the search action.
+    :param func: The function that is called when the action is performed.
+    :param name: The name of the action.
+    """
+
     name: str
     func: Callable[[str], str]
     prefix: str

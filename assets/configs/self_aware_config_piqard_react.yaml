@@ -1,0 +1,24 @@
+prompt_template: !PromptTemplate
+  template: assets/prompting_templates/self_aware/self_aware_prompt.txt
+language_model: !CohereAPI
+  stop_token: "\n"
+  temperature: 0
+  top_k: 1
+if_should_not_browse: !PIQARD
+  prompt_template: !PromptTemplate
+    template: assets/prompting_templates/like_chat_gpt/without_context.txt
+  language_model: !CohereAPI
+    stop_token: "\n"
+if_should_browse: !Agent
+  prompt_template: !PromptTemplate
+    template: assets/prompting_templates/react/react_prompt.txt
+  language_model: !CohereAPI
+    stop_token: "\n"
+    temperature: 1
+    top_k: 1
+  actions:
+    - !Action
+        name: Wikipedia
+        func: !WikiAPI
+          k: 10
+        prefix: Search
