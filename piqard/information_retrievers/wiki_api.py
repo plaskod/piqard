@@ -32,8 +32,7 @@ class WikiAPI(Retriever):
             return [wikipedia.summary(most_relevant_page, sentences=self.k).replace("==", "").replace("===", "").replace("\n", " ")]
         except wikipedia.exceptions.PageError as e:
             try:
-                most_relevant_page = wikipedia.summary(question, auto_suggest=True)
-                return [wikipedia.summary(most_relevant_page, sentences=self.k).replace("==", "").replace("===", "").replace("\n", " ")]
+                return [wikipedia.summary(question, auto_suggest=True, sentences=self.k).replace("==", "").replace("===", "").replace("\n", " ")]
             except (wikipedia.exceptions.PageError, wikipedia.exceptions.DisambiguationError) as e:
                 possible_results = wikipedia.search(f"[{question}]")
                 return [f"Could not find {question}. Similar: {possible_results[:5]}."]

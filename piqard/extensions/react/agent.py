@@ -46,13 +46,16 @@ class Agent(PIQARD):
 
         intermediate_answer = self.language_model.query(prompt)
         last_answer = intermediate_answer
+        repeated_answer_counter = 0
         max_iterations = 20
         while max_iterations > 0:
             max_iterations -= 1
             if intermediate_answer.startswith("Thought"):
+                repeated_answer_counter = 0
                 self.trace.add(intermediate_answer + "\n", "thought")
 
             elif intermediate_answer.startswith("Action"):
+                repeated_answer_counter = 0
                 self.trace.add(intermediate_answer + "\n", "action")
                 if self.sequence_stopper.check(intermediate_answer):
                     final_answer = self.sequence_stopper(intermediate_answer)
@@ -66,8 +69,10 @@ class Agent(PIQARD):
                         )
                         self.trace.add(retrieved_context + "\n", "observation")
             elif intermediate_answer == last_answer:
-                self.trace.add("Sorry, I could not answer your question" + "\n", "finish")
-                break
+                repeated_answer_counter += 1
+                if repeated_answer_counter > 1:
+                    self.trace.add("Sorry, I could not answer your question" + "\n", "finish")
+                    break
             last_answer = intermediate_answer
             intermediate_answer = self.language_model.query(self.trace.compose())
 
