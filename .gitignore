@@ -133,3 +133,4 @@ dmypy.json
 /result
 **/results.txt
 /assets/credentials/*.json
+examples/use_cases.ipynb

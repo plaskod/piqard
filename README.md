@@ -8,7 +8,7 @@ With its easy-to-use and integrate interface, PIQARD makes it simple for develop
 ### Setting Up the Environment
 1. Create the virtual environment using `virtualenv`
 ```bash
-virtualenv env --python==python3.9
+virtualenv env --python=python3.9
 ```
 2. Activate the environment
 * Windows
